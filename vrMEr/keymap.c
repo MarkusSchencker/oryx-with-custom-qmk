@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 3: LAYER_FUNCTION - Unified function/navigation layer (consolidates old layers 2, 5, 8)
   [LAYER_FUNCTION] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_TRANSPARENT,
-    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGUP,        OS_PREVWORD,    OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT, OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_F11,         KC_ESCAPE,      DE_SS,          DE_EURO,        DE_AE,          DE_OE,                                          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
