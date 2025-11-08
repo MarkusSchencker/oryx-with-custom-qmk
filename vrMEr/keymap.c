@@ -24,6 +24,11 @@ enum custom_keycodes {
   OS_COPY,    // Cmd+C on macOS, Ctrl+C on Windows
   OS_PASTE,   // Cmd+V on macOS, Ctrl+V on Windows
   OS_CUT,     // Cmd+X on macOS, Ctrl+X on Windows
+  // OS-aware navigation keys (macOS uses Cmd, Windows uses direct keys)
+  OS_HOME,    // Cmd+Left on macOS, Home on Windows
+  OS_END,     // Cmd+Right on macOS, End on Windows
+  OS_PGUP,    // Fn+Up on macOS (or PageUp), PageUp on Windows
+  OS_PGDN,    // Fn+Down on macOS (or PageDown), PageDown on Windows
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -31,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_MAC_BASE] = LAYOUT_voyager(
     LGUI(DE_MINS),  LGUI(KC_0),     LGUI(DE_PLUS),  KC_LEFT_GUI,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), KC_A,     KC_O,                                     KC_D,           MT(MOD_RGUI, KC_T), MT(MOD_LALT, KC_R), MT(MOD_RCTL, KC_N), KC_S,   KC_TRANSPARENT,
+    CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), KC_A,     KC_O,                                     KC_D,           KC_T,           MT(MOD_RGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_RCTL, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,           DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
                                                     OSL(LAYER_SYMBOLS), OSM(MOD_LSFT),                                              OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
@@ -40,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_WIN_BASE] = LAYOUT_voyager(
     LCTL(DE_MINS),  LCTL(KC_0),     LCTL(DE_PLUS),  KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), KC_A,     KC_O,                                     KC_D,           MT(MOD_RCTL, KC_T), MT(MOD_LALT, KC_R), MT(MOD_RGUI, KC_N), KC_S,   KC_TRANSPARENT,
+    CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), KC_A,     KC_O,                                     KC_D,           KC_T,           MT(MOD_RCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_RGUI, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,           DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
                                                     OSL(LAYER_SYMBOLS), OSM(MOD_LSFT),                                              OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
@@ -57,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 3: LAYER_FUNCTION - Unified function/navigation layer (consolidates old layers 2, 5, 8)
   [LAYER_FUNCTION] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_TRANSPARENT,
-    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_PGUP,        KC_UP,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_F11,         KC_ESCAPE,      DE_SS,          DE_EURO,        DE_AE,          DE_OE,                                          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_PGDN,        KC_HOME,        KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGUP,        KC_UP,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_F11,         KC_ESCAPE,      DE_SS,          DE_EURO,        DE_AE,          DE_OE,                                          KC_TRANSPARENT, KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
 
@@ -292,6 +297,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code16(LGUI(KC_X));  // Cmd+X on macOS
         } else {
           tap_code16(LCTL(KC_X));  // Ctrl+X on Windows
+        }
+      }
+      return false;
+
+    // OS-aware navigation keys
+    case OS_HOME:
+      if (record->event.pressed) {
+        if (is_macos_base()) {
+          tap_code16(LGUI(KC_LEFT));  // Cmd+Left on macOS
+        } else {
+          tap_code16(KC_HOME);  // Home on Windows
+        }
+      }
+      return false;
+    case OS_END:
+      if (record->event.pressed) {
+        if (is_macos_base()) {
+          tap_code16(LGUI(KC_RIGHT));  // Cmd+Right on macOS
+        } else {
+          tap_code16(KC_END);  // End on Windows
+        }
+      }
+      return false;
+    case OS_PGUP:
+      if (record->event.pressed) {
+        if (is_macos_base()) {
+          tap_code16(KC_PGUP);  // PageUp on macOS (works on most keyboards)
+        } else {
+          tap_code16(KC_PGUP);  // PageUp on Windows
+        }
+      }
+      return false;
+    case OS_PGDN:
+      if (record->event.pressed) {
+        if (is_macos_base()) {
+          tap_code16(KC_PGDN);  // PageDown on macOS (works on most keyboards)
+        } else {
+          tap_code16(KC_PGDN);  // PageDown on Windows
         }
       }
       return false;
