@@ -31,6 +31,9 @@ enum custom_keycodes {
   OS_PGDN,      // PageDown on both (works natively)
   OS_PREVWORD,  // Option+Left on macOS, Ctrl+Left on Windows
   OS_NEXTWORD,  // Option+Right on macOS, Ctrl+Right on Windows
+  // OS mode switchers (set default layer properly)
+  SW_MAC,       // Switch to macOS base layer
+  SW_WIN,       // Switch to Windows base layer
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -81,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // Layer 5: LAYER_CONFIG - Configuration layer (RGB, layer switching, bootloader)
   [LAYER_CONFIG] = LAYOUT_voyager(
-    RGB_TOG,        TOGGLE_LAYER_COLOR, RGB_MODE_FORWARD, RGB_SLD,    RGB_VAD,        RGB_VAI,                                        TO(LAYER_WIN_BASE), KC_TRANSPARENT, TO(LAYER_MAC_BASE), KC_TRANSPARENT, QK_BOOT,    KC_TRANSPARENT,
+    RGB_TOG,        TOGGLE_LAYER_COLOR, RGB_MODE_FORWARD, RGB_SLD,    RGB_VAD,        RGB_VAI,                                        SW_WIN,         KC_TRANSPARENT, SW_MAC,         KC_TRANSPARENT, QK_BOOT,        KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        RGB_SPD,        RGB_SPI,                                        KC_PAGE_UP,     KC_HOME,        KC_UP,          KC_END,         KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, RGB_HUD,    RGB_HUI,                                 KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, HSV_0_255_255,  HSV_74_255_255, HSV_169_255_255,                                KC_TRANSPARENT, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
@@ -233,9 +236,11 @@ void leader_end_user(void) {
 }
 
 // Helper function to detect if currently on macOS base layer
-// Returns true if on LAYER_MAC_BASE (layer 0), false otherwise
+// Returns true if default layer is LAYER_MAC_BASE (layer 0), false otherwise
+// Uses default_layer_state instead of layer_state to check the base layer
+// even when other layers (like FUNCTION) are temporarily active
 bool is_macos_base(void) {
-    return get_highest_layer(layer_state) == LAYER_MAC_BASE;
+    return get_highest_layer(default_layer_state) == LAYER_MAC_BASE;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -348,6 +353,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           tap_code16(LCTL(KC_RIGHT));  // Ctrl+Right on Windows
         }
+      }
+      return false;
+
+    // OS mode switchers - set default layer properly
+    case SW_MAC:
+      if (record->event.pressed) {
+        default_layer_set(1UL << LAYER_MAC_BASE);  // Set macOS as default layer
+        layer_move(LAYER_MAC_BASE);                 // Switch to macOS layer
+      }
+      return false;
+    case SW_WIN:
+      if (record->event.pressed) {
+        default_layer_set(1UL << LAYER_WIN_BASE);  // Set Windows as default layer
+        layer_move(LAYER_WIN_BASE);                 // Switch to Windows layer
       }
       return false;
   }
