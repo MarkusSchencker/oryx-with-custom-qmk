@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_MAC_BASE] = LAYOUT_voyager(
     LGUI(DE_MINS),  LGUI(KC_0),     LGUI(DE_PLUS),  KC_LEFT_GUI,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), KC_A,     KC_O,                                     KC_D,           MT(MOD_RGUI, KC_T), MT(MOD_LALT, KC_R), MT(MOD_RCTL, KC_N), KC_S,   KC_TRANSPARENT,
+    CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), KC_A,     KC_O,                                     KC_D,           KC_T,           MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,           DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
                                                     OSL(LAYER_SYMBOLS), OSM(MOD_LSFT),                                              OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_WIN_BASE] = LAYOUT_voyager(
     LCTL(DE_MINS),  LCTL(KC_0),     LCTL(DE_PLUS),  KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), KC_A,     KC_O,                                     KC_D,           MT(MOD_RCTL, KC_T), MT(MOD_LALT, KC_R), MT(MOD_RGUI, KC_N), KC_S,   KC_TRANSPARENT,
+    CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), KC_A,     KC_O,                                     KC_D,           KC_T,           MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,           DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
                                                     OSL(LAYER_SYMBOLS), OSM(MOD_LSFT),                                              OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 3: LAYER_FUNCTION - Unified function/navigation layer (consolidates old layers 2, 5, 8)
   [LAYER_FUNCTION] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_TRANSPARENT,
-    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT, OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT,OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_F11,         KC_ESCAPE,      DE_SS,          DE_EURO,        DE_AE,          DE_OE,                                          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
@@ -233,9 +233,11 @@ void leader_end_user(void) {
 }
 
 // Helper function to detect if currently on macOS base layer
-// Returns true if on LAYER_MAC_BASE (layer 0), false otherwise
+// Returns true if default layer is LAYER_MAC_BASE (layer 0), false otherwise
+// Uses default_layer_state instead of layer_state to check the base layer,
+// not temporary layers activated via OSL/LT
 bool is_macos_base(void) {
-    return get_highest_layer(layer_state) == LAYER_MAC_BASE;
+    return get_highest_layer(default_layer_state) == LAYER_MAC_BASE;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
