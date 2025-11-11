@@ -47,3 +47,16 @@
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 250
 #define LEADER_NO_TIMEOUT
+
+// MOUSEKEY configuration for mouse layer (003-mouse-layer)
+// Values optimized for responsive cursor control and smooth scrolling
+#define MOUSEKEY_DELAY 0              // No delay before cursor starts moving (instant response)
+#define MOUSEKEY_INTERVAL 16          // 16ms between movements (60 FPS update rate)
+#define MOUSEKEY_MOVE_DELTA 8         // Base cursor movement distance (8 pixels per interval)
+#define MOUSEKEY_MAX_SPEED 10         // Maximum speed multiplier (10x base speed)
+#define MOUSEKEY_TIME_TO_MAX 30       // Time to reach max speed (30 intervals = 480ms)
+#define MOUSEKEY_WHEEL_DELAY 0        // No delay before wheel scrolling starts
+#define MOUSEKEY_WHEEL_INTERVAL 80    // 80ms between scroll events (slower than cursor)
+#define MOUSEKEY_WHEEL_DELTA 1        // Scroll wheel movement per event (1 unit)
+#define MOUSEKEY_WHEEL_MAX_SPEED 8    // Maximum scroll speed (8x base speed)
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40 // Time to reach max scroll speed (40 intervals = 3.2s)

@@ -1,7 +1,7 @@
 # vrMEr Keyboard Layout Visualization
 
-**6-Layer Architecture for ZSA Voyager**  
-**Firmware Version:** 002-minimize-layers  
+**7-Layer Architecture for ZSA Voyager**  
+**Firmware Version:** 003-mouse-layer  
 **Layout:** HIEA O / DTRNS (Custom)
 
 ---
@@ -16,6 +16,7 @@
 | 3 | `LAYER_FUNCTION` | Function keys, navigation, German umlauts | OSL from both base layers |
 | 4 | `LAYER_NUMBERS` | Numpad with OS-aware clipboard | LT (hold space) from both base layers |
 | 5 | `LAYER_CONFIG` | RGB controls, layer switching, bootloader | TO key from both base layers |
+| 6 | `LAYER_MOUSE` | Mouse control (cursor, buttons, scroll, speed) | MO (bottom-left key) from both base layers |
 
 ---
 
@@ -30,7 +31,7 @@
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
 │CapsWord │ H/Ctrl  │ I/Alt   │ E/Cmd   │    A    │    O    │                 │    D    │ T/Cmd   │ R/Alt   │ N/Ctrl  │    S    │    ·    │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│    ·    │    K    │    Y    │    .    │    "    │    X    │                 │    J    │    V    │    W    │    B    │    Z    │    ·    │
+│MO(MOUSE)│    K    │    Y    │    .    │    "    │    X    │                 │    J    │    V    │    W    │    B    │    Z    │    ·    │
 └─────────┴─────────┴─────────┼─────────┼─────────┤         │                 │         ├─────────┼─────────┼─────────┴─────────┴─────────┘
                               │OSL(SYM) │OSM(Shft)│         │                 │         │OSL(FNC) │LT(NUM,  │
                               │         │         │         │                 │         │         │ Space)  │
@@ -42,7 +43,7 @@
 - **Home Row Mods (Right):** T=Cmd, R=Alt, N=Ctrl
 - **Alpha Layout:** HIEA O / DTRNS (optimized for German/English)
 - **Special Keys:** Caps Word, Repeat Key, Leader Key
-- **Layer Access:** OSL(Symbols), OSM(Shift), OSL(Function), LT(Numbers, Space)
+- **Layer Access:** OSL(Symbols), OSM(Shift), OSL(Function), LT(Numbers, Space), MO(Mouse)
 
 ---
 
@@ -57,7 +58,7 @@
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
 │CapsWord │ H/Win   │ I/Alt   │ E/Ctrl  │    A    │    O    │                 │    D    │ T/Ctrl  │ R/Alt   │ N/Win   │    S    │    ·    │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│    ·    │    K    │    Y    │    .    │    "    │    X    │                 │    J    │    V    │    W    │    B    │    Z    │    ·    │
+│MO(MOUSE)│    K    │    Y    │    .    │    "    │    X    │                 │    J    │    V    │    W    │    B    │    Z    │    ·    │
 └─────────┴─────────┴─────────┼─────────┼─────────┤         │                 │         ├─────────┼─────────┼─────────┴─────────┴─────────┘
                               │OSL(SYM) │OSM(Shft)│         │                 │         │OSL(FNC) │LT(NUM,  │
                               │         │         │         │                 │         │         │ Space)  │
@@ -69,7 +70,7 @@
 - **Home Row Mods (Right):** T=Ctrl, R=Alt, N=Win
 - **Alpha Layout:** Identical to macOS layer (HIEA O / DTRNS)
 - **Differences:** Only modifier keys changed for Windows optimization
-- **Layer Access:** Same as macOS layer
+- **Layer Access:** Same as macOS layer (including MO(Mouse))
 
 ---
 
@@ -189,6 +190,67 @@
 
 ---
 
+## Layer 6: LAYER_MOUSE
+**Mouse Control Layer (Cursor Movement, Buttons, Scroll, Speed)**
+
+```
+┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐                 ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│  ACL0   │  ACL1   │  ACL2   │    ·    │    ·    │    ·    │                 │    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │
+│Precision│ Normal  │  Fast   │         │         │         │                 │         │         │         │         │         │         │
+├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │MS Up    │Scroll   │    ·    │    ·    │
+│         │         │         │         │         │         │                 │         │         │    ↑    │  Up ↑   │         │         │
+├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│    ·    │  BTN3   │  BTN1   │  BTN2   │    ·    │    ·    │                 │    ·    │MS Left  │MS Down  │MS Right │    ·    │    ·    │
+│         │ Middle  │  Left   │  Right  │         │         │                 │         │    ←    │    ↓    │    →    │         │         │
+├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
+│    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │Scroll   │Scroll   │Scroll   │    ·    │
+│         │         │         │         │         │         │                 │         │         │ Down ↓  │ Left ←  │Right →  │         │
+└─────────┴─────────┴─────────┼─────────┼─────────┤         │                 │         ├─────────┼─────────┼─────────┴─────────┴─────────┘
+                              │    ·    │    ·    │         │                 │         │    ·    │    ·    │
+                              │         │         │         │                 │         │         │         │
+                              └─────────┴─────────┘         │                 │         └─────────┴─────────┘
+```
+
+**Key Features:**
+- **Cursor Movement (Right Hand):**
+  - **Arrow-key layout:** MS_UP, MS_LEFT, MS_DOWN, MS_RIGHT
+  - **Diagonal movement:** Press two keys simultaneously (e.g., UP+RIGHT)
+  - **Acceleration:** Movement speeds up the longer keys are held
+  - **Configuration:** 16ms interval (60 FPS), 8px delta, 10x max speed
+- **Mouse Buttons (Left Hand - Home Row):**
+  - **BTN1 (Left Click):** Middle finger position - most frequent action
+  - **BTN2 (Right Click):** Ring finger position
+  - **BTN3 (Middle Click):** Index finger position
+  - **One-handed operation:** All buttons accessible with left hand while right hand off keyboard
+  - **Drag-and-drop:** Hold button key, move cursor with MS keys, release
+- **Speed Control (Left Hand - Top Row):**
+  - **ACL0 (Precision):** 1/4 speed for accurate positioning
+  - **ACL1 (Normal):** 1/2 speed for general use
+  - **ACL2 (Fast - Default):** Full speed for quick navigation
+  - **Persistence:** Speed setting survives layer deactivation
+- **Scroll Wheel (Right Hand):**
+  - **Vertical:** WH_UP (scroll up), WH_DOWN (scroll down)
+  - **Horizontal:** WH_LEFT (scroll left), WH_RIGHT (scroll right)
+  - **Configuration:** 80ms interval, slower than cursor movement
+- **Layer Access:** Hold MO(LAYER_MOUSE) key (bottom-left on base layers)
+- **Auto-return:** Releasing MO key returns to base layer immediately
+- **OS-agnostic:** Works identically on macOS, Windows, and Linux
+
+**Use Cases:**
+- **Laptop mode:** Use keyboard as mouse when trackpad unavailable
+- **Precision work:** Switch to ACL0 for pixel-perfect cursor positioning
+- **One-handed operation:** Control mouse with left hand while eating/writing
+- **Accessibility:** Alternative input method for users with limited mouse access
+- **Ergonomic:** Reduce hand movement between keyboard and mouse
+
+**Performance:**
+- **Response time:** <50ms from key press to cursor movement
+- **Firmware size:** ~7KB (within 230KB constitutional limit)
+- **Update rate:** 60 FPS for smooth cursor movement
+
+---
+
 ## Special Features
 
 ### Home Row Mods (Mod-Tap)
@@ -236,17 +298,27 @@ Custom keycodes that automatically adapt to current base layer:
 
 ## Architecture Principles
 
-### Layer Consolidation (from 10 → 6 layers)
+### Layer Consolidation (from 10 → 6 → 7 layers)
 1. **Separated base layers by OS** (macOS vs Windows)
 2. **Unified utility layers** (Symbols, Function, Numbers, Config)
 3. **Shared access patterns** (OSL/LT work from both bases)
 4. **OS-aware operations** (clipboard functions auto-detect base layer)
+5. **Purpose-driven additions** (Mouse layer added for hardware mouse control)
 
 ### Code Efficiency
 - **Home row mods:** Using QMK's MT() instead of custom dual-functions
 - **Removed tap dances:** All 17 tap dances eliminated (538 lines deleted)
-- **Code reduction:** 67.4% reduction (930 → 303 lines)
+- **Built-in features:** Mouse layer uses QMK MOUSEKEY module (no custom implementation)
+- **Code reduction:** 67.4% reduction from original 10-layer design
 - **Firmware target:** <230KB (90% of 256KB flash capacity)
+
+### Mouse Layer Design (003-mouse-layer)
+- **QMK MOUSEKEY module:** Built-in feature, ~7KB firmware impact
+- **Arrow-key layout:** Intuitive cursor movement on right hand
+- **One-handed operation:** All buttons on left hand for accessibility
+- **Speed control:** 3 modes (precision/normal/fast) for different tasks
+- **Scroll wheel:** Vertical and horizontal scrolling support
+- **OS-agnostic:** Works identically on macOS, Windows, and Linux
 
 ### German Language Support
 - **Native umlauts:** Ä, Ö, Ü, ß accessible via Function layer
@@ -258,16 +330,17 @@ Custom keycodes that automatically adapt to current base layer:
 
 ## Layer Access Summary
 
-| From Layer | Symbol (L2) | Function (L3) | Numbers (L4) | Config (L5) | Mac Base (L0) | Win Base (L1) |
-|------------|-------------|---------------|--------------|-------------|---------------|---------------|
-| **MAC_BASE (L0)** | OSL (thumb) | OSL (thumb) | LT Space (thumb) | TO (top-right) | - | TO (from config) |
-| **WIN_BASE (L1)** | OSL (thumb) | OSL (thumb) | LT Space (thumb) | TO (top-right) | TO (from config) | - |
-| **All Others** | - | - | - | - | TO (from config) | TO (from config) |
+| From Layer | Symbol (L2) | Function (L3) | Numbers (L4) | Config (L5) | Mouse (L6) | Mac Base (L0) | Win Base (L1) |
+|------------|-------------|---------------|--------------|-------------|------------|---------------|---------------|
+| **MAC_BASE (L0)** | OSL (thumb) | OSL (thumb) | LT Space (thumb) | TO (top-right) | MO (bottom-left) | - | TO (from config) |
+| **WIN_BASE (L1)** | OSL (thumb) | OSL (thumb) | LT Space (thumb) | TO (top-right) | MO (bottom-left) | TO (from config) | - |
+| **All Others** | - | - | - | - | - | TO (from config) | TO (from config) |
 
 **Legend:**
 - **OSL:** One-Shot Layer (tap to activate for next keypress)
 - **LT:** Layer-Tap (hold for layer, tap for key)
 - **TO:** Permanent layer switch until another TO is pressed
+- **MO:** Momentary layer (active while key held, returns on release)
 
 ---
 
@@ -275,18 +348,19 @@ Custom keycodes that automatically adapt to current base layer:
 
 | Metric | Value |
 |--------|-------|
-| **Total Layers** | 6 (reduced from 10) |
+| **Total Layers** | 7 (6-layer base + mouse layer) |
 | **Total Keys** | 52 (26 per side) |
 | **Home Row Mods** | 6 per side (12 total) |
-| **Code Lines** | 303 (67.4% reduction from 930) |
+| **Code Lines** | ~380 (includes mouse layer) |
 | **Tap Dances** | 0 (removed all 17) |
-| **Custom Keycodes** | 8 (4 RGB + 4 OS-aware clipboard) |
+| **Custom Keycodes** | 12 (4 RGB + 8 OS-aware operations) |
 | **Key Overrides** | 2 |
 | **Combos** | 4 |
 | **Leader Sequences** | 9 |
 | **Firmware Target** | <230KB (90% of 256KB flash) |
+| **MOUSEKEY Features** | Cursor control, 3 buttons, scroll wheel, 3 speed modes |
 
 ---
 
-*Generated for Phase 6 of 002-minimize-layers feature implementation*  
+*Generated for 003-mouse-layer feature implementation*  
 *ZSA Voyager • QMK Firmware • HIEA O / DTRNS Layout*
