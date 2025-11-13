@@ -50,13 +50,34 @@
 
 // MOUSEKEY configuration for mouse layer (003-mouse-layer)
 // Values optimized for responsive cursor control and smooth scrolling
-#define MOUSEKEY_DELAY 0              // No delay before cursor starts moving (instant response)
-#define MOUSEKEY_INTERVAL 16          // 16ms between movements (60 FPS update rate)
-#define MOUSEKEY_MOVE_DELTA 8         // Base cursor movement distance (8 pixels per interval)
-#define MOUSEKEY_MAX_SPEED 10         // Maximum speed multiplier (10x base speed)
-#define MOUSEKEY_TIME_TO_MAX 30       // Time to reach max speed (30 intervals = 480ms)
-#define MOUSEKEY_WHEEL_DELAY 0        // No delay before wheel scrolling starts
-#define MOUSEKEY_WHEEL_INTERVAL 80    // 80ms between scroll events (slower than cursor)
-#define MOUSEKEY_WHEEL_DELTA 1        // Scroll wheel movement per event (1 unit)
-#define MOUSEKEY_WHEEL_MAX_SPEED 8    // Maximum scroll speed (8x base speed)
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 40 // Time to reach max scroll speed (40 intervals = 3.2s)
+// Use #ifndef guards to avoid redefinition errors with QMK defaults
+#ifndef MOUSEKEY_DELAY
+#    define MOUSEKEY_DELAY 0              // No delay before cursor starts moving (instant response)
+#endif
+#ifndef MOUSEKEY_INTERVAL
+#    define MOUSEKEY_INTERVAL 16          // 16ms between movements (60 FPS update rate)
+#endif
+#ifndef MOUSEKEY_MOVE_DELTA
+#    define MOUSEKEY_MOVE_DELTA 8         // Base cursor movement distance (8 pixels per interval)
+#endif
+#ifndef MOUSEKEY_MAX_SPEED
+#    define MOUSEKEY_MAX_SPEED 10         // Maximum speed multiplier (10x base speed)
+#endif
+#ifndef MOUSEKEY_TIME_TO_MAX
+#    define MOUSEKEY_TIME_TO_MAX 30       // Time to reach max speed (30 intervals = 480ms)
+#endif
+#ifndef MOUSEKEY_WHEEL_DELAY
+#    define MOUSEKEY_WHEEL_DELAY 0        // No delay before wheel scrolling starts
+#endif
+#ifndef MOUSEKEY_WHEEL_INTERVAL
+#    define MOUSEKEY_WHEEL_INTERVAL 80    // 80ms between scroll events (slower than cursor)
+#endif
+#ifndef MOUSEKEY_WHEEL_DELTA
+#    define MOUSEKEY_WHEEL_DELTA 1        // Scroll wheel movement per event (1 unit)
+#endif
+#ifndef MOUSEKEY_WHEEL_MAX_SPEED
+#    define MOUSEKEY_WHEEL_MAX_SPEED 8    // Maximum scroll speed (8x base speed)
+#endif
+#ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
+#    define MOUSEKEY_WHEEL_TIME_TO_MAX 40 // Time to reach max scroll speed (40 intervals = 3.2s)
+#endif
