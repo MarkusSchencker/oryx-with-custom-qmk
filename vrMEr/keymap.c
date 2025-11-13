@@ -93,11 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // Layer 6: LAYER_MOUSE - Mouse control layer (cursor movement, buttons, scroll)
+  // Left side: Speed controls, mouse buttons, and keyboard shortcuts for mouse interactions
+  // Right side: Cursor movement, scroll wheel
   [LAYER_MOUSE] = LAYOUT_voyager(
-    KC_ACL0,        KC_ACL1,        KC_ACL2,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_U,        KC_WH_U,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_BTN3,        KC_BTN1,        KC_BTN2,        KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_MS_L,        KC_MS_D,        KC_MS_R,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_WH_D,        KC_WH_L,        KC_WH_R,        KC_TRANSPARENT,
+    KC_ACL0,        KC_ACL1,        KC_ACL2,        KC_ESCAPE,      KC_TAB,         KC_ENTER,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_LEFT_SHIFT,  LCTL(KC_C),     LCTL(KC_V),     LCTL(KC_X),     LCTL(KC_Z),     KC_BSPC,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_U,        KC_WH_U,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_LEFT_CTRL,   KC_BTN3,        KC_BTN1,        KC_BTN2,        LCTL(KC_Y),     KC_DELETE,                                      KC_TRANSPARENT, KC_MS_L,        KC_MS_D,        KC_MS_R,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_LEFT_ALT,    LCTL(KC_A),     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_WH_D,        KC_WH_L,        KC_WH_R,        KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
 };

@@ -191,21 +191,21 @@
 ---
 
 ## Layer 6: LAYER_MOUSE
-**Mouse Control Layer (Cursor Movement, Buttons, Scroll, Speed)**
+**Mouse Control Layer (Cursor Movement, Buttons, Scroll, Speed, Keyboard Shortcuts)**
 
 ```
 ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐                 ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│  ACL0   │  ACL1   │  ACL2   │    ·    │    ·    │    ·    │                 │    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │
+│  ACL0   │  ACL1   │  ACL2   │   ESC   │   TAB   │  ENTER  │                 │    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │
 │Precision│ Normal  │  Fast   │         │         │         │                 │         │         │         │         │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │MS Up    │Scroll   │    ·    │    ·    │
-│         │         │         │         │         │         │                 │         │         │    ↑    │  Up ↑   │         │         │
+│  SHIFT  │  Copy   │  Paste  │   Cut   │  Undo   │  BSPC   │                 │    ·    │    ·    │MS Up    │Scroll   │    ·    │    ·    │
+│         │ Ctrl+C  │ Ctrl+V  │ Ctrl+X  │ Ctrl+Z  │         │                 │         │         │    ↑    │  Up ↑   │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│    ·    │  BTN3   │  BTN1   │  BTN2   │    ·    │    ·    │                 │    ·    │MS Left  │MS Down  │MS Right │    ·    │    ·    │
-│         │ Middle  │  Left   │  Right  │         │         │                 │         │    ←    │    ↓    │    →    │         │         │
+│  CTRL   │  BTN3   │  BTN1   │  BTN2   │  Redo   │   DEL   │                 │    ·    │MS Left  │MS Down  │MS Right │    ·    │    ·    │
+│         │ Middle  │  Left   │  Right  │ Ctrl+Y  │         │                 │         │    ←    │    ↓    │    →    │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │Scroll   │Scroll   │Scroll   │    ·    │
-│         │         │         │         │         │         │                 │         │         │ Down ↓  │ Left ←  │Right →  │         │
+│   ALT   │ SelAll  │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │Scroll   │Scroll   │Scroll   │    ·    │
+│         │ Ctrl+A  │         │         │         │         │                 │         │         │ Down ↓  │ Left ←  │Right →  │         │
 └─────────┴─────────┴─────────┼─────────┼─────────┤         │                 │         ├─────────┼─────────┼─────────┴─────────┴─────────┘
                               │    ·    │    ·    │         │                 │         │    ·    │    ·    │
                               │         │         │         │                 │         │         │         │
@@ -229,6 +229,12 @@
   - **ACL1 (Normal):** 1/2 speed for general use
   - **ACL2 (Fast - Default):** Full speed for quick navigation
   - **Persistence:** Speed setting survives layer deactivation
+- **Keyboard Shortcuts (Left Hand):**
+  - **Navigation:** ESC, TAB, ENTER, BSPC, DEL
+  - **Modifiers:** SHIFT (for text selection), CTRL, ALT (for hotkey combinations)
+  - **Clipboard:** Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+X (Cut)
+  - **Edit:** Ctrl+Z (Undo), Ctrl+Y (Redo), Ctrl+A (Select All)
+  - **Common workflows:** Select text with SHIFT+arrows, copy/paste, navigate dialogs
 - **Scroll Wheel (Right Hand):**
   - **Vertical:** WH_UP (scroll up), WH_DOWN (scroll down)
   - **Horizontal:** WH_LEFT (scroll left), WH_RIGHT (scroll right)
@@ -241,6 +247,9 @@
 - **Laptop mode:** Use keyboard as mouse when trackpad unavailable
 - **Precision work:** Switch to ACL0 for pixel-perfect cursor positioning
 - **One-handed operation:** Control mouse with left hand while eating/writing
+- **Text selection:** Hold SHIFT, navigate with cursor keys, copy with Ctrl+C
+- **Form navigation:** TAB through fields, ENTER to submit, ESC to cancel
+- **File management:** Navigate with mouse, select with SHIFT+click, copy/paste files
 - **Accessibility:** Alternative input method for users with limited mouse access
 - **Ergonomic:** Reduce hand movement between keyboard and mouse
 
