@@ -25,6 +25,8 @@ enum custom_keycodes {
   OS_COPY,    // Cmd+C on macOS, Ctrl+C on Windows
   OS_PASTE,   // Cmd+V on macOS, Ctrl+V on Windows
   OS_CUT,     // Cmd+X on macOS, Ctrl+X on Windows
+  OS_REDO,    // Cmd+Shift+Z on macOS, Ctrl+Y on Windows
+  OS_SELECTALL, // Cmd+A on macOS, Ctrl+A on Windows
   // OS-aware navigation keys (macOS uses Cmd/Option, Windows uses Ctrl)
   OS_HOME,      // Cmd+Left on macOS, Home on Windows
   OS_END,       // Cmd+Right on macOS, End on Windows
@@ -97,9 +99,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Right side: Cursor movement, scroll wheel
   [LAYER_MOUSE] = LAYOUT_voyager(
     KC_ACL0,        KC_ACL1,        KC_ACL2,        KC_ESCAPE,      KC_TAB,         KC_ENTER,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_LEFT_SHIFT,  LCTL(KC_C),     LCTL(KC_V),     LCTL(KC_X),     LCTL(KC_Z),     KC_BSPC,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_U,        KC_WH_U,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_LEFT_CTRL,   KC_BTN3,        KC_BTN1,        KC_BTN2,        LCTL(KC_Y),     KC_DELETE,                                      KC_TRANSPARENT, KC_MS_L,        KC_MS_D,        KC_MS_R,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_LEFT_ALT,    LCTL(KC_A),     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_WH_D,        KC_WH_L,        KC_WH_R,        KC_TRANSPARENT,
+    KC_LEFT_SHIFT,  OS_COPY,        OS_PASTE,       OS_CUT,         OS_UNDO,        KC_BSPC,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_U,        KC_WH_U,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_LEFT_CTRL,   KC_BTN3,        KC_BTN1,        KC_BTN2,        OS_REDO,        KC_DELETE,                                      KC_TRANSPARENT, KC_MS_L,        KC_MS_D,        KC_MS_R,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_LEFT_ALT,    OS_SELECTALL,   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_WH_D,        KC_WH_L,        KC_WH_R,        KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
 };
@@ -316,6 +318,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           tap_code16(LGUI(KC_X));  // Cmd+X on macOS
         } else {
           tap_code16(LCTL(KC_X));  // Ctrl+X on Windows
+        }
+      }
+      return false;
+    case OS_REDO:
+      if (record->event.pressed) {
+        if (is_macos_base()) {
+          tap_code16(LGUI(LSFT(KC_Z)));  // Cmd+Shift+Z on macOS
+        } else {
+          tap_code16(LCTL(KC_Y));  // Ctrl+Y on Windows
+        }
+      }
+      return false;
+    case OS_SELECTALL:
+      if (record->event.pressed) {
+        if (is_macos_base()) {
+          tap_code16(LGUI(KC_A));  // Cmd+A on macOS
+        } else {
+          tap_code16(LCTL(KC_A));  // Ctrl+A on Windows
         }
       }
       return false;

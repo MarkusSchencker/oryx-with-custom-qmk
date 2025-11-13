@@ -199,13 +199,13 @@
 │Precision│ Normal  │  Fast   │         │         │         │                 │         │         │         │         │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
 │  SHIFT  │  Copy   │  Paste  │   Cut   │  Undo   │  BSPC   │                 │    ·    │    ·    │MS Up    │Scroll   │    ·    │    ·    │
-│         │ Ctrl+C  │ Ctrl+V  │ Ctrl+X  │ Ctrl+Z  │         │                 │         │         │    ↑    │  Up ↑   │         │         │
+│         │ OS Agn. │ OS Agn. │ OS Agn. │ OS Agn. │         │                 │         │         │    ↑    │  Up ↑   │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
 │  CTRL   │  BTN3   │  BTN1   │  BTN2   │  Redo   │   DEL   │                 │    ·    │MS Left  │MS Down  │MS Right │    ·    │    ·    │
-│         │ Middle  │  Left   │  Right  │ Ctrl+Y  │         │                 │         │    ←    │    ↓    │    →    │         │         │
+│         │ Middle  │  Left   │  Right  │ OS Agn. │         │                 │         │    ←    │    ↓    │    →    │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
 │   ALT   │ SelAll  │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │Scroll   │Scroll   │Scroll   │    ·    │
-│         │ Ctrl+A  │         │         │         │         │                 │         │         │ Down ↓  │ Left ←  │Right →  │         │
+│         │ OS Agn. │         │         │         │         │                 │         │         │ Down ↓  │ Left ←  │Right →  │         │
 └─────────┴─────────┴─────────┼─────────┼─────────┤         │                 │         ├─────────┼─────────┼─────────┴─────────┴─────────┘
                               │    ·    │    ·    │         │                 │         │    ·    │    ·    │
                               │         │         │         │                 │         │         │         │
@@ -232,8 +232,8 @@
 - **Keyboard Shortcuts (Left Hand):**
   - **Navigation:** ESC, TAB, ENTER, BSPC, DEL
   - **Modifiers:** SHIFT (for text selection), CTRL, ALT (for hotkey combinations)
-  - **Clipboard:** Ctrl+C (Copy), Ctrl+V (Paste), Ctrl+X (Cut)
-  - **Edit:** Ctrl+Z (Undo), Ctrl+Y (Redo), Ctrl+A (Select All)
+  - **Clipboard (OS-agnostic):** OS_COPY (Cmd+C/Ctrl+C), OS_PASTE (Cmd+V/Ctrl+V), OS_CUT (Cmd+X/Ctrl+X)
+  - **Edit (OS-agnostic):** OS_UNDO (Cmd+Z/Ctrl+Z), OS_REDO (Cmd+Shift+Z/Ctrl+Y), OS_SELECTALL (Cmd+A/Ctrl+A)
   - **Common workflows:** Select text with SHIFT+arrows, copy/paste, navigate dialogs
 - **Scroll Wheel (Right Hand):**
   - **Vertical:** WH_UP (scroll up), WH_DOWN (scroll down)
@@ -247,11 +247,12 @@
 - **Laptop mode:** Use keyboard as mouse when trackpad unavailable
 - **Precision work:** Switch to ACL0 for pixel-perfect cursor positioning
 - **One-handed operation:** Control mouse with left hand while eating/writing
-- **Text selection:** Hold SHIFT, navigate with cursor keys, copy with Ctrl+C
+- **Text selection:** Hold SHIFT, navigate with cursor keys, copy with OS_COPY (works on both macOS/Windows)
 - **Form navigation:** TAB through fields, ENTER to submit, ESC to cancel
-- **File management:** Navigate with mouse, select with SHIFT+click, copy/paste files
+- **File management:** Navigate with mouse, select with SHIFT+click, copy/paste files with OS-agnostic shortcuts
 - **Accessibility:** Alternative input method for users with limited mouse access
 - **Ergonomic:** Reduce hand movement between keyboard and mouse
+- **Cross-platform:** All clipboard/edit shortcuts automatically adapt to macOS (Cmd) or Windows (Ctrl)
 
 **Performance:**
 - **Response time:** <50ms from key press to cursor movement
