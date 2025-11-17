@@ -257,7 +257,75 @@ bool is_macos_base(void) {
     return get_highest_layer(default_layer_state) == LAYER_MAC_BASE;
 }
 
+// Bilateral Combinations (Achordion) - Only activate home row mods when opposite hand is used
+// This prevents accidental modifiers during same-hand rolls (e.g., "he", "io", "as")
+// Voyager split keyboard: Left half = columns 0-5, Right half = columns 6-11
+typedef struct {
+    uint16_t keycode;  // The mod-tap keycode that was pressed
+    uint8_t row;       // Row of the mod-tap key
+    uint8_t col;       // Column of the mod-tap key
+} achordion_state_t;
+
+static achordion_state_t achordion_state = {KC_NO, 0, 0};
+
+// Helper: Determine if a key position is on the left half of split keyboard
+bool is_left_hand(uint8_t row, uint8_t col) {
+    // Voyager matrix: columns 0-5 are left hand, 6-11 are right hand
+    return col < 6;
+}
+
+// Helper: Check if keycode is a home row mod-tap key
+bool is_home_row_mod(uint16_t keycode) {
+    switch (keycode) {
+        // Left home row mods: H, I, E, A
+        case MT(MOD_LCTL, KC_H):
+        case MT(MOD_LALT, KC_I):
+        case MT(MOD_LGUI, KC_E):
+        case MT(MOD_LSFT, KC_A):
+        // Right home row mods: T, R, N, S
+        case MT(MOD_LSFT, KC_T):
+        case MT(MOD_LGUI, KC_R):
+        case MT(MOD_LALT, KC_N):
+        case MT(MOD_LCTL, KC_S):
+        // Windows layer variants (same physical keys, different modifiers)
+        case MT(MOD_LGUI, KC_H):  // H on Windows layer
+        case MT(MOD_LCTL, KC_R):  // R on Windows layer
+        case MT(MOD_LGUI, KC_S):  // S on Windows layer
+            return true;
+        default:
+            return false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Bilateral combinations (achordion) logic - MUST be before switch statement
+  // Only activate home row mods when used with opposite hand
+  if (is_home_row_mod(keycode)) {
+    if (record->event.pressed) {
+      // Store which hand pressed the mod-tap key
+      achordion_state.keycode = keycode;
+      achordion_state.row = record->event.key.row;
+      achordion_state.col = record->event.key.col;
+    } else {
+      // Clear state when mod-tap key is released
+      if (achordion_state.keycode == keycode) {
+        achordion_state.keycode = KC_NO;
+      }
+    }
+  } else if (achordion_state.keycode != KC_NO && record->event.pressed) {
+    // Another key was pressed while a home row mod is held
+    // Check if they're on different hands
+    bool mod_on_left = is_left_hand(achordion_state.row, achordion_state.col);
+    bool key_on_left = is_left_hand(record->event.key.row, record->event.key.col);
+    
+    if (mod_on_left == key_on_left) {
+      // Same hand - force tap behavior by clearing the mod-tap state
+      // This prevents "he" from becoming "Ctrl+e", etc.
+      achordion_state.keycode = KC_NO;
+    }
+    // If different hands, let the normal mod-tap logic handle it (modifier will activate)
+  }
+
   switch (keycode) {
 
     case RGB_SLD:
