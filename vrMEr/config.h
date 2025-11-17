@@ -6,9 +6,11 @@
 
 // Layer optimization timing configuration
 // Based on proven values from JRaem (001-minimize-layers)
-#define TAPPING_TERM 200           // 200ms tap window for home row mods and layer taps
+// Updated for bilateral combinations (achordion) - only activate mods cross-hand
+#define TAPPING_TERM 175           // 175ms tap window (can be aggressive with bilateral combinations)
 #define ONESHOT_TIMEOUT 5000       // 5000ms timeout for one-shot modifiers (OSM)
-#define PERMISSIVE_HOLD            // Enables faster modifier activation during rapid typing
+#define QUICK_TAP_TERM 100         // Prevent rapid double-taps from triggering modifiers
+// PERMISSIVE_HOLD removed - using bilateral combinations instead to prevent same-hand roll issues
 
 #define RGB_MATRIX_STARTUP_SPD 60
 
