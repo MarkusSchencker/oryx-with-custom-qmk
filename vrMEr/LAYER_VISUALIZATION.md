@@ -39,11 +39,11 @@
 ```
 
 **Key Features:**
-- **Home Row Mods (Left):** H=Ctrl, I=Alt, E=Cmd
-- **Home Row Mods (Right):** T=Cmd, R=Alt, N=Ctrl
+- **Home Row Mods (Left):** H=Ctrl, I=Alt, E=Cmd, A=Shift
+- **Home Row Mods (Right):** T=Shift, R=Cmd, N=Alt, S=Ctrl
 - **Alpha Layout:** HIEA O / DTRNS (optimized for German/English)
 - **Special Keys:** Caps Word, Repeat Key, Leader Key
-- **Layer Access:** OSL(Symbols), OSM(Shift), OSL(Function), LT(Numbers, Space), MO(Mouse)
+- **Layer Access:** MO(Mouse) on left thumb, OSL for Symbols/Function, LT for Numbers
 
 ---
 
@@ -56,21 +56,21 @@
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
 │    ·    │    P    │    U    │ Repeat  │ Leader  │    Q    │                 │    G    │    C    │    L    │    M    │    F    │    ·    │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│CapsWord │ H/Win   │ I/Alt   │ E/Ctrl  │    A    │    O    │                 │    D    │ T/Ctrl  │ R/Alt   │ N/Win   │    S    │    ·    │
+│CapsWord │ H/Win   │ I/Alt   │ E/Ctrl  │ A/Shft  │    O    │                 │    D    │ T/Shft  │ R/Alt   │ N/Win   │    S    │    ·    │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│MO(MOUSE)│    K    │    Y    │    .    │    "    │    X    │                 │    J    │    V    │    W    │    B    │    Z    │    ·    │
+│    ·    │    K    │    Y    │    .    │    "    │    X    │                 │    J    │    V    │    W    │    B    │    Z    │    ·    │
 └─────────┴─────────┴─────────┼─────────┼─────────┤         │                 │         ├─────────┼─────────┼─────────┴─────────┴─────────┘
-                              │OSL(SYM) │OSM(Shft)│         │                 │         │OSL(FNC) │LT(NUM,  │
+                              │OSL(SYM) │MO(MOUSE)│         │                 │         │OSL(FNC) │LT(NUM,  │
                               │         │         │         │                 │         │         │ Space)  │
                               └─────────┴─────────┘         │                 │         └─────────┴─────────┘
 ```
 
 **Key Features:**
-- **Home Row Mods (Left):** H=Win, I=Alt, E=Ctrl
-- **Home Row Mods (Right):** T=Ctrl, R=Alt, N=Win
+- **Home Row Mods (Left):** H=Win, I=Alt, E=Ctrl, A=Shift
+- **Home Row Mods (Right):** T=Shift, R=Alt, N=Win
 - **Alpha Layout:** Identical to macOS layer (HIEA O / DTRNS)
 - **Differences:** Only modifier keys changed for Windows optimization
-- **Layer Access:** Same as macOS layer (including MO(Mouse))
+- **Layer Access:** MO(Mouse) on left thumb, OSL for Symbols/Function, LT for Numbers
 
 ---
 
@@ -195,17 +195,17 @@
 
 ```
 ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐                 ┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│  ACL0   │  ACL1   │  ACL2   │   ESC   │   TAB   │  ENTER  │                 │    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │
-│Precision│ Normal  │  Fast   │         │         │         │                 │         │         │         │         │         │         │
+│    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │    ·    │    ·    │    ·    │    ·    │
+│         │         │         │         │         │         │                 │         │         │         │         │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│  SHIFT  │  Copy   │  Paste  │   Cut   │  Undo   │  BSPC   │                 │    ·    │    ·    │MS Up    │Scroll   │    ·    │    ·    │
-│         │ OS Agn. │ OS Agn. │ OS Agn. │ OS Agn. │         │                 │         │         │    ↑    │  Up ↑   │         │         │
+│    ·    │   TAB   │   Cut   │  Paste  │  Copy   │    ·    │                 │    ·    │    ·    │MS Up    │Scroll   │    ·    │    ·    │
+│         │         │ OS Agn. │ OS Agn. │ OS Agn. │         │                 │         │         │    ↑    │  Up ↑   │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│  CTRL   │  BTN3   │  BTN1   │  BTN2   │  Redo   │   DEL   │                 │    ·    │MS Left  │MS Down  │MS Right │    ·    │    ·    │
-│         │ Middle  │  Left   │  Right  │ OS Agn. │         │                 │         │    ←    │    ↓    │    →    │         │         │
+│    ·    │  SHIFT  │  BTN3   │  BTN2   │  BTN1   │    ·    │                 │    ·    │MS Left  │MS Down  │MS Right │    ·    │    ·    │
+│         │         │ Middle  │  Right  │  Left   │         │                 │         │    ←    │    ↓    │    →    │         │         │
 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                 ├─────────┼─────────┼─────────┼─────────┼─────────┼─────────┤
-│   ALT   │ SelAll  │    ·    │    ·    │    ·    │    ·    │                 │    ·    │    ·    │Scroll   │Scroll   │Scroll   │    ·    │
-│         │ OS Agn. │         │         │         │         │                 │         │         │ Down ↓  │ Left ←  │Right →  │         │
+│    ·    │  CTRL   │  ACL2   │  ACL0   │  ACL1   │    ·    │                 │    ·    │Scroll   │Scroll   │Scroll   │    ·    │    ·    │
+│         │         │  Fast   │  Slow   │ Normal  │         │                 │         │ Left ←  │Right →  │ Down ↓  │         │         │
 └─────────┴─────────┴─────────┼─────────┼─────────┤         │                 │         ├─────────┼─────────┼─────────┴─────────┴─────────┘
                               │    ·    │    ·    │         │                 │         │    ·    │    ·    │
                               │         │         │         │                 │         │         │         │
@@ -213,35 +213,37 @@
 ```
 
 **Key Features:**
-- **Cursor Movement (Right Hand):**
+- **Cursor Movement (Right Hand - Row 2-3):**
   - **Arrow-key layout:** MS_UP, MS_LEFT, MS_DOWN, MS_RIGHT
   - **Diagonal movement:** Press two keys simultaneously (e.g., UP+RIGHT)
   - **Acceleration:** Movement speeds up the longer keys are held
   - **Configuration:** 16ms interval (60 FPS), 8px delta, 10x max speed
-- **Mouse Buttons (Left Hand - Home Row):**
-  - **BTN1 (Left Click):** Middle finger position - most frequent action
-  - **BTN2 (Right Click):** Ring finger position
-  - **BTN3 (Middle Click):** Index finger position
-  - **One-handed operation:** All buttons accessible with left hand while right hand off keyboard
+- **Mouse Buttons (Left Hand - Row 3 Home Row):**
+  - **BTN1 (Left Click):** I position - most frequent action
+  - **BTN2 (Right Click):** E position
+  - **BTN3 (Middle Click):** H position (after Shift)
+  - **One-handed operation:** All buttons accessible with left hand while right hand controls cursor
   - **Drag-and-drop:** Hold button key, move cursor with MS keys, release
-- **Speed Control (Left Hand - Top Row):**
-  - **ACL0 (Precision):** 1/4 speed for accurate positioning
-  - **ACL1 (Normal):** 1/2 speed for general use
-  - **ACL2 (Fast - Default):** Full speed for quick navigation
+- **Speed Control (Left Hand - Row 4):**
+  - **ACL2 (Fast - Default):** Full speed for quick navigation (Y position)
+  - **ACL0 (Slow/Precision):** 1/4 speed for accurate positioning (. position)
+  - **ACL1 (Normal):** 1/2 speed for general use (" position)
   - **Persistence:** Speed setting survives layer deactivation
-- **Keyboard Shortcuts (Left Hand):**
-  - **Navigation:** ESC, TAB, ENTER, BSPC, DEL
-  - **Modifiers:** SHIFT (for text selection), CTRL, ALT (for hotkey combinations)
-  - **Clipboard (OS-agnostic):** OS_COPY (Cmd+C/Ctrl+C), OS_PASTE (Cmd+V/Ctrl+V), OS_CUT (Cmd+X/Ctrl+X)
-  - **Edit (OS-agnostic):** OS_UNDO (Cmd+Z/Ctrl+Z), OS_REDO (Cmd+Shift+Z/Ctrl+Y), OS_SELECTALL (Cmd+A/Ctrl+A)
-  - **Common workflows:** Select text with SHIFT+arrows, copy/paste, navigate dialogs
-- **Scroll Wheel (Right Hand):**
-  - **Vertical:** WH_UP (scroll up), WH_DOWN (scroll down)
-  - **Horizontal:** WH_LEFT (scroll left), WH_RIGHT (scroll right)
+- **Keyboard Shortcuts (Left Hand - Row 2):**
+  - **TAB:** Navigate between UI elements (P position)
+  - **Clipboard (OS-agnostic):** 
+    - OS_CUT (Cmd+X/Ctrl+X) at U position
+    - OS_PASTE (Cmd+V/Ctrl+V) at Repeat position
+    - OS_COPY (Cmd+C/Ctrl+C) at Leader position
+  - **Modifiers:** SHIFT (H position - row 3), CTRL (K position - row 4)
+  - **Common workflows:** Select text with SHIFT+cursor, copy/paste, tab navigation
+- **Scroll Wheel (Right Hand - Row 4):**
+  - **Horizontal:** WH_LEFT (under MS_LEFT), WH_RIGHT (under MS_DOWN)
+  - **Vertical:** WH_DOWN (under MS_RIGHT), WH_UP (row 2)
   - **Configuration:** 80ms interval, slower than cursor movement
-- **Layer Access:** Hold MO(LAYER_MOUSE) key (bottom-left on base layers)
-- **Auto-return:** Releasing MO key returns to base layer immediately
-- **OS-agnostic:** Works identically on macOS, Windows, and Linux
+- **Layer Access:** Hold left thumb MO(LAYER_MOUSE) key (former Shift position)
+- **Auto-return:** Releasing thumb key returns to base layer immediately
+- **OS-agnostic:** Clipboard shortcuts work on both macOS and Windows
 
 **Use Cases:**
 - **Laptop mode:** Use keyboard as mouse when trackpad unavailable

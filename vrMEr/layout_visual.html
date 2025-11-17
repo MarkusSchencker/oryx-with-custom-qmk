@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vrMEr Keyboard Layout - ZSA Voyager</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .info-box strong {
+            color: #667eea;
+        }
+        
+        .layer-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .layer-tab {
+            padding: 12px 24px;
+            background: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .layer-tab:hover {
+            background: #e0e7ff;
+            border-color: #667eea;
+        }
+        
+        .layer-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .layer-content {
+            display: none;
+        }
+        
+        .layer-content.active {
+            display: block;
+        }
+        
+        .keyboard {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .keyboard-half {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .keyboard-row {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .key {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(145deg, #ffffff, #e6e6e6);
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .key:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .key.modifier {
+            background: linear-gradient(145deg, #fef3c7, #fde68a);
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+        
+        .key.special {
+            background: linear-gradient(145deg, #dbeafe, #bfdbfe);
+            border-color: #3b82f6;
+            color: #1e3a8a;
+        }
+        
+        .key.mouse {
+            background: linear-gradient(145deg, #dcfce7, #bbf7d0);
+            border-color: #10b981;
+            color: #065f46;
+        }
+        
+        .key.transparent {
+            background: #f9fafb;
+            border-color: #e5e7eb;
+            color: #9ca3af;
+            opacity: 0.5;
+        }
+        
+        .key-main {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .key-sub {
+            font-size: 10px;
+            color: #666;
+            font-style: italic;
+            margin-top: 2px;
+        }
+        
+        .key.modifier .key-sub {
+            color: #92400e;
+        }
+        
+        .key.special .key-sub {
+            color: #1e3a8a;
+        }
+        
+        .key.mouse .key-sub {
+            color: #065f46;
+        }
+        
+        .thumb-cluster {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .thumb-key {
+            width: 90px;
+            height: 70px;
+        }
+        
+        .layer-description {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .layer-description h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .layer-description ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-box {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            border: 2px solid;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .layer-tab:not(.active) {
+                display: none;
+            }
+            .layer-content {
+                display: block !important;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎹 vrMEr Keyboard Layout</h1>
+        <div class="subtitle">ZSA Voyager · 7 Layers · HIEA O / DTRNS · OS-Agnostic</div>
+        
+        <div class="info-box">
+            <strong>🌟 OS-Agnostic Design:</strong> Shortcuts automatically adapt to your operating system!<br>
+            • macOS (Layer 0): Uses ⌘ Cmd for shortcuts<br>
+            • Windows (Layer 1): Uses Ctrl for shortcuts<br>
+            <strong>Home Row Mods:</strong> Hold keys for modifiers (200ms), tap for letters
+        </div>
+        
+        <div class="layer-tabs">
+            <div class="layer-tab active" onclick="showLayer(0)">Layer 0: MAC_BASE</div>
+            <div class="layer-tab" onclick="showLayer(1)">Layer 1: WIN_BASE</div>
+            <div class="layer-tab" onclick="showLayer(2)">Layer 2: SYMBOLS</div>
+            <div class="layer-tab" onclick="showLayer(3)">Layer 3: FUNCTION</div>
+            <div class="layer-tab" onclick="showLayer(4)">Layer 4: NUMBERS</div>
+            <div class="layer-tab" onclick="showLayer(5)">Layer 5: CONFIG</div>
+            <div class="layer-tab" onclick="showLayer(6)">Layer 6: MOUSE</div>
+        </div>
+        
+        <!-- Layer 0: MAC_BASE -->
+        <div class="layer-content active" id="layer0">
+            <div class="keyboard">
+                <div class="keyboard-half">
+                    <div class="keyboard-row">
+                        <div class="key special"><div class="key-main">⌘-</div></div>
+                        <div class="key special"><div class="key-main">⌘0</div></div>
+                        <div class="key special"><div class="key-main">⌘+</div></div>
+                        <div class="key modifier"><div class="key-main">GUI</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key"><div class="key-main">P</div></div>
+                        <div class="key"><div class="key-main">U</div></div>
+                        <div class="key special"><div class="key-main">⟳</div><div class="key-sub">Repeat</div></div>
+                        <div class="key special"><div class="key-main">⊙</div><div class="key-sub">Leader</div></div>
+                        <div class="key"><div class="key-main">Q</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key special"><div class="key-main">CW</div><div class="key-sub">CapWord</div></div>
+                        <div class="key modifier"><div class="key-main">H</div><div class="key-sub">Ctrl</div></div>
+                        <div class="key modifier"><div class="key-main">I</div><div class="key-sub">Alt</div></div>
+                        <div class="key modifier"><div class="key-main">E</div><div class="key-sub">⌘Cmd</div></div>
+                        <div class="key"><div class="key-main">A</div></div>
+                        <div class="key"><div class="key-main">O</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key mouse"><div class="key-main">🖱️</div><div class="key-sub">Mouse</div></div>
+                        <div class="key"><div class="key-main">K</div></div>
+                        <div class="key"><div class="key-main">Y</div></div>
+                        <div class="key"><div class="key-main">.</div></div>
+                        <div class="key"><div class="key-main">"</div></div>
+                        <div class="key"><div class="key-main">X</div></div>
+                    </div>
+                    <div class="thumb-cluster">
+                        <div class="key special thumb-key"><div class="key-main">↗SYM</div><div class="key-sub">OneShot</div></div>
+                        <div class="key modifier thumb-key"><div class="key-main">⇧</div><div class="key-sub">Shift</div></div>
+                    </div>
+                </div>
+                
+                <div class="keyboard-half">
+                    <div class="keyboard-row">
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key special"><div class="key-main">⇧Tab</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key"><div class="key-main">Tab</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key special"><div class="key-main">→CFG</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key"><div class="key-main">G</div></div>
+                        <div class="key"><div class="key-main">C</div></div>
+                        <div class="key"><div class="key-main">L</div></div>
+                        <div class="key"><div class="key-main">M</div></div>
+                        <div class="key"><div class="key-main">F</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key"><div class="key-main">D</div></div>
+                        <div class="key"><div class="key-main">T</div></div>
+                        <div class="key modifier"><div class="key-main">R</div><div class="key-sub">⌘Cmd</div></div>
+                        <div class="key modifier"><div class="key-main">N</div><div class="key-sub">Alt</div></div>
+                        <div class="key modifier"><div class="key-main">S</div><div class="key-sub">Ctrl</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key"><div class="key-main">J</div></div>
+                        <div class="key"><div class="key-main">V</div></div>
+                        <div class="key"><div class="key-main">W</div></div>
+                        <div class="key"><div class="key-main">B</div></div>
+                        <div class="key"><div class="key-main">Z</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="thumb-cluster">
+                        <div class="key special thumb-key"><div class="key-main">↗FN</div><div class="key-sub">OneShot</div></div>
+                        <div class="key special thumb-key"><div class="key-main">Space</div><div class="key-sub">→NUM</div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layer-description">
+                <h3>Layer 0: MAC_BASE (macOS Optimized)</h3>
+                <ul>
+                    <li><strong>Home Row Mods:</strong> Left (H=Ctrl, I=Alt, E=Cmd) | Right (T=Cmd, R=Alt, N=Ctrl)</li>
+                    <li><strong>Alpha Layout:</strong> HIEA O (left) / DTRNS (right) custom layout</li>
+                    <li><strong>Special Keys:</strong> Caps Word toggle, Repeat key, Leader sequences</li>
+                    <li><strong>Quick Access:</strong> Cmd+zoom shortcuts, Tab switching, Config layer</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Layer 6: MOUSE -->
+        <div class="layer-content" id="layer6">
+            <div class="keyboard">
+                <div class="keyboard-half">
+                    <div class="keyboard-row">
+                        <div class="key mouse"><div class="key-main">ACL0</div><div class="key-sub">Slow</div></div>
+                        <div class="key mouse"><div class="key-main">ACL1</div><div class="key-sub">Normal</div></div>
+                        <div class="key mouse"><div class="key-main">ACL2</div><div class="key-sub">Fast</div></div>
+                        <div class="key"><div class="key-main">Esc</div></div>
+                        <div class="key"><div class="key-main">Tab</div></div>
+                        <div class="key"><div class="key-main">Enter</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key modifier"><div class="key-main">⇧</div><div class="key-sub">Shift</div></div>
+                        <div class="key special"><div class="key-main">Copy</div><div class="key-sub">OS Agn.</div></div>
+                        <div class="key special"><div class="key-main">Paste</div><div class="key-sub">OS Agn.</div></div>
+                        <div class="key special"><div class="key-main">Cut</div><div class="key-sub">OS Agn.</div></div>
+                        <div class="key special"><div class="key-main">Undo</div><div class="key-sub">OS Agn.</div></div>
+                        <div class="key"><div class="key-main">Bksp</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key modifier"><div class="key-main">Ctrl</div></div>
+                        <div class="key mouse"><div class="key-main">BTN3</div><div class="key-sub">Middle</div></div>
+                        <div class="key mouse"><div class="key-main">BTN1</div><div class="key-sub">Left</div></div>
+                        <div class="key mouse"><div class="key-main">BTN2</div><div class="key-sub">Right</div></div>
+                        <div class="key special"><div class="key-main">Redo</div><div class="key-sub">OS Agn.</div></div>
+                        <div class="key"><div class="key-main">Del</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key modifier"><div class="key-main">Alt</div></div>
+                        <div class="key special"><div class="key-main">Sel All</div><div class="key-sub">OS Agn.</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="thumb-cluster">
+                        <div class="key transparent thumb-key"><div class="key-main">·</div></div>
+                        <div class="key transparent thumb-key"><div class="key-main">·</div></div>
+                    </div>
+                </div>
+                
+                <div class="keyboard-half">
+                    <div class="keyboard-row">
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key mouse"><div class="key-main">↑</div><div class="key-sub">MS Up</div></div>
+                        <div class="key mouse"><div class="key-main">⤒</div><div class="key-sub">Scroll</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key mouse"><div class="key-main">←</div><div class="key-sub">MS Left</div></div>
+                        <div class="key mouse"><div class="key-main">↓</div><div class="key-sub">MS Down</div></div>
+                        <div class="key mouse"><div class="key-main">→</div><div class="key-sub">MS Right</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="keyboard-row">
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                        <div class="key mouse"><div class="key-main">⤓</div><div class="key-sub">Scroll</div></div>
+                        <div class="key mouse"><div class="key-main">⇦</div><div class="key-sub">Scroll</div></div>
+                        <div class="key mouse"><div class="key-main">⇨</div><div class="key-sub">Scroll</div></div>
+                        <div class="key transparent"><div class="key-main">·</div></div>
+                    </div>
+                    <div class="thumb-cluster">
+                        <div class="key transparent thumb-key"><div class="key-main">·</div></div>
+                        <div class="key transparent thumb-key"><div class="key-main">·</div></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="layer-description">
+                <h3>Layer 6: MOUSE (Cursor Control & Shortcuts)</h3>
+                <ul>
+                    <li><strong>Speed Control:</strong> ACL0 (Slow/Precision), ACL1 (Normal), ACL2 (Fast - Default)</li>
+                    <li><strong>Mouse Buttons:</strong> Left-click, Right-click, Middle-click on home row</li>
+                    <li><strong>Cursor Movement:</strong> Arrow-key layout with diagonal support (60 FPS)</li>
+                    <li><strong>Scroll Wheel:</strong> Vertical (↑↓) and horizontal (←→) scrolling</li>
+                    <li><strong>OS-Agnostic Shortcuts:</strong> Copy (⌘C/Ctrl+C), Paste, Cut, Undo, Redo, Select All</li>
+                    <li><strong>Modifiers:</strong> Shift (for text selection), Ctrl, Alt available</li>
+                    <li><strong>Navigation Keys:</strong> Esc, Tab, Enter, Backspace, Delete</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box" style="background: linear-gradient(145deg, #ffffff, #e6e6e6); border-color: #ddd;"></div>
+                <span>Standard Key</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: linear-gradient(145deg, #fef3c7, #fde68a); border-color: #f59e0b;"></div>
+                <span>Modifier</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: linear-gradient(145deg, #dbeafe, #bfdbfe); border-color: #3b82f6;"></div>
+                <span>Special Function</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: linear-gradient(145deg, #dcfce7, #bbf7d0); border-color: #10b981;"></div>
+                <span>Mouse Control</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box" style="background: #f9fafb; border-color: #e5e7eb; opacity: 0.5;"></div>
+                <span>Transparent</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showLayer(layerNum) {
+            // Hide all layers
+            document.querySelectorAll('.layer-content').forEach(layer => {
+                layer.classList.remove('active');
+            });
+            document.querySelectorAll('.layer-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected layer
+            document.getElementById('layer' + layerNum).classList.add('active');
+            document.querySelectorAll('.layer-tab')[layerNum].classList.add('active');
+        }
+    </script>
+</body>
+</html>
