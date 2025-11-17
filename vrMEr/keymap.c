@@ -44,18 +44,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_MAC_BASE] = LAYOUT_voyager(
     LGUI(DE_MINS),  LGUI(KC_0),     LGUI(DE_PLUS),  KC_LEFT_GUI,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), KC_A,     KC_O,                                     KC_D,           KC_T,           MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
-    MO(LAYER_MOUSE), KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), OSM(MOD_LSFT),                                              OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+    CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
+                                                    OSL(LAYER_SYMBOLS), MO(LAYER_MOUSE),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   // Layer 1: LAYER_WIN_BASE - Windows base layer with Ctrl/Win-optimized home row mods
   [LAYER_WIN_BASE] = LAYOUT_voyager(
     LCTL(DE_MINS),  LCTL(KC_0),     LCTL(DE_PLUS),  KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), KC_A,     KC_O,                                     KC_D,           KC_T,           MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
-    MO(LAYER_MOUSE), KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), OSM(MOD_LSFT),                                              OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+    CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
+                                                    OSL(LAYER_SYMBOLS), MO(LAYER_MOUSE),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   // Layer 2: LAYER_SYMBOLS - Unified symbols layer (consolidates old layers 1 and 6)
@@ -95,13 +95,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   // Layer 6: LAYER_MOUSE - Mouse control layer (cursor movement, buttons, scroll)
-  // Left side: Speed controls, mouse buttons, and keyboard shortcuts for mouse interactions
-  // Right side: Cursor movement, scroll wheel
+  // Left side: Mouse buttons on home row (A/E/I positions), speed controls, shortcuts
+  // Right side: Cursor movement with scroll wheel below
   [LAYER_MOUSE] = LAYOUT_voyager(
-    KC_ACL0,        KC_ACL1,        KC_ACL2,        KC_ESCAPE,      KC_TAB,         KC_ENTER,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_LEFT_SHIFT,  OS_COPY,        OS_PASTE,       OS_CUT,         OS_UNDO,        KC_BSPC,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_U,        KC_WH_U,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_LEFT_CTRL,   KC_BTN3,        KC_BTN1,        KC_BTN2,        OS_REDO,        KC_DELETE,                                      KC_TRANSPARENT, KC_MS_L,        KC_MS_D,        KC_MS_R,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_LEFT_ALT,    OS_SELECTALL,   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_WH_D,        KC_WH_L,        KC_WH_R,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TAB,         OS_CUT,         OS_PASTE,       OS_COPY,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_U,        KC_WH_U,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_LEFT_SHIFT,  KC_BTN3,        KC_BTN2,        KC_BTN1,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_MS_L,        KC_MS_D,        KC_MS_R,        KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_LEFT_CTRL,   KC_ACL2,        KC_ACL0,        KC_ACL1,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_WH_L,        KC_WH_R,        KC_WH_D,        KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
 };
