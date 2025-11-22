@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT,OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_F11,         KC_ESCAPE,      DE_SS,          DE_EURO,        MT(MOD_LSFT, DE_AE), DE_OE,                                     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
+                                                    KC_TRANSPARENT, OSM(MOD_LSFT),                                                  KC_TRANSPARENT, KC_TRANSPARENT
   ),
 
   // Layer 4: LAYER_NUMBERS - Unified numpad layer (consolidates old layers 3 and 7)
