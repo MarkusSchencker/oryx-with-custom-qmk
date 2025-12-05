@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
     CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSM(MOD_LSFT)),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSM(MOD_RSFT)),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   // Layer 1: LAYER_WIN_BASE - Windows base layer with Ctrl/Win-optimized home row mods
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
     CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSM(MOD_LSFT)),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSM(MOD_RSFT)),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   // Layer 2: LAYER_SYMBOLS - Unified symbols layer (consolidates old layers 1 and 6)
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT,OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_F11,         KC_ESCAPE,      DE_SS,          DE_EURO,        MT(MOD_LSFT, DE_AE), DE_OE,                                     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, OSM(MOD_LSFT),                                                  KC_TRANSPARENT, KC_TRANSPARENT
+                                                    KC_TRANSPARENT, OSM(MOD_RSFT),                                                  KC_TRANSPARENT, KC_TRANSPARENT
   ),
 
   // Layer 4: LAYER_NUMBERS - Unified numpad layer (consolidates old layers 3 and 7)
@@ -116,10 +116,10 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 };
 
 
-const uint16_t PROGMEM combo0[] = { OSM(MOD_LSFT), KC_DOT, COMBO_END};
-const uint16_t PROGMEM combo1[] = { OSM(MOD_LSFT), DE_QUOT, COMBO_END};
-const uint16_t PROGMEM combo2[] = { OSM(MOD_LSFT), KC_DOT, COMBO_END};
-const uint16_t PROGMEM combo3[] = { OSM(MOD_LSFT), DE_QUOT, COMBO_END};
+const uint16_t PROGMEM combo0[] = { OSM(MOD_RSFT), KC_DOT, COMBO_END};
+const uint16_t PROGMEM combo1[] = { OSM(MOD_RSFT), DE_QUOT, COMBO_END};
+const uint16_t PROGMEM combo2[] = { OSM(MOD_RSFT), KC_DOT, COMBO_END};
+const uint16_t PROGMEM combo3[] = { OSM(MOD_RSFT), DE_QUOT, COMBO_END};
 /*
 const uint16_t PROGMEM combo0[] = { OSL(1), OSL(2), COMBO_END};
 const uint16_t PROGMEM combo1[] = { OSL(6), OSL(5), COMBO_END};
@@ -270,8 +270,9 @@ static achordion_state_t achordion_state = {KC_NO, 0, 0};
 
 // Helper: Determine if a key position is on the left half of split keyboard
 bool is_left_hand(uint8_t row, uint8_t col) {
-    // Voyager matrix: columns 0-5 are left hand, 6-11 are right hand
-    return col < 6;
+  (void)col;  // Column value is not needed for hand detection on Voyager
+  // Voyager matrix assigns rows 0-3 to the left half and 4-7 to the right half
+  return row < (MATRIX_ROWS / 2);
 }
 
 // Helper: Check if keycode is a home row mod-tap key
