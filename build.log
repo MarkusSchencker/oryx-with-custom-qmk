@@ -1,0 +1,31 @@
+Making [1mzsa/voyager[0m with keymap [1mvrMEr[0m
+
+Generating: .build/obj_zsa_voyager_vrMEr/src/info_deps.d                                            [32;01m[OK][0m
+arm-none-eabi-gcc (15:14.2.rel1-1) 14.2.1 20241119
+Copyright (C) 2024 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Generating: .build/obj_zsa_voyager_vrMEr/src/community_modules.h                                    [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/community_modules.c                                    [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/community_modules_introspection.c                      [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/community_modules_introspection.h                      [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/led_matrix_community_modules.inc                       [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/rgb_matrix_community_modules.inc                       [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/info_config.h                                          [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/default_keyboard.c                                     [32;01m[OK][0m
+Generating: .build/obj_zsa_voyager_vrMEr/src/default_keyboard.h                                     [32;01m[OK][0m
+Compiling: keyboards/zsa/voyager/matrix.c                                                          In file included from quantum/quantum.h:36,
+                 from keyboards/zsa/voyager/voyager.h:8,
+                 from keyboards/zsa/voyager/matrix.c:5:
+quantum/rgb_matrix/rgb_matrix.h:135:18: fatal error: rgb_matrix_kb.inc: No such file or directory
+  135 | #        include "rgb_matrix_kb.inc"
+      |                  ^~~~~~~~~~~~~~~~~~~
+compilation terminated.
+ [31;01m[ERRORS][0m
+ | 
+ | 
+ | 
+make[1]: *** [builddefs/common_rules.mk:362: .build/obj_zsa_voyager_vrMEr/matrix.o] Error 1
+[31;01mMake finished with errors
+[0mmake: *** [Makefile:428: zsa/voyager:vrMEr] Error 1
