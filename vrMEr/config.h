@@ -3,12 +3,6 @@
 #define SERIAL_NUMBER "vrMEr/zLXyzm"
 #define LAYER_STATE_8BIT
 
-// Layer optimization timing configuration
-// Based on proven values from JRaem (001-minimize-layers)
-#define TAPPING_TERM 200           // 200ms tap window for home row mods and layer taps
-#define ONESHOT_TIMEOUT 5000       // 5000ms timeout for one-shot modifiers (OSM)
-#define PERMISSIVE_HOLD            // Enables faster modifier activation during rapid typing
-
 #define RGB_MATRIX_STARTUP_SPD 60
 
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
@@ -42,7 +36,3 @@
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
 #undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
 #undef ENABLE_RGB_MATRIX_MULTISPLASH
-
-#define LEADER_PER_KEY_TIMING
-#define LEADER_TIMEOUT 250
-#define LEADER_NO_TIMEOUT
