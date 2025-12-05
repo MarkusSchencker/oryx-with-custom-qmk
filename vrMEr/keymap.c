@@ -2,143 +2,99 @@
 #include "version.h"
 #include "i18n.h"
 #define MOON_LED_LEVEL LED_LEVEL
-#define ML_SAFE_RANGE SAFE_RANGE
-
-// Layer definitions for 7-layer architecture
-enum layer_names {
-  LAYER_MAC_BASE = 0,    // macOS base layer with Cmd-optimized home row mods
-  LAYER_WIN_BASE = 1,    // Windows base layer with Ctrl/Win-optimized home row mods
-  LAYER_SYMBOLS = 2,     // Unified symbols layer (consolidates old layers 1 and 6)
-  LAYER_FUNCTION = 3,    // Function/navigation layer (consolidates old layers 2, 5, 8)
-  LAYER_NUMBERS = 4,     // Numbers/numpad layer (consolidates old layers 3 and 7)
-  LAYER_CONFIG = 5,      // Configuration layer (RGB, layer switching, bootloader)
-  LAYER_MOUSE = 6,       // Mouse control layer (cursor movement, buttons, scroll)
-};
+#ifndef ZSA_SAFE_RANGE
+#define ZSA_SAFE_RANGE SAFE_RANGE
+#endif
 
 enum custom_keycodes {
-  RGB_SLD = ML_SAFE_RANGE,
+  RGB_SLD = ZSA_SAFE_RANGE,
   HSV_0_255_255,
   HSV_74_255_255,
   HSV_169_255_255,
-  // OS-aware clipboard operations (auto-detect macOS vs Windows base layer)
-  OS_UNDO,    // Cmd+Z on macOS, Ctrl+Z on Windows
-  OS_COPY,    // Cmd+C on macOS, Ctrl+C on Windows
-  OS_PASTE,   // Cmd+V on macOS, Ctrl+V on Windows
-  OS_CUT,     // Cmd+X on macOS, Ctrl+X on Windows
-  OS_REDO,    // Cmd+Shift+Z on macOS, Ctrl+Y on Windows
-  OS_SELECTALL, // Cmd+A on macOS, Ctrl+A on Windows
-  // OS-aware navigation keys (macOS uses Cmd/Option, Windows uses Ctrl)
-  OS_HOME,      // Cmd+Left on macOS, Home on Windows
-  OS_END,       // Cmd+Right on macOS, End on Windows
-  OS_PGUP,      // PageUp on both (works natively)
-  OS_PGDN,      // PageDown on both (works natively)
-  OS_PREVWORD,  // Option+Left on macOS, Ctrl+Left on Windows
-  OS_NEXTWORD,  // Option+Right on macOS, Ctrl+Right on Windows
-  // OS mode switchers (set default layer properly)
-  SW_MAC,       // Switch to macOS base layer
-  SW_WIN,       // Switch to Windows base layer
 };
+
+
+
+#define DUAL_FUNC_0 LT(3, KC_Z)
+#define DUAL_FUNC_1 LT(1, KC_F16)
+#define DUAL_FUNC_2 LT(4, KC_T)
+#define DUAL_FUNC_3 LT(14, KC_S)
+#define DUAL_FUNC_4 LT(3, KC_T)
+#define DUAL_FUNC_5 LT(12, KC_F8)
+#define DUAL_FUNC_6 LT(14, KC_F23)
+#define DUAL_FUNC_7 LT(5, KC_K)
+#define DUAL_FUNC_8 LT(11, KC_F20)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // Layer 0: LAYER_MAC_BASE - macOS base layer with Cmd-optimized home row mods
-  [LAYER_MAC_BASE] = LAYOUT_voyager(
-    LGUI(DE_MINS),  LGUI(KC_0),     LGUI(DE_PLUS),  KC_LEFT_GUI,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
-    KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSM(MOD_RSFT)),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+  [0] = LAYOUT_voyager(
+    LGUI(DE_MINS),  KC_P,           KC_U,           KC_ESCAPE,      DE_MINS,        KC_Q,                                           KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(5),          
+    KC_TRANSPARENT, MT(MOD_LCTL, KC_H),LGUI(KC_0),     MT(MOD_LALT, KC_I),MT(MOD_LGUI, KC_E),KC_A,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT, 
+    CW_TOGG,        KC_O,           KC_K,           DE_Y,           KC_TRANSPARENT, LGUI(DE_PLUS),                                  KC_D,           KC_T,           MT(MOD_RGUI, KC_R),MT(MOD_LALT, KC_N),MT(MOD_RCTL, KC_S),KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_LEFT_GUI,    KC_TRANSPARENT, KC_DOT,         DE_QUOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT, 
+                                                    OSL(2),         OSL(6),                                         OSL(3),         LT(4, KC_SPACE)
   ),
-
-  // Layer 1: LAYER_WIN_BASE - Windows base layer with Ctrl/Win-optimized home row mods
-  [LAYER_WIN_BASE] = LAYOUT_voyager(
-    LCTL(DE_MINS),  LCTL(KC_0),     LCTL(DE_PLUS),  KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(LAYER_CONFIG),
-    KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSM(MOD_RSFT)),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+  [1] = LAYOUT_voyager(
+    DUAL_FUNC_0,    KC_TRANSPARENT, KC_TRANSPARENT, KC_LEFT_ALT,    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LSFT(KC_TAB),   KC_TRANSPARENT, KC_TAB,         KC_TRANSPARENT, TO(5),          
+    CW_TOGG,        KC_P,           KC_U,           KC_ESCAPE,      DE_MINS,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT, 
+    CW_TOGG,        MT(MOD_LGUI, KC_H),MT(MOD_LALT, KC_I),MT(MOD_LCTL, KC_E),KC_A,           KC_O,                                           KC_D,           KC_T,           MT(MOD_RCTL, KC_R),MT(MOD_LALT, KC_N),MT(MOD_RGUI, KC_S),LALT(KC_TAB),   
+    KC_TRANSPARENT, KC_K,           DE_Y,           KC_DOT,         DE_QUOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           LALT(LSFT(KC_TAB)),
+                                                    OSL(2),         OSL(6),                                         OSL(3),         LT(4, KC_SPACE)
   ),
-
-  // Layer 2: LAYER_SYMBOLS - Unified symbols layer (consolidates old layers 1 and 6)
-  [LAYER_SYMBOLS] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_SECT,        DE_AMPR,        DE_LBRC,        DE_RBRC,        DE_CIRC,                                        DE_EXLM,        DE_LABK,        DE_RABK,        DE_EQL,         DE_TILD,        KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_AT,          DE_SLSH,        DE_LCBR,        DE_RCBR,        DE_ASTR,                                        DE_QUES,        DE_LPRN,        DE_RPRN,        DE_MINS,        DE_COLN,        KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_UNDS,        DE_BSLS,        DE_PIPE,        DE_DQOT,        DE_GRV,                                         DE_PLUS,        DE_PERC,        DE_DLR,         DE_HASH,        DE_SCLN,        KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_BSPC,        KC_DEL
+  [2] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, DE_SECT,        DE_AMPR,        DE_LBRC,        DE_RBRC,        DE_CIRC,                                        DE_EXLM,        DE_LABK,        DE_RABK,        DE_EQL,         DE_TILD,        KC_TRANSPARENT, 
+    KC_TRANSPARENT, DUAL_FUNC_1,    DUAL_FUNC_2,    DUAL_FUNC_3,    DE_RCBR,        DE_ASTR,                                        DE_QUES,        DE_LPRN,        DUAL_FUNC_4,    MT(MOD_LALT, DE_MINS),DUAL_FUNC_5,    KC_TRANSPARENT, 
+    KC_TRANSPARENT, DE_UNDS,        DE_BSLS,        DE_PIPE,        KC_TRANSPARENT, DE_GRV,                                         DE_PLUS,        DE_PERC,        DE_DLR,         DE_HASH,        DE_SCLN,        KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 DUAL_FUNC_6,    DUAL_FUNC_7
   ),
-
-  // Layer 3: LAYER_FUNCTION - Unified function/navigation layer (consolidates old layers 2, 5, 8)
-  [LAYER_FUNCTION] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_TRANSPARENT,
-    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT,OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_F11,         KC_ESCAPE,      DE_SS,          DE_EURO,        MT(MOD_LSFT, DE_AE), DE_OE,                                     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, OSM(MOD_RSFT),                                                  KC_TRANSPARENT, KC_TRANSPARENT
+  [3] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,                                          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_F12,         KC_TAB,         DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 LALT(KC_LEFT),  LGUI(KC_UP),    KC_TRANSPARENT, LALT(KC_RIGHT), KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_F11,         MT(MOD_LCTL, KC_ESCAPE),MT(MOD_LALT, DE_SS),DUAL_FUNC_8,    DE_AE,          DE_OE,                                          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_F10,         KC_ENTER,       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, LGUI(KC_DOWN),  LGUI(KC_LEFT),  LGUI(KC_RIGHT), KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, OSM(MOD_LSFT),                                  KC_TRANSPARENT, KC_TRANSPARENT
   ),
-
-  // Layer 4: LAYER_NUMBERS - Unified numpad layer (consolidates old layers 3 and 7)
-  [LAYER_NUMBERS] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_PSCR,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_MINS,        KC_7,           KC_8,           KC_9,           DE_ASTR,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_COLN,        KC_1,           KC_2,           KC_3,           KC_0,                                           OS_UNDO,        OS_COPY,        OS_PASTE,       OS_CUT,         KC_TRANSPARENT, KC_APPLICATION,
-    KC_TRANSPARENT, DE_PLUS,        KC_4,           KC_5,           KC_6,           DE_SLSH,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_COMMA,       KC_DOT,                                                         KC_TRANSPARENT, KC_TRANSPARENT
+  [4] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, DE_MINS,        KC_7,           KC_8,           KC_9,           DE_ASTR,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_PSCR,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, DE_COLN,        KC_1,           KC_2,           KC_3,           KC_0,                                           KC_MAC_UNDO,    KC_MAC_COPY,    KC_MAC_PASTE,   KC_MAC_CUT,     KC_TRANSPARENT, KC_APPLICATION, 
+    KC_TRANSPARENT, DE_PLUS,        KC_4,           KC_5,           KC_6,           DE_SLSH,                                        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_COMMA,       KC_DOT,                                         KC_TRANSPARENT, KC_TRANSPARENT
   ),
-
-  // Layer 5: LAYER_CONFIG - Configuration layer (RGB, layer switching, bootloader)
-  [LAYER_CONFIG] = LAYOUT_voyager(
-    RGB_TOG,        TOGGLE_LAYER_COLOR, RGB_MODE_FORWARD, RGB_SLD,    RGB_VAD,        RGB_VAI,                                        SW_WIN,         KC_TRANSPARENT, SW_MAC,         KC_TRANSPARENT, QK_BOOT,        KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        RGB_SPD,        RGB_SPI,                                        KC_PAGE_UP,     KC_HOME,        KC_UP,          KC_END,         KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, RGB_HUD,    RGB_HUI,                                 KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, HSV_0_255_255,  HSV_74_255_255, HSV_169_255_255,                                KC_TRANSPARENT, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
+  [5] = LAYOUT_voyager(
+    RGB_TOG,        TOGGLE_LAYER_COLOR,RGB_MODE_FORWARD,RGB_SLD,        RGB_VAD,        RGB_VAI,                                        TO(1),          KC_TRANSPARENT, TO(0),          KC_TRANSPARENT, QK_BOOT,        KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        RGB_SPD,        RGB_SPI,                                        KC_PAGE_UP,     KC_HOME,        KC_UP,          KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  RGB_HUD,        RGB_HUI,                                        KC_PGDN,        KC_LEFT,        KC_DOWN,        KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, HSV_0_255_255,  HSV_74_255_255, HSV_169_255_255,                                KC_TRANSPARENT, LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
-
-  // Layer 6: LAYER_MOUSE - Mouse control layer (cursor movement, buttons, scroll)
-  // Left side: Mouse buttons on home row (A/E/I positions), speed controls, shortcuts
-  // Right side: Cursor movement with scroll wheel below
-  [LAYER_MOUSE] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TAB,         OS_CUT,         OS_PASTE,       OS_COPY,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_MS_U,        KC_WH_U,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_LEFT_SHIFT,  KC_BTN3,        KC_BTN2,        KC_BTN1,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_MS_L,        KC_MS_D,        KC_MS_R,        KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_LEFT_CTRL,   KC_ACL2,        KC_ACL0,        KC_ACL1,        KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_WH_L,        KC_WH_R,        KC_WH_D,        KC_TRANSPARENT, KC_TRANSPARENT,
-                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_TRANSPARENT
+  [6] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+                                                    KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT
   ),
 };
 
-const key_override_t dot_comma_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COMM);
-const key_override_t quote_doublequote_override = ko_make_basic(MOD_MASK_SHIFT, DE_DQOT, DE_QUOT);
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &dot_comma_override,
-    &quote_doublequote_override,
-    NULL
-};
 
 
-const uint16_t PROGMEM combo0[] = { OSM(MOD_RSFT), KC_DOT, COMBO_END};
-const uint16_t PROGMEM combo1[] = { OSM(MOD_RSFT), DE_QUOT, COMBO_END};
-const uint16_t PROGMEM combo2[] = { OSM(MOD_RSFT), KC_DOT, COMBO_END};
-const uint16_t PROGMEM combo3[] = { OSM(MOD_RSFT), DE_QUOT, COMBO_END};
-/*
-const uint16_t PROGMEM combo0[] = { OSL(1), OSL(2), COMBO_END};
-const uint16_t PROGMEM combo1[] = { OSL(6), OSL(5), COMBO_END};
-*/
-combo_t key_combos[COMBO_COUNT] = {
-    COMBO(combo0, KC_COMMA),
-    COMBO(combo1, DE_DQOT),
-    COMBO(combo2, KC_COMMA),
-    COMBO(combo3, DE_DQOT),
-};
+
 
 extern rgb_config_t rgb_matrix_config;
+
+RGB hsv_to_rgb_with_value(HSV hsv) {
+  RGB rgb = hsv_to_rgb( hsv );
+  float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+  return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
+}
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
 
 const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    [0] = { {139,78,233}, {139,149,221}, {139,210,188}, {68,239,219}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {68,239,219}, {0,0,0}, {68,239,219}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+    [0] = { {139,78,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {139,149,221}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {139,210,188}, {0,0,0}, {68,239,219}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {68,239,219}, {0,0,0}, {68,239,219}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
     [1] = { {0,0,0}, {0,0,0}, {0,0,0}, {139,237,161}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {139,237,161}, {0,0,0}, {139,237,161}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
@@ -156,9 +112,8 @@ void set_layer_color(int layer) {
     if (!hsv.h && !hsv.s && !hsv.v) {
         rgb_matrix_set_color( i, 0, 0, 0 );
     } else {
-        RGB rgb = hsv_to_rgb( hsv );
-        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+        RGB rgb = hsv_to_rgb_with_value(hsv);
+        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
   }
 }
@@ -167,168 +122,173 @@ bool rgb_matrix_indicators_user(void) {
   if (rawhid_state.rgb_control) {
       return false;
   }
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
-    case LAYER_MAC_BASE:  // Layer 0: Blue
-      set_layer_color(0);
-      break;
-    case LAYER_WIN_BASE:  // Layer 1: Cyan
-      set_layer_color(1);
-      break;
-    case LAYER_CONFIG:    // Layer 5: Red
-      set_layer_color(5);
-      break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+  if (!keyboard_config.disable_layer_led) { 
+    switch (biton32(layer_state)) {
+      case 0:
+        set_layer_color(0);
+        break;
+      case 1:
+        set_layer_color(1);
+        break;
+      case 5:
+        set_layer_color(5);
+        break;
+     default:
+        if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
+          rgb_matrix_set_color_all(0, 0, 0);
+        }
+    }
+  } else {
+    if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
       rgb_matrix_set_color_all(0, 0, 0);
-    break;
+    }
   }
+
   return true;
 }
 
-void leader_start_user(void) {
-    // Do something when the leader key is pressed
-}
 
-void leader_end_user(void) {
-  /*
-  if (leader_sequence_one_key(KC_F)) {
-        // Leader, f => Types the below string
-        SEND_STRING("QMK is awesome.");
-    }
-  */
- if (leader_sequence_two_keys(LSFT(KC_2), KC_A)) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-            tap_code16(DE_AE | S(KC_NO)); // Ä
-        } else {
-            tap_code16(DE_AE); // ä
-        }
-    } else if (leader_sequence_two_keys(LSFT(KC_2), KC_O)) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-            tap_code16(DE_OE | S(KC_NO)); // Ö
-        } else {
-            tap_code16(DE_OE); // ö
-        }
-    } else if (leader_sequence_two_keys(LSFT(KC_2), KC_U)) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-            tap_code16(DE_UE | S(KC_NO)); // Ü
-        } else {
-            tap_code16(DE_UE); // ü
-        }
-    } else if (leader_sequence_one_key(KC_S)) {
-        tap_code16(DE_SS); // ß
-   } else if (leader_sequence_one_key(KC_A)) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-            tap_code16(DE_AE | S(KC_NO)); // Ä
-        } else {
-            tap_code16(DE_AE); // ä
-        }
-   } else if (leader_sequence_one_key(KC_U)) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-            tap_code16(DE_UE | S(KC_NO)); // Ü
-        } else {
-            tap_code16(DE_UE); // ü
-        }
-   } else if (leader_sequence_one_key(KC_O)) {
-        if (get_mods() & MOD_MASK_SHIFT) {
-            tap_code16(DE_OE | S(KC_NO)); // Ö
-        } else {
-            tap_code16(DE_OE); // ö
-        }
-   } else if (leader_sequence_two_keys(KC_S, KC_S)) {
-      tap_code16(DE_SS); // ß
-    } else if (leader_sequence_two_keys(KC_C, KC_E)) {
-      tap_code16(DE_EURO); // €
-    }
 
-    /*
-    else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
-        // Leader, d, d, s => Types the below string
-        SEND_STRING("https://start.duckduckgo.com\n");
-    }
-    */
-}
 
-// Helper function to detect if currently on macOS base layer
-// Returns true if default layer is LAYER_MAC_BASE (layer 0), false otherwise
-// Uses default_layer_state instead of layer_state to check the base layer,
-// not temporary layers activated via OSL/LT
-bool is_macos_base(void) {
-    return get_highest_layer(default_layer_state) == LAYER_MAC_BASE;
-}
-
-// Bilateral Combinations (Achordion) - Only activate home row mods when opposite hand is used
-// This prevents accidental modifiers during same-hand rolls (e.g., "he", "io", "as")
-// Voyager split keyboard: Left half = columns 0-5, Right half = columns 6-11
-typedef struct {
-    uint16_t keycode;  // The mod-tap keycode that was pressed
-    uint8_t row;       // Row of the mod-tap key
-    uint8_t col;       // Column of the mod-tap key
-} achordion_state_t;
-
-static achordion_state_t achordion_state = {KC_NO, 0, 0};
-
-// Helper: Determine if a key position is on the left half of split keyboard
-bool is_left_hand(uint8_t row, uint8_t col) {
-  (void)col;  // Column value is not needed for hand detection on Voyager
-  // Voyager matrix assigns rows 0-3 to the left half and 4-7 to the right half
-  return row < (MATRIX_ROWS / 2);
-}
-
-// Helper: Check if keycode is a home row mod-tap key
-bool is_home_row_mod(uint16_t keycode) {
-    switch (keycode) {
-        // Left home row mods: H, I, E, A
-        case MT(MOD_LCTL, KC_H):
-        case MT(MOD_LALT, KC_I):
-        case MT(MOD_LGUI, KC_E):
-        case MT(MOD_LSFT, KC_A):
-        // Right home row mods: T, R, N, S
-        case MT(MOD_LSFT, KC_T):
-        case MT(MOD_LGUI, KC_R):
-        case MT(MOD_LALT, KC_N):
-        case MT(MOD_LCTL, KC_S):
-        // Windows layer variants (same physical keys, different modifiers)
-        case MT(MOD_LGUI, KC_H):  // H on Windows layer
-        case MT(MOD_LCTL, KC_R):  // R on Windows layer
-        case MT(MOD_LGUI, KC_S):  // S on Windows layer
-            return true;
-        default:
-            return false;
-    }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Bilateral combinations (achordion) logic - MUST be before switch statement
-  // Only activate home row mods when used with opposite hand
-  if (is_home_row_mod(keycode)) {
-    if (record->event.pressed) {
-      // Store which hand pressed the mod-tap key
-      achordion_state.keycode = keycode;
-      achordion_state.row = record->event.key.row;
-      achordion_state.col = record->event.key.col;
-    } else {
-      // Clear state when mod-tap key is released
-      if (achordion_state.keycode == keycode) {
-        achordion_state.keycode = KC_NO;
-      }
-    }
-  } else if (achordion_state.keycode != KC_NO && record->event.pressed) {
-    // Another key was pressed while a home row mod is held
-    // Check if they're on different hands
-    bool mod_on_left = is_left_hand(achordion_state.row, achordion_state.col);
-    bool key_on_left = is_left_hand(record->event.key.row, record->event.key.col);
-    
-    if (mod_on_left == key_on_left) {
-      // Same hand - force tap behavior by clearing the mod-tap state
-      // This prevents "he" from becoming "Ctrl+e", etc.
-      achordion_state.keycode = KC_NO;
-    }
-    // If different hands, let the normal mod-tap logic handle it (modifier will activate)
-  }
-
   switch (keycode) {
 
+    case DUAL_FUNC_0:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(KC_EQUAL);
+        } else {
+          unregister_code16(KC_EQUAL);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(KC_ESCAPE);
+        } else {
+          unregister_code16(KC_ESCAPE);
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_1:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(DE_AT);
+        } else {
+          unregister_code16(DE_AT);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(KC_LEFT_CTRL);
+        } else {
+          unregister_code16(KC_LEFT_CTRL);
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_2:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(DE_SLSH);
+        } else {
+          unregister_code16(DE_SLSH);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(KC_LEFT_ALT);
+        } else {
+          unregister_code16(KC_LEFT_ALT);
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_3:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(DE_LCBR);
+        } else {
+          unregister_code16(DE_LCBR);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(KC_LEFT_GUI);
+        } else {
+          unregister_code16(KC_LEFT_GUI);
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_4:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(DE_RPRN);
+        } else {
+          unregister_code16(DE_RPRN);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(KC_RIGHT_GUI);
+        } else {
+          unregister_code16(KC_RIGHT_GUI);
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_5:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(DE_COLN);
+        } else {
+          unregister_code16(DE_COLN);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(KC_RIGHT_CTRL);
+        } else {
+          unregister_code16(KC_RIGHT_CTRL);
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_6:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(KC_BSPC);
+        } else {
+          unregister_code16(KC_BSPC);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(LCTL(KC_BSPC));
+        } else {
+          unregister_code16(LCTL(KC_BSPC));
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_7:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(KC_DELETE);
+        } else {
+          unregister_code16(KC_DELETE);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(LCTL(KC_DELETE));
+        } else {
+          unregister_code16(LCTL(KC_DELETE));
+        }  
+      }  
+      return false;
+    case DUAL_FUNC_8:
+      if (record->tap.count > 0) {
+        if (record->event.pressed) {
+          register_code16(DE_EURO);
+        } else {
+          unregister_code16(DE_EURO);
+        }
+      } else {
+        if (record->event.pressed) {
+          register_code16(KC_LEFT_GUI);
+        } else {
+          unregister_code16(KC_LEFT_GUI);
+        }  
+      }  
+      return false;
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
@@ -350,124 +310,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         rgblight_mode(1);
         rgblight_sethsv(169,255,255);
-      }
-      return false;
-
-    // OS-aware clipboard operations
-    case OS_UNDO:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(KC_Z));  // Cmd+Z on macOS
-        } else {
-          tap_code16(LCTL(KC_Z));  // Ctrl+Z on Windows
-        }
-      }
-      return false;
-    case OS_COPY:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(KC_C));  // Cmd+C on macOS
-        } else {
-          tap_code16(LCTL(KC_C));  // Ctrl+C on Windows
-        }
-      }
-      return false;
-    case OS_PASTE:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(KC_V));  // Cmd+V on macOS
-        } else {
-          tap_code16(LCTL(KC_V));  // Ctrl+V on Windows
-        }
-      }
-      return false;
-    case OS_CUT:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(KC_X));  // Cmd+X on macOS
-        } else {
-          tap_code16(LCTL(KC_X));  // Ctrl+X on Windows
-        }
-      }
-      return false;
-    case OS_REDO:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(LSFT(KC_Z)));  // Cmd+Shift+Z on macOS
-        } else {
-          tap_code16(LCTL(KC_Y));  // Ctrl+Y on Windows
-        }
-      }
-      return false;
-    case OS_SELECTALL:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(KC_A));  // Cmd+A on macOS
-        } else {
-          tap_code16(LCTL(KC_A));  // Ctrl+A on Windows
-        }
-      }
-      return false;
-
-    // OS-aware navigation keys
-    case OS_HOME:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(KC_LEFT));  // Cmd+Left on macOS
-        } else {
-          tap_code16(KC_HOME);  // Home on Windows
-        }
-      }
-      return false;
-    case OS_END:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LGUI(KC_RIGHT));  // Cmd+Right on macOS
-        } else {
-          tap_code16(KC_END);  // End on Windows
-        }
-      }
-      return false;
-    case OS_PGUP:
-      if (record->event.pressed) {
-        tap_code16(KC_PGUP);  // PageUp works the same on both
-      }
-      return false;
-    case OS_PGDN:
-      if (record->event.pressed) {
-        tap_code16(KC_PGDN);  // PageDown works the same on both
-      }
-      return false;
-    case OS_PREVWORD:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LALT(KC_LEFT));  // Option+Left on macOS
-        } else {
-          tap_code16(LCTL(KC_LEFT));  // Ctrl+Left on Windows
-        }
-      }
-      return false;
-    case OS_NEXTWORD:
-      if (record->event.pressed) {
-        if (is_macos_base()) {
-          tap_code16(LALT(KC_RIGHT));  // Option+Right on macOS
-        } else {
-          tap_code16(LCTL(KC_RIGHT));  // Ctrl+Right on Windows
-        }
-      }
-      return false;
-
-    // OS mode switchers - set default layer properly
-    case SW_MAC:
-      if (record->event.pressed) {
-        default_layer_set(1UL << LAYER_MAC_BASE);  // Set macOS as default layer
-        layer_move(LAYER_MAC_BASE);                 // Switch to macOS layer
-      }
-      return false;
-    case SW_WIN:
-      if (record->event.pressed) {
-        default_layer_set(1UL << LAYER_WIN_BASE);  // Set Windows as default layer
-        layer_move(LAYER_WIN_BASE);                 // Switch to Windows layer
       }
       return false;
   }
