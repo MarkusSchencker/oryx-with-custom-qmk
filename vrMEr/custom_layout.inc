@@ -27,7 +27,6 @@ enum vrmer_custom_keycodes {
   OS_NEXTWORD,
   SW_MAC,
   SW_WIN,
-  OSFT,  // Custom one-shot shift for layer-tap compatibility
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -36,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
     CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSFT),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, KC_RSFT),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   [LAYER_WIN_BASE] = LAYOUT_voyager(
@@ -44,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
     CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, OSFT),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, KC_RSFT),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   [LAYER_SYMBOLS] = LAYOUT_voyager(
@@ -97,10 +96,10 @@ const key_override_t *key_overrides[] = {
     NULL
 };
 
-const uint16_t PROGMEM combo0[] = { LT(LAYER_MOUSE, OSFT), KC_DOT, COMBO_END };
-const uint16_t PROGMEM combo1[] = { LT(LAYER_MOUSE, OSFT), DE_QUOT, COMBO_END };
-const uint16_t PROGMEM combo2[] = { LT(LAYER_MOUSE, OSFT), KC_DOT, COMBO_END };
-const uint16_t PROGMEM combo3[] = { LT(LAYER_MOUSE, OSFT), DE_QUOT, COMBO_END };
+const uint16_t PROGMEM combo0[] = { LT(LAYER_MOUSE, KC_RSFT), KC_DOT, COMBO_END };
+const uint16_t PROGMEM combo1[] = { LT(LAYER_MOUSE, KC_RSFT), DE_QUOT, COMBO_END };
+const uint16_t PROGMEM combo2[] = { LT(LAYER_MOUSE, KC_RSFT), KC_DOT, COMBO_END };
+const uint16_t PROGMEM combo3[] = { LT(LAYER_MOUSE, KC_RSFT), DE_QUOT, COMBO_END };
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_COMMA),
@@ -226,12 +225,6 @@ typedef struct {
 
 static achordion_state_t achordion_state = {KC_NO, 0, 0};
 
-// One-shot shift state for layer-tap
-static bool osft_active = false;
-static uint16_t osft_timer = 0;
-static bool osft_released = false;
-static uint16_t osft_release_timer = 0;
-
 bool is_left_hand(uint8_t row, uint8_t col) {
     (void)col;
     return row < (MATRIX_ROWS / 2);
@@ -257,16 +250,6 @@ bool is_home_row_mod(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // If another key is pressed while OSFT is active or shortly after release, cancel one-shot shift
-  if (keycode != OSFT && record->event.pressed) {
-    if (osft_active) {
-      osft_active = false;
-    }
-    if (osft_released && timer_elapsed(osft_release_timer) < 50) {
-      osft_released = false;
-    }
-  }
-
   if (is_home_row_mod(keycode)) {
     if (record->event.pressed) {
       achordion_state.keycode = keycode;
@@ -369,20 +352,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(is_macos_base() ? LALT(KC_RIGHT) : LCTL(KC_RIGHT));
       }
       return false;
-    case OSFT:
-      if (record->event.pressed) {
-        osft_active = true;
-        osft_released = false;
-        osft_timer = timer_read();
-      } else {
-        // On release, mark as released and start grace period timer
-        if (osft_active && timer_elapsed(osft_timer) < TAPPING_TERM) {
-          osft_released = true;
-          osft_release_timer = timer_read();
-        }
-        osft_active = false;
-      }
-      return false;
     case SW_MAC:
       if (record->event.pressed) {
         default_layer_set(1UL << LAYER_MAC_BASE);
@@ -397,12 +366,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
-}
-
-void matrix_scan_user(void) {
-  // Check if OSFT grace period has elapsed without any key press
-  if (osft_released && timer_elapsed(osft_release_timer) >= 50) {
-    set_oneshot_mods(MOD_BIT(KC_RSFT));
-    osft_released = false;
-  }
 }
