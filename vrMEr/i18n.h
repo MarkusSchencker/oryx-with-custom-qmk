@@ -1,6 +1,7 @@
+#define DE_DQOT S(KC_2)
 #define DE_MINS KC_SLSH
-#define DE_Y KC_Z
 #define DE_PLUS KC_RBRC
+#define DE_Y KC_Z
 #define DE_QUOT S(KC_NUHS)
 #define DE_Z KC_Y
 #define DE_3 KC_3
@@ -40,3 +41,7 @@
 #define KC_MAC_COPY LGUI(KC_C)
 #define KC_MAC_PASTE LGUI(KC_V)
 #define KC_MAC_CUT LGUI(KC_X)
+#define KC_PC_UNDO LCTL(KC_Z)
+#define KC_PC_COPY LCTL(KC_C)
+#define KC_PC_PASTE LCTL(KC_V)
+#define KC_PC_CUT LCTL(KC_X)
