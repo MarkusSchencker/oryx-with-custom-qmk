@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
     CW_TOGG,        MT(MOD_LCTL, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, KC_RSFT),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+                                                    OSL(LAYER_SYMBOLS), OSL(LAYER_MOUSE),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   [LAYER_WIN_BASE] = LAYOUT_voyager(
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_P,           KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_F,           KC_TRANSPARENT,
     CW_TOGG,        MT(MOD_LGUI, KC_H), MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                         KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
     KC_TRANSPARENT, KC_K,          DE_Y,           KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           DE_Z,           KC_TRANSPARENT,
-                                                    OSL(LAYER_SYMBOLS), LT(LAYER_MOUSE, KC_RSFT),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
+                                                    OSL(LAYER_SYMBOLS), OSL(LAYER_MOUSE),                                            OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE)
   ),
 
   [LAYER_SYMBOLS] = LAYOUT_voyager(
@@ -96,10 +96,10 @@ const key_override_t *key_overrides[] = {
     NULL
 };
 
-const uint16_t PROGMEM combo0[] = { LT(LAYER_MOUSE, KC_RSFT), KC_DOT, COMBO_END };
-const uint16_t PROGMEM combo1[] = { LT(LAYER_MOUSE, KC_RSFT), DE_QUOT, COMBO_END };
-const uint16_t PROGMEM combo2[] = { LT(LAYER_MOUSE, KC_RSFT), KC_DOT, COMBO_END };
-const uint16_t PROGMEM combo3[] = { LT(LAYER_MOUSE, KC_RSFT), DE_QUOT, COMBO_END };
+const uint16_t PROGMEM combo0[] = { OSL(LAYER_MOUSE), KC_DOT, COMBO_END };
+const uint16_t PROGMEM combo1[] = { OSL(LAYER_MOUSE), DE_QUOT, COMBO_END };
+const uint16_t PROGMEM combo2[] = { OSL(LAYER_MOUSE), KC_DOT, COMBO_END };
+const uint16_t PROGMEM combo3[] = { OSL(LAYER_MOUSE), DE_QUOT, COMBO_END };
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_COMMA),
