@@ -97,10 +97,10 @@ const key_override_t *key_overrides[] = {
     NULL
 };
 
-const uint16_t PROGMEM combo0[] = { OSM(MOD_RSFT), KC_DOT, COMBO_END };
-const uint16_t PROGMEM combo1[] = { OSM(MOD_RSFT), DE_QUOT, COMBO_END };
-const uint16_t PROGMEM combo2[] = { OSM(MOD_RSFT), KC_DOT, COMBO_END };
-const uint16_t PROGMEM combo3[] = { OSM(MOD_RSFT), DE_QUOT, COMBO_END };
+const uint16_t PROGMEM combo0[] = { LT(LAYER_MOUSE, OSFT), KC_DOT, COMBO_END };
+const uint16_t PROGMEM combo1[] = { LT(LAYER_MOUSE, OSFT), DE_QUOT, COMBO_END };
+const uint16_t PROGMEM combo2[] = { LT(LAYER_MOUSE, OSFT), KC_DOT, COMBO_END };
+const uint16_t PROGMEM combo3[] = { LT(LAYER_MOUSE, OSFT), DE_QUOT, COMBO_END };
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_COMMA),
@@ -229,6 +229,8 @@ static achordion_state_t achordion_state = {KC_NO, 0, 0};
 // One-shot shift state for layer-tap
 static bool osft_active = false;
 static uint16_t osft_timer = 0;
+static bool osft_released = false;
+static uint16_t osft_release_timer = 0;
 
 bool is_left_hand(uint8_t row, uint8_t col) {
     (void)col;
@@ -255,9 +257,14 @@ bool is_home_row_mod(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // If another key is pressed while OSFT is active, cancel one-shot shift
-  if (osft_active && keycode != OSFT && record->event.pressed) {
-    osft_active = false;
+  // If another key is pressed while OSFT is active or shortly after release, cancel one-shot shift
+  if (keycode != OSFT && record->event.pressed) {
+    if (osft_active) {
+      osft_active = false;
+    }
+    if (osft_released && timer_elapsed(osft_release_timer) < 50) {
+      osft_released = false;
+    }
   }
 
   if (is_home_row_mod(keycode)) {
@@ -365,11 +372,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case OSFT:
       if (record->event.pressed) {
         osft_active = true;
+        osft_released = false;
         osft_timer = timer_read();
       } else {
-        // On release, check if it was a quick tap without other keys
+        // On release, mark as released and start grace period timer
         if (osft_active && timer_elapsed(osft_timer) < TAPPING_TERM) {
-          set_oneshot_mods(MOD_BIT(KC_RSFT));
+          osft_released = true;
+          osft_release_timer = timer_read();
         }
         osft_active = false;
       }
@@ -388,4 +397,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
+}
+
+void matrix_scan_user(void) {
+  // Check if OSFT grace period has elapsed without any key press
+  if (osft_released && timer_elapsed(osft_release_timer) >= 50) {
+    set_oneshot_mods(MOD_BIT(KC_RSFT));
+    osft_released = false;
+  }
 }
