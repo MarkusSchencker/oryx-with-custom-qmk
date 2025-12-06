@@ -226,6 +226,10 @@ typedef struct {
 
 static achordion_state_t achordion_state = {KC_NO, 0, 0};
 
+// One-shot shift state for layer-tap
+static bool osft_active = false;
+static uint16_t osft_timer = 0;
+
 bool is_left_hand(uint8_t row, uint8_t col) {
     (void)col;
     return row < (MATRIX_ROWS / 2);
@@ -251,6 +255,11 @@ bool is_home_row_mod(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // If another key is pressed while OSFT is active, cancel one-shot shift
+  if (osft_active && keycode != OSFT && record->event.pressed) {
+    osft_active = false;
+  }
+
   if (is_home_row_mod(keycode)) {
     if (record->event.pressed) {
       achordion_state.keycode = keycode;
@@ -355,7 +364,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case OSFT:
       if (record->event.pressed) {
-        set_oneshot_mods(MOD_BIT(KC_RSFT));
+        osft_active = true;
+        osft_timer = timer_read();
+      } else {
+        // On release, check if it was a quick tap without other keys
+        if (osft_active && timer_elapsed(osft_timer) < TAPPING_TERM) {
+          set_oneshot_mods(MOD_BIT(KC_RSFT));
+        }
+        osft_active = false;
       }
       return false;
     case SW_MAC:
