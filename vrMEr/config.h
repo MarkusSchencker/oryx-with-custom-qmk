@@ -1,3 +1,5 @@
+#pragma once
+
 #define USB_SUSPEND_WAKEUP_DELAY 0
 #define USB_POLLING_INTERVAL_MS 10
 #define SERIAL_NUMBER "vrMEr/wONV7n"
@@ -5,12 +7,9 @@
 #define COMBO_COUNT 4
 
 // Layer optimization timing configuration
-// Based on proven values from JRaem (001-minimize-layers)
-// Updated for bilateral combinations (achordion) - only activate mods cross-hand
-#define TAPPING_TERM 175           // 175ms tap window (can be aggressive with bilateral combinations)
-#define ONESHOT_TIMEOUT 5000       // 5000ms timeout for one-shot modifiers (OSM)
-#define QUICK_TAP_TERM 100         // Prevent rapid double-taps from triggering modifiers
-// PERMISSIVE_HOLD removed - using bilateral combinations instead to prevent same-hand roll issues
+#define TAPPING_TERM 175
+#define ONESHOT_TIMEOUT 5000
+#define QUICK_TAP_TERM 100
 
 #define RGB_MATRIX_STARTUP_SPD 60
 
@@ -50,36 +49,33 @@
 #define LEADER_TIMEOUT 250
 #define LEADER_NO_TIMEOUT
 
-// MOUSEKEY configuration for mouse layer (003-mouse-layer)
-// Values optimized for responsive cursor control and smooth scrolling
-// Use #ifndef guards to avoid redefinition errors with QMK defaults
 #ifndef MOUSEKEY_DELAY
-#    define MOUSEKEY_DELAY 0              // No delay before cursor starts moving (instant response)
+#    define MOUSEKEY_DELAY 0
 #endif
 #ifndef MOUSEKEY_INTERVAL
-#    define MOUSEKEY_INTERVAL 16          // 16ms between movements (60 FPS update rate)
+#    define MOUSEKEY_INTERVAL 16
 #endif
 #ifndef MOUSEKEY_MOVE_DELTA
-#    define MOUSEKEY_MOVE_DELTA 8         // Base cursor movement distance (8 pixels per interval)
+#    define MOUSEKEY_MOVE_DELTA 8
 #endif
 #ifndef MOUSEKEY_MAX_SPEED
-#    define MOUSEKEY_MAX_SPEED 10         // Maximum speed multiplier (10x base speed)
+#    define MOUSEKEY_MAX_SPEED 10
 #endif
 #ifndef MOUSEKEY_TIME_TO_MAX
-#    define MOUSEKEY_TIME_TO_MAX 30       // Time to reach max speed (30 intervals = 480ms)
+#    define MOUSEKEY_TIME_TO_MAX 30
 #endif
 #ifndef MOUSEKEY_WHEEL_DELAY
-#    define MOUSEKEY_WHEEL_DELAY 0        // No delay before wheel scrolling starts
+#    define MOUSEKEY_WHEEL_DELAY 0
 #endif
 #ifndef MOUSEKEY_WHEEL_INTERVAL
-#    define MOUSEKEY_WHEEL_INTERVAL 80    // 80ms between scroll events (slower than cursor)
+#    define MOUSEKEY_WHEEL_INTERVAL 80
 #endif
 #ifndef MOUSEKEY_WHEEL_DELTA
-#    define MOUSEKEY_WHEEL_DELTA 1        // Scroll wheel movement per event (1 unit)
+#    define MOUSEKEY_WHEEL_DELTA 1
 #endif
 #ifndef MOUSEKEY_WHEEL_MAX_SPEED
-#    define MOUSEKEY_WHEEL_MAX_SPEED 8    // Maximum scroll speed (8x base speed)
+#    define MOUSEKEY_WHEEL_MAX_SPEED 8
 #endif
 #ifndef MOUSEKEY_WHEEL_TIME_TO_MAX
-#    define MOUSEKEY_WHEEL_TIME_TO_MAX 40 // Time to reach max scroll speed (40 intervals = 3.2s)
+#    define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #endif
