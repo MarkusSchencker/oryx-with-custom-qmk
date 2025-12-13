@@ -249,14 +249,6 @@ bool is_home_row_mod(uint16_t keycode) {
     }
 }
 
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-  // For home row mods: only activate hold for opposite-hand keys
-  if (is_home_row_mod(keycode)) {
-    return true;  // Enable to check bilateral in process_record_user
-  }
-  return false;
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // Bilateral combinations check: cancel mod-tap hold for same-hand sequences
   if (is_home_row_mod(keycode)) {
