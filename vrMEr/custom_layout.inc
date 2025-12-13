@@ -249,20 +249,53 @@ bool is_home_row_mod(uint16_t keycode) {
     }
 }
 
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  // For home row mods: only activate hold for opposite-hand keys
+  if (is_home_row_mod(keycode)) {
+    return true;  // Enable to check bilateral in process_record_user
+  }
+  return false;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  // Bilateral combinations check: cancel mod-tap hold for same-hand sequences
   if (is_home_row_mod(keycode)) {
     if (record->event.pressed) {
       achordion_state.keycode = keycode;
       achordion_state.row = record->event.key.row;
       achordion_state.col = record->event.key.col;
-    } else if (achordion_state.keycode == keycode) {
-      achordion_state.keycode = KC_NO;
+    } else {
+      // Clear state on release
+      if (achordion_state.keycode == keycode) {
+        achordion_state.keycode = KC_NO;
+      }
     }
-  } else if (achordion_state.keycode != KC_NO && record->event.pressed) {
+  } else if (record->event.pressed && achordion_state.keycode != KC_NO) {
+    // Another key pressed while home row mod is held
     bool mod_on_left = is_left_hand(achordion_state.row, achordion_state.col);
     bool key_on_left = is_left_hand(record->event.key.row, record->event.key.col);
 
     if (mod_on_left == key_on_left) {
+      // Same hand detected - we need to force the mod-tap to tap instead of hold
+      // This is tricky because QMK may have already decided on hold behavior
+      // We'll clear the mod that was applied
+      uint16_t mod_keycode = achordion_state.keycode;
+      
+      // Extract the modifier from the mod-tap and unregister it
+      uint8_t mods = QK_MOD_TAP_GET_MODS(mod_keycode);
+      if (mods & MOD_LCTL) unregister_code(KC_LCTL);
+      if (mods & MOD_LSFT) unregister_code(KC_LSFT);
+      if (mods & MOD_LALT) unregister_code(KC_LALT);
+      if (mods & MOD_LGUI) unregister_code(KC_LGUI);
+      if (mods & MOD_RCTL) unregister_code(KC_RCTL);
+      if (mods & MOD_RSFT) unregister_code(KC_RSFT);
+      if (mods & MOD_RALT) unregister_code(KC_RALT);
+      if (mods & MOD_RGUI) unregister_code(KC_RGUI);
+      
+      // Send the base key instead
+      uint16_t base_key = QK_MOD_TAP_GET_TAP_KEYCODE(mod_keycode);
+      tap_code(base_key);
+      
       achordion_state.keycode = KC_NO;
     }
   }
@@ -366,4 +399,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  // For home row mods: always enable hold-on-other-key-press
+  // Bilateral filtering happens in process_record_user
+  if (is_home_row_mod(keycode)) {
+    return true;
+  }
+  return false;
+}
+
+bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
+  // Don't use permissive hold - we use hold-on-other-key-press with bilateral filtering
+  return false;
 }
