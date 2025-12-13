@@ -217,77 +217,7 @@ bool is_macos_base(void) {
     return get_highest_layer(default_layer_state) == LAYER_MAC_BASE;
 }
 
-typedef struct {
-    uint16_t keycode;
-    uint8_t row;
-    uint8_t col;
-} achordion_state_t;
-
-static achordion_state_t achordion_state = {KC_NO, 0, 0};
-
-bool is_left_hand(uint8_t row, uint8_t col) {
-    (void)col;
-    return row < (MATRIX_ROWS / 2);
-}
-
-uint8_t get_keycode_row(uint16_t keycode) {
-    // Return the row position of home row mod keys
-    // Mac layer left: H(row2) I(row2) E(row2) A(row2)
-    // Mac layer right: T(row2) R(row2) N(row2) S(row2)
-    // All home row mods are on row 2 (middle row)
-    switch (keycode) {
-        case MT(MOD_LCTL, KC_H):
-        case MT(MOD_LALT, KC_I):
-        case MT(MOD_LGUI, KC_E):
-        case MT(MOD_LSFT, KC_A):
-            return 2;  // Left hand, row 2
-        case MT(MOD_LSFT, KC_T):
-        case MT(MOD_LGUI, KC_R):
-        case MT(MOD_LALT, KC_N):
-        case MT(MOD_LCTL, KC_S):
-            return 6;  // Right hand, row 2+4=6 (Voyager split layout)
-        case MT(MOD_LGUI, KC_H):  // Windows layer variants
-        case MT(MOD_LCTL, KC_R):
-        case MT(MOD_LGUI, KC_S):
-            return is_left_hand(2, 0) ? 2 : 6;
-        default:
-            return 255;  // Unknown
-    }
-}
-
-bool is_home_row_mod(uint16_t keycode) {
-    switch (keycode) {
-        case MT(MOD_LCTL, KC_H):
-        case MT(MOD_LALT, KC_I):
-        case MT(MOD_LGUI, KC_E):
-        case MT(MOD_LSFT, KC_A):
-        case MT(MOD_LSFT, KC_T):
-        case MT(MOD_LGUI, KC_R):
-        case MT(MOD_LALT, KC_N):
-        case MT(MOD_LCTL, KC_S):
-        case MT(MOD_LGUI, KC_H):
-        case MT(MOD_LCTL, KC_R):
-        case MT(MOD_LGUI, KC_S):
-            return true;
-        default:
-            return false;
-    }
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Track home row mod state for reference
-  if (is_home_row_mod(keycode)) {
-    if (record->event.pressed) {
-      achordion_state.keycode = keycode;
-      achordion_state.row = record->event.key.row;
-      achordion_state.col = record->event.key.col;
-    } else {
-      if (achordion_state.keycode == keycode) {
-        achordion_state.keycode = KC_NO;
-      }
-    }
-  }
-
   switch (keycode) {
     case RGB_SLD:
       if (record->event.pressed) {
@@ -389,22 +319,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
-  // For home row mods: only activate hold when interrupted by opposite-hand keys
-  if (is_home_row_mod(keycode)) {
-    uint8_t mod_row = get_keycode_row(keycode);
-    if (mod_row == 255) return false;  // Unknown keycode
-    
-    bool mod_on_left = is_left_hand(mod_row, 0);
-    bool interrupting_key_on_left = is_left_hand(record->event.key.row, record->event.key.col);
-    
-    // Only activate hold if keys are on opposite hands
-    return mod_on_left != interrupting_key_on_left;
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    // Slower tapping term for home row mods to reduce false positives
+    case MT(MOD_LCTL, KC_H):
+    case MT(MOD_LALT, KC_I):
+    case MT(MOD_LGUI, KC_E):
+    case MT(MOD_LSFT, KC_A):
+    case MT(MOD_LSFT, KC_T):
+    case MT(MOD_LGUI, KC_R):
+    case MT(MOD_LALT, KC_N):
+    case MT(MOD_LCTL, KC_S):
+    case MT(MOD_LGUI, KC_H):
+    case MT(MOD_LCTL, KC_R):
+    case MT(MOD_LGUI, KC_S):
+      return 200;  // Longer term for home row mods = fewer false positives
+    default:
+      return TAPPING_TERM;  // 150ms for everything else
   }
-  return false;
 }
 
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-  // Don't use permissive hold - we use hold-on-other-key-press with bilateral filtering
+bool is_home_row_mod(uint16_t keycode) {
+  switch (keycode) {
+    case MT(MOD_LCTL, KC_H):
+    case MT(MOD_LALT, KC_I):
+    case MT(MOD_LGUI, KC_E):
+    case MT(MOD_LSFT, KC_A):
+    case MT(MOD_LSFT, KC_T):
+    case MT(MOD_LGUI, KC_R):
+    case MT(MOD_LALT, KC_N):
+    case MT(MOD_LCTL, KC_S):
+    case MT(MOD_LGUI, KC_H):
+    case MT(MOD_LCTL, KC_R):
+    case MT(MOD_LGUI, KC_S):
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
+  // Chordal hold with bilateral filtering:
+  // Only activate home row mods when opposite-hand key is pressed
+  if (is_home_row_mod(keycode)) {
+    // Check if the mod key is on the left hand (rows 0-2)
+    bool mod_on_left = record->event.key.row < (MATRIX_ROWS / 2);
+    // Check if the interrupting key is on the left hand
+    bool interrupting_on_left = record->event.key.row < (MATRIX_ROWS / 2);
+    
+    // Only activate hold if keys are on opposite hands
+    return mod_on_left != interrupting_on_left;
+  }
   return false;
 }
