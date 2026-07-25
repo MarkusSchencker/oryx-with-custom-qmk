@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>vrMEr Voyager Layout Viewer</title>
+  <style>
+    :root {
+      --bg: #f3f4ef;
+      --panel: #fcfcf8;
+      --ink: #1e1f24;
+      --muted: #6a6d75;
+      --stroke: #cfd3c6;
+      --accent: #0f766e;
+      --dead: #ede9e2;
+      --trans: #f4f5f7;
+      --key: #ffffff;
+      --shadow: 0 8px 24px rgba(20, 22, 30, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Avenir Next", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% -10%, #ffffff 0%, rgba(255, 255, 255, 0) 65%),
+        radial-gradient(900px 500px at 90% 120%, #ecefe6 0%, rgba(236, 239, 230, 0) 70%),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .wrap {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .controls {
+      padding: 14px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .layer-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tab {
+      border: 1px solid var(--stroke);
+      background: white;
+      color: var(--ink);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .right-controls {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .layout {
+      padding: 14px;
+      overflow-x: auto;
+    }
+
+    .board {
+      position: relative;
+      width: 1130px;
+      height: 450px;
+      margin: 0 auto;
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, #fbfbf9 0%, #f4f6f0 100%);
+      border: 1px solid #d8ddcf;
+    }
+
+    .split-gap {
+      position: absolute;
+      left: 50%;
+      top: 48px;
+      transform: translateX(-50%);
+      width: 84px;
+      height: 314px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, #f6f7f2, #eef1e8);
+      border: 1px dashed #d0d6c7;
+      opacity: 0.9;
+    }
+
+    .key {
+      position: absolute;
+      width: 64px;
+      height: 58px;
+      border-radius: 12px;
+      border: 1px solid #cfd3c6;
+      background: var(--key);
+      box-shadow: 0 3px 8px rgba(18, 20, 25, 0.08);
+      display: grid;
+      grid-template-rows: 1fr auto;
+      padding: 6px 7px;
+      transition: transform 120ms ease;
+    }
+
+    .key:hover {
+      transform: translateY(-2px);
+    }
+
+    .slot {
+      font-size: 10px;
+      color: #8d9199;
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .label {
+      align-self: end;
+      font-size: 12px;
+      line-height: 1.1;
+      font-weight: 600;
+      color: #202327;
+      word-break: break-word;
+    }
+
+    .key.dead {
+      background: var(--dead);
+      border-color: #d9d0c6;
+      opacity: 0.75;
+    }
+
+    .key.trans {
+      background: var(--trans);
+      border-color: #dde0e6;
+      opacity: 0.82;
+    }
+
+    .key.dead .label,
+    .key.trans .label {
+      color: #848890;
+    }
+
+    .key.mod { background: #ecf7f5; }
+    .key.layer { background: #eef4ff; }
+    .key.nav { background: #fef5ea; }
+
+    .legend {
+      padding: 12px 16px 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .chip {
+      border: 1px solid var(--stroke);
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: white;
+    }
+
+    .status {
+      padding: 10px 16px 14px;
+      color: #4b5563;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      body { padding: 12px; }
+      .controls { gap: 8px; }
+      .board { transform-origin: top left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card controls">
+      <div class="layer-tabs" id="layerTabs"></div>
+      <div class="right-controls">
+        <label><input id="hideDead" type="checkbox"> Hide KC_NO</label>
+        <label><input id="hideTrans" type="checkbox"> Hide TRNS</label>
+      </div>
+    </div>
+
+    <div class="card layout">
+      <div class="board" id="board">
+        <div class="split-gap" aria-hidden="true"></div>
+      </div>
+      <div class="status" id="status"></div>
+      <div class="legend">
+        <span class="chip">Blue tint: Layer controls (OSL, LT, TO)</span>
+        <span class="chip">Green tint: Mod-tap and one-shot mods</span>
+        <span class="chip">Orange tint: Navigation and cursor actions</span>
+        <span class="chip">Gray: TRNS or KC_NO</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const LAYERS = [
+      { id: "L0", name: "MAC_BASE" },
+      { id: "L1", name: "WIN_BASE" },
+      { id: "L2", name: "SYMBOLS" },
+      { id: "L3", name: "FUNCTION" },
+      { id: "L4", name: "NUMBERS" },
+      { id: "L5", name: "CONFIG" },
+      { id: "L6", name: "MOUSE" }
+    ];
+
+    const SLOT_COORDS = {
+      k00:{x:0,y:0.5}, k01:{x:1,y:0.5}, k02:{x:2,y:0.25}, k03:{x:3,y:0}, k04:{x:4,y:0.25}, k05:{x:5,y:0.5},
+      k06:{x:0,y:1.5}, k07:{x:1,y:1.5}, k08:{x:2,y:1.25}, k09:{x:3,y:1}, k10:{x:4,y:1.25}, k11:{x:5,y:1.5},
+      k12:{x:0,y:2.5}, k13:{x:1,y:2.5}, k14:{x:2,y:2.25}, k15:{x:3,y:2}, k16:{x:4,y:2.25}, k17:{x:5,y:2.5},
+      k18:{x:0,y:3.5}, k19:{x:1,y:3.5}, k20:{x:2,y:3.25}, k21:{x:3,y:3}, k22:{x:4,y:3.25}, k23:{x:5,y:3.5},
+      k24:{x:5,y:4.5}, k25:{x:6,y:4.75},
+
+      k26:{x:10,y:0.5}, k27:{x:11,y:0.25}, k28:{x:12,y:0}, k29:{x:13,y:0.25}, k30:{x:14,y:0.5}, k31:{x:15,y:0.5},
+      k32:{x:10,y:1.5}, k33:{x:11,y:1.25}, k34:{x:12,y:1}, k35:{x:13,y:1.25}, k36:{x:14,y:1.5}, k37:{x:15,y:1.5},
+      k38:{x:10,y:2.5}, k39:{x:11,y:2.25}, k40:{x:12,y:2}, k41:{x:13,y:2.25}, k42:{x:14,y:2.5}, k43:{x:15,y:2.5},
+      k44:{x:10,y:3.5}, k45:{x:11,y:3.25}, k46:{x:12,y:3}, k47:{x:13,y:3.25}, k48:{x:14,y:3.5}, k49:{x:15,y:3.5},
+      k50:{x:9,y:4.75}, k51:{x:10,y:4.5}
+    };
+
+    const KEYMAP = {
+      L0: {
+        k00:"Cmd+-",k01:"Cmd+0",k02:"U",k03:"REPEAT",k04:"LEAD",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TO(CONFIG)",
+        k06:"TRNS",k07:"P",k08:"MT(A,I)",k09:"MT(G,E)",k10:"MT(S,A)",k11:"O",k32:"D",k33:"MT(S,T)",k34:"MT(G,R)",k35:"MT(A,N)",k36:"F",k37:"TRNS",
+        k12:"CW",k13:"MT(C,H)",k14:"DE_Y",k15:".",k16:"DE_DQOT",k17:"X",k38:"J",k39:"V",k40:"W",k41:"B",k42:"MT(C,S)",k43:"TRNS",
+        k18:"TRNS",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOU)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
+        k24:"KC_NO",k25:"BSPC",k50:"ENTER",k51:"KC_NO"
+      },
+      L1: {
+        k00:"Ctrl+-",k01:"Ctrl+0",k02:"U",k03:"REPEAT",k04:"LEAD",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TO(CONFIG)",
+        k06:"TRNS",k07:"P",k08:"MT(A,I)",k09:"MT(C,E)",k10:"MT(S,A)",k11:"O",k32:"D",k33:"MT(S,T)",k34:"MT(C,R)",k35:"MT(A,N)",k36:"F",k37:"TRNS",
+        k12:"CW",k13:"MT(G,H)",k14:"DE_Y",k15:".",k16:"DE_DQOT",k17:"X",k38:"J",k39:"V",k40:"W",k41:"B",k42:"MT(G,S)",k43:"TRNS",
+        k18:"TRNS",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOU)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
+        k24:"KC_NO",k25:"BSPC",k50:"ENTER",k51:"KC_NO"
+      },
+      L2: {
+        k00:"TRNS",k01:"TRNS",k02:"DE_AMPR",k03:"DE_LBRC",k04:"DE_RBRC",k05:"DE_CIRC",k26:"DE_EXLM",k27:"DE_LABK",k28:"DE_RABK",k29:"DE_EQL",k30:"TRNS",k31:"TRNS",
+        k06:"TRNS",k07:"DE_SECT",k08:"DE_SLSH",k09:"DE_LCBR",k10:"DE_RCBR",k11:"DE_ASTR",k32:"DE_QUES",k33:"DE_LPRN",k34:"DE_RPRN",k35:"DE_MINS",k36:"DE_TILD",k37:"TRNS",
+        k12:"TRNS",k13:"DE_AT",k14:"DE_BSLS",k15:"DE_PIPE",k16:"DE_DQOT",k17:"DE_GRV",k38:"DE_PLUS",k39:"DE_PERC",k40:"DE_DLR",k41:"DE_HASH",k42:"DE_COLN",k43:"TRNS",
+        k18:"TRNS",k19:"DE_UNDS",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"BSPC",k45:"DEL",k46:"KC_NO",k47:"KC_NO",k48:"DE_SCLN",k49:"TRNS",
+        k24:"KC_NO",k25:"TRNS",k50:"BSPC",k51:"KC_NO"
+      },
+      L3: {
+        k00:"TRNS",k01:"F1",k02:"DE_UE",k03:"TRNS",k04:"TRNS",k05:"TRNS",k26:"OS_PREV",k27:"OS_PGUP",k28:"TRNS",k29:"OS_NEXT",k30:"F10",k31:"TRNS",
+        k06:"F12",k07:"TAB",k08:"DE_SS",k09:"DE_EURO",k10:"MT(S,AE)",k11:"DE_OE",k32:"LEFT",k33:"DOWN",k34:"UP",k35:"RIGHT",k36:"TRNS",k37:"TRNS",
+        k12:"F11",k13:"ESC",k14:"TRNS",k15:"TRNS",k16:"TRNS",k17:"TRNS",k38:"TRNS",k39:"OS_PGDN",k40:"OS_HOME",k41:"OS_END",k42:"TRNS",k43:"TRNS",
+        k18:"TRNS",k19:"ENTER",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"OSM(RS)",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
+        k24:"KC_NO",k25:"OSM(RS)",k50:"TRNS",k51:"KC_NO"
+      },
+      L4: {
+        k00:"TRNS",k01:"TRNS",k02:"7",k03:"8",k04:"9",k05:"DE_ASTR",k26:"TRNS",k27:"TRNS",k28:"TRNS",k29:"TRNS",k30:"TRNS",k31:"TRNS",
+        k06:"TRNS",k07:"DE_MINS",k08:"1",k09:"2",k10:"3",k11:"0",k32:"OS_UNDO",k33:"OS_COPY",k34:"OS_PASTE",k35:"OS_CUT",k36:"TRNS",k37:"TRNS",
+        k12:"TRNS",k13:"DE_COLN",k14:"4",k15:"5",k16:"6",k17:"DE_SLSH",k38:"TRNS",k39:"TRNS",k40:"TRNS",k41:"TRNS",k42:"TRNS",k43:"APP",
+        k18:"TRNS",k19:"DE_PLUS",k20:"KC_NO",k21:"KC_NO",k22:",",k23:".",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
+        k24:"KC_NO",k25:".",k50:"TRNS",k51:"KC_NO"
+      },
+      L5: {
+        k00:"RGB_TOG",k01:"LYR_CLR",k02:"RGB_S-",k03:"RGB_S+",k04:"RGB_SPD-",k05:"RGB_SPD+",k26:"PGUP",k27:"HOME",k28:"UP",k29:"END",k30:"BOOT",k31:"TRNS",
+        k06:"TRNS",k07:"TRNS",k08:"MEDIA>>",k09:"MEDIASTOP",k10:"RGB_H-",k11:"RGB_H+",k32:"PGDN",k33:"LEFT",k34:"DOWN",k35:"RIGHT",k36:"TRNS",k37:"TRNS",
+        k12:"TRNS",k13:"MEDIA<<",k14:"TRNS",k15:"HSV_0",k16:"HSV_74",k17:"HSV_169",k38:"TRNS",k39:"C-S-TAB",k40:"C-TAB",k41:"TRNS",k42:"TRNS",k43:"TRNS",
+        k18:"TRNS",k19:"TRNS",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
+        k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
+      },
+      L6: {
+        k00:"TRNS",k01:"TRNS",k02:"OS_CUT",k03:"OS_PASTE",k04:"OS_COPY",k05:"TRNS",k26:"TRNS",k27:"TRNS",k28:"MS_UP",k29:"WH_UP",k30:"TRNS",k31:"TRNS",
+        k06:"TRNS",k07:"TAB",k08:"BTN3",k09:"BTN2",k10:"BTN1",k11:"TRNS",k32:"TRNS",k33:"MS_LEFT",k34:"MS_DOWN",k35:"MS_RIGHT",k36:"TRNS",k37:"TRNS",
+        k12:"TRNS",k13:"LSHIFT",k14:"ACL2",k15:"ACL0",k16:"ACL1",k17:"TRNS",k38:"TRNS",k39:"WH_LEFT",k40:"WH_RIGHT",k41:"WH_DOWN",k42:"TRNS",k43:"TRNS",
+        k18:"TRNS",k19:"LCTRL",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
+        k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
+      }
+    };
+
+    const board = document.getElementById("board");
+    const tabs = document.getElementById("layerTabs");
+    const status = document.getElementById("status");
+    const hideDead = document.getElementById("hideDead");
+    const hideTrans = document.getElementById("hideTrans");
+
+    const X0 = 70;
+    const Y0 = 40;
+    const STEP = 62;
+
+    let activeLayer = "L0";
+
+    function classify(label) {
+      if (label === "KC_NO") return "dead";
+      if (label === "TRNS") return "trans";
+      if (label.startsWith("OSL(") || label.startsWith("LT(") || label.startsWith("TO(")) return "layer";
+      if (label.startsWith("MT(") || label.startsWith("OSM(") || label.includes("SHIFT") || label.includes("CTRL")) return "mod";
+      if (["LEFT","RIGHT","UP","DOWN","PGUP","PGDN","HOME","END","MS_UP","MS_LEFT","MS_RIGHT","MS_DOWN","WH_UP","WH_DOWN","WH_LEFT","WH_RIGHT"].includes(label)) return "nav";
+      return "";
+    }
+
+    function pretty(label) {
+      if (label === "KC_NO") return "REMOVED";
+      return label;
+    }
+
+    function renderTabs() {
+      tabs.innerHTML = "";
+      for (const layer of LAYERS) {
+        const btn = document.createElement("button");
+        btn.className = "tab" + (layer.id === activeLayer ? " active" : "");
+        btn.textContent = layer.id + " " + layer.name;
+        btn.addEventListener("click", () => {
+          activeLayer = layer.id;
+          renderTabs();
+          renderBoard();
+        });
+        tabs.appendChild(btn);
+      }
+    }
+
+    function renderBoard() {
+      const old = board.querySelectorAll(".key");
+      old.forEach(k => k.remove());
+
+      const map = KEYMAP[activeLayer];
+      let visibleCount = 0;
+      let hiddenDead = 0;
+      let hiddenTrans = 0;
+
+      for (const slot of Object.keys(SLOT_COORDS)) {
+        const label = map[slot] || "TRNS";
+        if (hideDead.checked && label === "KC_NO") { hiddenDead++; continue; }
+        if (hideTrans.checked && label === "TRNS") { hiddenTrans++; continue; }
+
+        const { x, y } = SLOT_COORDS[slot];
+        const key = document.createElement("div");
+        key.className = "key " + classify(label);
+        key.style.left = (X0 + x * STEP) + "px";
+        key.style.top = (Y0 + y * STEP) + "px";
+
+        const slotLine = document.createElement("div");
+        slotLine.className = "slot";
+        slotLine.textContent = slot;
+
+        const text = document.createElement("div");
+        text.className = "label";
+        text.textContent = pretty(label);
+
+        key.appendChild(slotLine);
+        key.appendChild(text);
+        board.appendChild(key);
+        visibleCount++;
+      }
+
+      const layerName = LAYERS.find(l => l.id === activeLayer)?.name || activeLayer;
+      status.textContent = "Layer " + activeLayer + " " + layerName + " | visible keys: " + visibleCount +
+        " | hidden KC_NO: " + hiddenDead + " | hidden TRNS: " + hiddenTrans;
+    }
+
+    hideDead.addEventListener("change", renderBoard);
+    hideTrans.addEventListener("change", renderBoard);
+
+    renderTabs();
+    renderBoard();
+  </script>
+</body>
+</html>
