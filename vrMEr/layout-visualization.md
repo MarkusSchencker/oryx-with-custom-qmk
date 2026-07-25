@@ -1,116 +1,131 @@
-# vrMEr Keyboard Layout Visualization (Voyager)
+# vrMEr Layout Visualization (ZSA Voyager Physical Base)
 
-Source: `vrMEr/custom_layout.inc` (rendered from the actual QMK keymap)
+This visualization is generated from:
+- key definitions in [vrMEr/custom_layout.inc](vrMEr/custom_layout.inc)
+- physical Voyager geometry from `zsa/qmk_firmware` `keyboards/zsa/voyager/keyboard.json` (`layouts.LAYOUT.layout`)
+
+The drawing below follows the Voyager's real key arrangement (column stagger + thumb placement), not a generic ortho grid.
 
 ## Legend
 
-- `TRNS`: transparent (falls through to lower/default layer)
-- `OSL(X)`: one-shot layer
-- `LT(X, K)`: tap `K`, hold for layer `X`
-- `MT(MOD, K)`: tap `K`, hold `MOD`
-- `OS_*`: OS-aware macro (Cmd on macOS, Ctrl on Windows where applicable)
-- `DE_*`: German layout symbol mapping from `vrMEr/i18n.h`
+- `TRNS`: transparent
+- `OSL(X)`: one-shot layer X
+- `LT(X,K)`: tap K, hold for layer X
+- `MT(MOD,K)`: tap K, hold MOD
+- `OS_*`: OS-aware macro (Cmd on macOS base, Ctrl on Windows base where relevant)
+- `DE_*`: German mapping from [vrMEr/i18n.h](vrMEr/i18n.h)
 
-## Physical Shape (Voyager)
+## Physical Slot Map (Voyager)
 
-Each layer uses 4 rows x 12 keys (6 left + 6 right), plus 4 thumb keys:
+Slots are shown in physical order for all layers:
 
 ```text
-L1 L2 L3 L4 L5 L6            R1 R2 R3 R4 R5 R6
-L1 L2 L3 L4 L5 L6            R1 R2 R3 R4 R5 R6
-L1 L2 L3 L4 L5 L6            R1 R2 R3 R4 R5 R6
-L1 L2 L3 L4 L5 L6            R1 R2 R3 R4 R5 R6
-         LT1 LT2                         RT1 RT2
+                LEFT HALF                                      RIGHT HALF
+
+      [k00] [k01] [k02] [k03] [k04] [k05]      [k26] [k27] [k28] [k29] [k30] [k31]
+      [k06] [k07] [k08] [k09] [k10] [k11]      [k32] [k33] [k34] [k35] [k36] [k37]
+      [k12] [k13] [k14] [k15] [k16] [k17]      [k38] [k39] [k40] [k41] [k42] [k43]
+      [k18] [k19] [k20] [k21] [k22] [k23]      [k44] [k45] [k46] [k47] [k48] [k49]
+                              [k24] [k25]  [k50] [k51]
 ```
+
+Coordinate profile from Voyager JSON (for reference):
+- top row arc: y `0.5 0.5 0.25 0 0.25 0.5` (mirrored on right)
+- home row arc: y `1.5 1.5 1.25 1 1.25 1.5`
+- lower row arc: y `2.5 2.5 2.25 2 2.25 2.5`
+- bottom row arc: y `3.5 3.5 3.25 3 3.25 3.5`
+- thumbs: left `[k24]=y4.5 [k25]=y4.75`, right `[k50]=y4.75 [k51]=y4.5`
 
 ---
 
 ## Layer 0: MAC_BASE
 
 ```text
-Cmd+-   Cmd+0   Cmd++   LGUI    TRNS    TRNS      || TRNS    Shift+Tab TRNS   Tab     TRNS    TO(CONFIG)
-TRNS    P       U       REPEAT  LEAD    Q         || G       C         L      M       F       TRNS
-CW_TOGG HRM(H/Ctrl) HRM(I/Alt) HRM(E/Gui) HRM(A/Shift) O  || D  HRM(T/Shift) HRM(R/Gui) HRM(N/Alt) HRM(S/Ctrl) TRNS
-TRNS    K       DE_Y    .       DE_DQOT X         || J       V         W      B       DE_Z    TRNS
-                    OSL(SYMBOLS) OSL(MOUSE)       || OSL(FUNCTION) LT(NUMBERS, Space)
-```
+            LEFT HALF                                       RIGHT HALF
 
----
+[Cmd+-] [Cmd+0] [Cmd++] [LGUI] [TRNS] [TRNS]     [TRNS] [S-Tab] [TRNS] [Tab] [TRNS] [TO(CONFIG)]
+[TRNS]  [P]     [U]     [REP]  [LEAD] [Q]        [G]    [C]     [L]    [M]   [F]    [TRNS]
+[CW]    [MT(C,H)] [MT(A,I)] [MT(G,E)] [MT(S,A)] [O]     [D] [MT(S,T)] [MT(G,R)] [MT(A,N)] [MT(C,S)] [TRNS]
+[TRNS]  [K]     [DE_Y]  [.]    [DE_DQOT] [X]     [J]    [V]     [W]    [B]   [DE_Z] [TRNS]
+                             [OSL(SYM)] [OSL(MOU)] [OSL(FN)] [LT(NUM,SPC)]
+```
 
 ## Layer 1: WIN_BASE
 
 ```text
-Ctrl+-  Ctrl+0  Ctrl++  LALT    TRNS    TRNS      || TRNS    Shift+Tab TRNS   Tab     TRNS    TO(CONFIG)
-TRNS    P       U       REPEAT  LEAD    Q         || G       C         L      M       F       TRNS
-CW_TOGG HRM(H/Gui) HRM(I/Alt) HRM(E/Ctrl) HRM(A/Shift) O || D HRM(T/Shift) HRM(R/Ctrl) HRM(N/Alt) HRM(S/Gui) TRNS
-TRNS    K       DE_Y    .       DE_DQOT X         || J       V         W      B       DE_Z    TRNS
-                    OSL(SYMBOLS) OSL(MOUSE)       || OSL(FUNCTION) LT(NUMBERS, Space)
-```
+            LEFT HALF                                       RIGHT HALF
 
----
+[Ctrl+-] [Ctrl+0] [Ctrl++] [LALT] [TRNS] [TRNS]  [TRNS] [S-Tab] [TRNS] [Tab] [TRNS] [TO(CONFIG)]
+[TRNS]   [P]      [U]      [REP]  [LEAD] [Q]     [G]    [C]     [L]    [M]   [F]    [TRNS]
+[CW]     [MT(G,H)] [MT(A,I)] [MT(C,E)] [MT(S,A)] [O]    [D] [MT(S,T)] [MT(C,R)] [MT(A,N)] [MT(G,S)] [TRNS]
+[TRNS]   [K]      [DE_Y]   [.]    [DE_DQOT] [X]  [J]    [V]     [W]    [B]   [DE_Z] [TRNS]
+                              [OSL(SYM)] [OSL(MOU)] [OSL(FN)] [LT(NUM,SPC)]
+```
 
 ## Layer 2: SYMBOLS
 
 ```text
-TRNS    TRNS    TRNS    TRNS    TRNS    TRNS      || TRNS    TRNS      TRNS   TRNS    TRNS    TRNS
-TRNS    DE_SECT DE_AMPR DE_LBRC DE_RBRC DE_CIRC   || DE_EXLM DE_LABK   DE_RABK DE_EQL DE_TILD TRNS
-TRNS    DE_AT   DE_SLSH DE_LCBR DE_RCBR DE_ASTR   || DE_QUES DE_LPRN   DE_RPRN DE_MINS DE_COLN TRNS
-TRNS    DE_UNDS DE_BSLS DE_PIPE DE_DQOT DE_GRV    || DE_PLUS DE_PERC   DE_DLR DE_HASH DE_SCLN TRNS
-                    TRNS       TRNS                || BSPC     DEL
-```
+            LEFT HALF                                       RIGHT HALF
 
----
+[TRNS] [TRNS]   [TRNS]   [TRNS]   [TRNS]   [TRNS]     [TRNS]    [TRNS]    [TRNS]    [TRNS]   [TRNS]   [TRNS]
+[TRNS] [DE_SECT][DE_AMPR][DE_LBRC][DE_RBRC][DE_CIRC]  [DE_EXLM] [DE_LABK] [DE_RABK] [DE_EQL] [DE_TILD] [TRNS]
+[TRNS] [DE_AT]  [DE_SLSH][DE_LCBR][DE_RCBR][DE_ASTR]  [DE_QUES] [DE_LPRN] [DE_RPRN] [DE_MINS][DE_COLN] [TRNS]
+[TRNS] [DE_UNDS][DE_BSLS][DE_PIPE][DE_DQOT][DE_GRV]   [DE_PLUS] [DE_PERC] [DE_DLR]  [DE_HASH][DE_SCLN] [TRNS]
+                              [TRNS] [TRNS] [BSPC] [DEL]
+```
 
 ## Layer 3: FUNCTION
 
 ```text
-TRNS    F1      F2      F3      F4      F5        || F6      F7        F8     F9      F10     TRNS
-F12     Tab     DE_UE   TRNS    TRNS    TRNS      || OS_PREVWORD OS_PGUP TRNS OS_NEXTWORD TRNS TRNS
-F11     Esc     DE_SS   DE_EURO MT(Shift,DE_AE) DE_OE || Left Down Up Right TRNS TRNS
-TRNS    Enter   TRNS    TRNS    TRNS    TRNS      || TRNS    OS_PGDN   OS_HOME OS_END TRNS   TRNS
-                    TRNS      OSM(RShift)         || TRNS    TRNS
-```
+            LEFT HALF                                       RIGHT HALF
 
----
+[TRNS] [F1]   [F2]    [F3]    [F4]      [F5]      [F6]       [F7]    [F8]   [F9]   [F10]  [TRNS]
+[F12]  [Tab]  [DE_UE] [TRNS]  [TRNS]    [TRNS]    [OS_PREV]  [OS_PGUP] [TRNS] [OS_NEXT] [TRNS] [TRNS]
+[F11]  [Esc]  [DE_SS] [DE_EURO][MT(S,AE)][DE_OE]  [Left]     [Down]  [Up]   [Right] [TRNS] [TRNS]
+[TRNS] [Enter][TRNS]  [TRNS]  [TRNS]    [TRNS]    [TRNS]     [OS_PGDN] [OS_HOME] [OS_END] [TRNS] [TRNS]
+                               [TRNS] [OSM(RS)] [TRNS] [TRNS]
+```
 
 ## Layer 4: NUMBERS
 
 ```text
-TRNS    TRNS    TRNS    TRNS    TRNS    TRNS      || TRNS    TRNS      PrintScr TRNS TRNS TRNS
-TRNS    DE_MINS 7       8       9       DE_ASTR   || TRNS    TRNS      TRNS    TRNS TRNS TRNS
-TRNS    DE_COLN 1       2       3       0         || OS_UNDO OS_COPY   OS_PASTE OS_CUT TRNS APP
-TRNS    DE_PLUS 4       5       6       DE_SLSH   || TRNS    TRNS      TRNS    TRNS TRNS TRNS
-                    ,         .                   || TRNS    TRNS
-```
+            LEFT HALF                                       RIGHT HALF
 
----
+[TRNS] [TRNS]    [TRNS] [TRNS] [TRNS] [TRNS]      [TRNS] [TRNS] [PrtSc] [TRNS] [TRNS] [TRNS]
+[TRNS] [DE_MINS] [7]    [8]    [9]    [DE_ASTR]   [TRNS] [TRNS] [TRNS]  [TRNS] [TRNS] [TRNS]
+[TRNS] [DE_COLN] [1]    [2]    [3]    [0]         [UNDO] [COPY] [PASTE] [CUT]  [TRNS] [APP]
+[TRNS] [DE_PLUS] [4]    [5]    [6]    [DE_SLSH]   [TRNS] [TRNS] [TRNS]  [TRNS] [TRNS] [TRNS]
+                                [,]   [.]         [TRNS] [TRNS]
+```
 
 ## Layer 5: CONFIG
 
 ```text
-RGB_TOG TOGGLE_LAYER_COLOR RGB_MODE_FWD RGB_SLD RGB_VAD RGB_VAI || SW_WIN TRNS SW_MAC TRNS BOOT TRNS
-TRNS    TRNS    RGB_SAD RGB_SAI RGB_SPD RGB_SPI || PgUp    Home      Up     End   TRNS TRNS
-TRNS    MediaPrev MediaNext MediaStop RGB_HUD RGB_HUI || PgDn Left Down Right TRNS TRNS
-TRNS    TRNS    TRNS    HSV(0) HSV(74) HSV(169) || TRNS Ctrl+Shift+Tab Ctrl+Tab TRNS TRNS TRNS
-                    TRNS      TRNS               || TRNS    TRNS
-```
+            LEFT HALF                                       RIGHT HALF
 
----
+[RGB_TOG] [LYR_CLR] [RGB_MODE+] [RGB_SLD] [RGB_V-] [RGB_V+]  [SW_WIN] [TRNS] [SW_MAC] [TRNS] [BOOT] [TRNS]
+[TRNS]    [TRNS]    [RGB_S-]    [RGB_S+]  [RGB_SPD-] [RGB_SPD+] [PgUp] [Home] [Up] [End] [TRNS] [TRNS]
+[TRNS]    [Media<<] [Media>>]   [MediaStop] [RGB_H-] [RGB_H+] [PgDn] [Left] [Down] [Right] [TRNS] [TRNS]
+[TRNS]    [TRNS]    [TRNS]      [HSV_0]   [HSV_74] [HSV_169] [TRNS] [C-S-Tab] [C-Tab] [TRNS] [TRNS] [TRNS]
+                                   [TRNS] [TRNS] [TRNS] [TRNS]
+```
 
 ## Layer 6: MOUSE
 
 ```text
-TRNS    TRNS    TRNS    TRNS    TRNS    TRNS      || TRNS    TRNS      TRNS   TRNS   TRNS   TRNS
-TRNS    Tab     OS_CUT  OS_PASTE OS_COPY TRNS     || TRNS    TRNS      MS_UP  WH_UP  TRNS   TRNS
-TRNS    LShift  BTN3    BTN2    BTN1    TRNS      || TRNS    MS_LEFT   MS_DOWN MS_RIGHT TRNS TRNS
-TRNS    LCtrl   ACL2    ACL0    ACL1    TRNS      || TRNS    WH_LEFT   WH_RIGHT WH_DOWN TRNS TRNS
-                    TRNS      TRNS                || TRNS    TRNS
+            LEFT HALF                                       RIGHT HALF
+
+[TRNS] [TRNS]   [TRNS] [TRNS] [TRNS] [TRNS]      [TRNS] [TRNS]   [TRNS]   [TRNS]  [TRNS] [TRNS]
+[TRNS] [Tab]    [CUT]  [PASTE] [COPY] [TRNS]     [TRNS] [TRNS]   [MS_UP]  [WH_UP] [TRNS] [TRNS]
+[TRNS] [LShift] [BTN3] [BTN2]  [BTN1] [TRNS]     [TRNS] [MS_LEFT][MS_DOWN][MS_RIGHT] [TRNS] [TRNS]
+[TRNS] [LCtrl]  [ACL2] [ACL0]  [ACL1] [TRNS]     [TRNS] [WH_LEFT][WH_RIGHT][WH_DOWN] [TRNS] [TRNS]
+                                [TRNS] [TRNS]    [TRNS] [TRNS]
 ```
 
 ---
 
-## Notes
+## Behavior Notes
 
-- Default base behavior is dual-OS: `SW_MAC` and `SW_WIN` on `CONFIG` set default layer and move to that base.
-- Home row mods have per-key tapping term and hold behavior tuning in `custom_layout.inc`.
-- Combos on the mouse one-shot key produce comma/double-quote variants.
+- Base switching is on `CONFIG`: `SW_MAC` and `SW_WIN` set default layer and move there.
+- Home-row mod timing/hold tuning is implemented in [vrMEr/custom_layout.inc](vrMEr/custom_layout.inc).
+- Combos include mouse one-shot plus punctuation combos for comma/double quote behavior.
