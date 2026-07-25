@@ -1,6 +1,6 @@
 #pragma once
 
-// Layer definitions for the 7-layer architecture used by vrMEr.
+// Layer definitions for the 8-layer architecture used by vrMEr.
 enum vrmer_layer_names {
   LAYER_MAC_BASE = 0,    // macOS base layer with Cmd-optimized home row mods
   LAYER_WIN_BASE = 1,    // Windows base layer with Ctrl/Win-optimized home row mods
@@ -9,6 +9,7 @@ enum vrmer_layer_names {
   LAYER_NUMBERS = 4,     // Numbers/numpad layer
   LAYER_CONFIG = 5,      // Configuration layer (RGB, layer switching, bootloader)
   LAYER_MOUSE = 6,       // Mouse control layer (cursor movement, buttons, scroll)
+  LAYER_MAC_SHORTCUTS = 7, // macOS shortcuts (system, Finder, AeroSpace-style window actions)
 };
 
 // Project-specific keycodes continue from the upstream HSV_169_255_255 value.
@@ -27,6 +28,34 @@ enum vrmer_custom_keycodes {
   OS_NEXTWORD,
   SW_MAC,
   SW_WIN,
+  MC_SPOTLIGHT,
+  MC_APP_SWITCH,
+  MC_MISSION_CTL,
+  MC_FORCE_QUIT,
+  MC_SCREENSHOT,
+  MC_SCREENSHOT_CLIP,
+  MC_LOCK_SCREEN,
+  MC_EMOJI,
+  MC_HIDE_APP,
+  FNDR_NEW_WINDOW,
+  FNDR_NEW_TAB,
+  FNDR_DUPLICATE,
+  FNDR_GET_INFO,
+  FNDR_RENAME,
+  AS_FOCUS_LEFT,
+  AS_FOCUS_DOWN,
+  AS_FOCUS_UP,
+  AS_FOCUS_RIGHT,
+  AS_MOVE_LEFT,
+  AS_MOVE_DOWN,
+  AS_MOVE_UP,
+  AS_MOVE_RIGHT,
+  AS_WORKSPACE_1,
+  AS_WORKSPACE_2,
+  AS_WORKSPACE_3,
+  AS_WORKSPACE_4,
+  AS_FULL_SCREEN,
+  AS_FLOAT_TOGGLE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -55,11 +84,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [LAYER_FUNCTION] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_F1,          DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT, OS_NEXTWORD,    KC_F10,         KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_F1,          DE_UE,          OSL(LAYER_MAC_SHORTCUTS), KC_TRANSPARENT, KC_TRANSPARENT,                      OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT, OS_NEXTWORD,    KC_F10,         KC_TRANSPARENT,
     KC_F12,         KC_TAB,         DE_SS,          DE_EURO,        MT(MOD_LSFT, DE_AE), DE_OE,                                     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT,
     KC_F11,         KC_ESCAPE,      KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_ENTER,       KC_NO,          KC_NO,          KC_TRANSPARENT, OSM(MOD_RSFT),                                  KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_NO,          OSM(MOD_RSFT),                                                  KC_TRANSPARENT, KC_NO
+  ),
+
+  [LAYER_MAC_SHORTCUTS] = LAYOUT_voyager(
+    KC_TRANSPARENT, MC_SPOTLIGHT,   MC_APP_SWITCH,  MC_MISSION_CTL, MC_FORCE_QUIT, KC_TRANSPARENT,                                 AS_FOCUS_LEFT,  AS_FOCUS_DOWN,  AS_FOCUS_UP,    AS_FOCUS_RIGHT, AS_FULL_SCREEN, KC_TRANSPARENT,
+    KC_TRANSPARENT, FNDR_NEW_WINDOW, FNDR_NEW_TAB,  FNDR_DUPLICATE, FNDR_GET_INFO, FNDR_RENAME,                                    AS_MOVE_LEFT,   AS_MOVE_DOWN,   AS_MOVE_UP,     AS_MOVE_RIGHT,  AS_FLOAT_TOGGLE, KC_TRANSPARENT,
+    KC_TRANSPARENT, MC_SCREENSHOT,  MC_SCREENSHOT_CLIP, MC_LOCK_SCREEN, MC_EMOJI, KC_TRANSPARENT,                                  AS_WORKSPACE_1, AS_WORKSPACE_2, AS_WORKSPACE_3, AS_WORKSPACE_4, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_SPACE,       KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          MC_HIDE_APP,    KC_TRANSPARENT,
+                                                    KC_NO,          KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_NO
   ),
 
   [LAYER_NUMBERS] = LAYOUT_voyager(
@@ -313,6 +350,149 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         default_layer_set(1UL << LAYER_WIN_BASE);
         layer_move(LAYER_WIN_BASE);
+      }
+      return false;
+
+    case MC_SPOTLIGHT:
+      if (record->event.pressed) {
+        tap_code16(LGUI(KC_SPACE));
+      }
+      return false;
+    case MC_APP_SWITCH:
+      if (record->event.pressed) {
+        tap_code16(LGUI(KC_TAB));
+      }
+      return false;
+    case MC_MISSION_CTL:
+      if (record->event.pressed) {
+        tap_code16(LCTL(KC_UP));
+      }
+      return false;
+    case MC_FORCE_QUIT:
+      if (record->event.pressed) {
+        tap_code16(LGUI(LALT(KC_ESCAPE)));
+      }
+      return false;
+    case MC_SCREENSHOT:
+      if (record->event.pressed) {
+        tap_code16(LGUI(LSFT(KC_4)));
+      }
+      return false;
+    case MC_SCREENSHOT_CLIP:
+      if (record->event.pressed) {
+        tap_code16(LCTL(LGUI(LSFT(KC_4))));
+      }
+      return false;
+    case MC_LOCK_SCREEN:
+      if (record->event.pressed) {
+        tap_code16(LCTL(LGUI(KC_Q)));
+      }
+      return false;
+    case MC_EMOJI:
+      if (record->event.pressed) {
+        tap_code16(LCTL(LGUI(KC_SPACE)));
+      }
+      return false;
+    case MC_HIDE_APP:
+      if (record->event.pressed) {
+        tap_code16(LGUI(KC_H));
+      }
+      return false;
+
+    case FNDR_NEW_WINDOW:
+      if (record->event.pressed) {
+        tap_code16(LGUI(KC_N));
+      }
+      return false;
+    case FNDR_NEW_TAB:
+      if (record->event.pressed) {
+        tap_code16(LGUI(KC_T));
+      }
+      return false;
+    case FNDR_DUPLICATE:
+      if (record->event.pressed) {
+        tap_code16(LGUI(KC_D));
+      }
+      return false;
+    case FNDR_GET_INFO:
+      if (record->event.pressed) {
+        tap_code16(LGUI(KC_I));
+      }
+      return false;
+    case FNDR_RENAME:
+      if (record->event.pressed) {
+        tap_code(KC_ENTER);
+      }
+      return false;
+
+    case AS_FOCUS_LEFT:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_H));
+      }
+      return false;
+    case AS_FOCUS_DOWN:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_J));
+      }
+      return false;
+    case AS_FOCUS_UP:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_K));
+      }
+      return false;
+    case AS_FOCUS_RIGHT:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_L));
+      }
+      return false;
+    case AS_MOVE_LEFT:
+      if (record->event.pressed) {
+        tap_code16(LALT(LSFT(KC_H)));
+      }
+      return false;
+    case AS_MOVE_DOWN:
+      if (record->event.pressed) {
+        tap_code16(LALT(LSFT(KC_J)));
+      }
+      return false;
+    case AS_MOVE_UP:
+      if (record->event.pressed) {
+        tap_code16(LALT(LSFT(KC_K)));
+      }
+      return false;
+    case AS_MOVE_RIGHT:
+      if (record->event.pressed) {
+        tap_code16(LALT(LSFT(KC_L)));
+      }
+      return false;
+    case AS_WORKSPACE_1:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_1));
+      }
+      return false;
+    case AS_WORKSPACE_2:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_2));
+      }
+      return false;
+    case AS_WORKSPACE_3:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_3));
+      }
+      return false;
+    case AS_WORKSPACE_4:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_4));
+      }
+      return false;
+    case AS_FULL_SCREEN:
+      if (record->event.pressed) {
+        tap_code16(LALT(KC_F));
+      }
+      return false;
+    case AS_FLOAT_TOGGLE:
+      if (record->event.pressed) {
+        tap_code16(LALT(LSFT(KC_F)));
       }
       return false;
   }
