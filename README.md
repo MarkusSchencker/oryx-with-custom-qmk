@@ -2,6 +2,8 @@
 
 This repository allows combining the convenience of [Oryx’s](https://www.zsa.io/oryx) graphical layout editing with the power of [QMK](https://qmk.fm), allowing you to customize your Oryx layout with advanced QMK features like Achordion and Repeat Key, while automating firmware builds through GitHub Actions.
 
+For a detailed guide, check out the full [blog post here](https://blog.zsa.io/oryx-custom-qmk-features).
+
 ## How it works
 
 Each time you run the GitHub Action, the workflow will:
@@ -23,7 +25,13 @@ Each time you run the GitHub Action, the workflow will:
    - Edit `config.h`, `keymap.c` and `rules.mk` according to the [QMK documentation](https://github.com/qmk/qmk_firmware/tree/master/docs/features).
    - Commit and push to the **main** branch.
 5. You can continue editing your layout through Oryx:
+   - Make your changes in Oryx. 
+   - Optionally, add a description of your changes in the **Some notes about what you changed** field; if provided, this will be used as commit message.
    - Confirm changes by clicking the **Compile this layout** button.
 6. To build the firmware (including both Oryx and code modifications), rerun the GitHub Action. The firmware will be available for download in the action’s artifacts.
 7. Flash your downloaded firmware using [Keymapp](https://www.zsa.io/flash#flash-keymap).
 8. Enjoy!
+
+## Oryx Chrome extension
+
+To make building even easier, [@nivekmai](https://github.com/nivekmai) created an [Oryx Chrome extension](https://chromewebstore.google.com/detail/oryx-extension/bocjciklgnhkejkdfilcikhjfbmbcjal) to be able to trigger the GitHub Actions from inside Oryx itself.
