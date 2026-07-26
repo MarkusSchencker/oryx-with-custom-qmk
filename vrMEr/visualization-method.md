@@ -31,10 +31,12 @@ For each layer block
 - `LAYER_MAC_BASE`
 - `LAYER_WIN_BASE`
 - `LAYER_SYMBOLS`
-- `LAYER_FUNCTION`
+- `LAYER_MOVEMENT`
 - `LAYER_NUMBERS`
 - `LAYER_CONFIG`
-- `LAYER_MOUSE`
+- `LAYER_FUNCTION`
+- `LAYER_MAC_SHORTCUTS`
+- `LAYER_WIN_SHORTCUTS`
 
 read the `LAYOUT_voyager(` argument list in order and map each argument to the slot sequence below.
 
@@ -60,7 +62,7 @@ Recommended check:
 
 Update [vrMEr/layout-visualization.html](vrMEr/layout-visualization.html):
 1. Keep `SLOT_COORDS` unchanged unless geometry changes.
-2. Update `KEYMAP` entries for layers `L0..L6` from extracted mapping.
+2. Update `KEYMAP` entries for layers `L0..L8` from extracted mapping.
 3. Keep labels concise and readable (`OSL(SYM)`, `LT(NUM,SPC)`, etc.).
 4. Preserve classification behavior (`KC_NO`, `TRNS`, layer/mod/nav tinting).
 

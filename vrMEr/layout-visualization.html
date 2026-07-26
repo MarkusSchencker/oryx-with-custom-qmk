@@ -254,7 +254,7 @@
         <span class="chip">Green tint: Mod-tap and one-shot mods</span>
         <span class="chip">Orange tint: Navigation and cursor actions</span>
         <span class="chip">Gray: TRNS or KC_NO</span>
-        <span class="chip">Keyboard: Left/Right or Up/Down changes layer, 0-7 jumps to layer</span>
+        <span class="chip">Keyboard: Left/Right or Up/Down changes layer, 0-8 jumps to layer</span>
       </div>
     </div>
   </div>
@@ -264,11 +264,12 @@
       { id: "L0", name: "MAC_BASE" },
       { id: "L1", name: "WIN_BASE" },
       { id: "L2", name: "SYMBOLS" },
-      { id: "L3", name: "FUNCTION" },
+      { id: "L3", name: "MOVEMENT" },
       { id: "L4", name: "NUMBERS" },
       { id: "L5", name: "CONFIG" },
-      { id: "L6", name: "MOUSE" },
-      { id: "L7", name: "MAC_SHORTCUTS" }
+      { id: "L6", name: "FUNCTION" },
+      { id: "L7", name: "MAC_SHORTCUTS" },
+      { id: "L8", name: "WIN_SHORTCUTS" }
     ];
 
     const SLOT_COORDS = {
@@ -290,56 +291,63 @@
         k00:"Cmd+-",k01:"Cmd+0",k02:"U",k03:"REPEAT",k04:"LEAD",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TO(CONFIG)",
         k06:"TRNS",k07:"P",k08:"MT(A,I)",k09:"MT(G,E)",k10:"MT(S,A)",k11:"O",k32:"D",k33:"MT(S,T)",k34:"MT(G,R)",k35:"MT(A,N)",k36:"F",k37:"TRNS",
         k12:"CW",k13:"MT(C,H)",k14:"DE_Y",k15:".",k16:"DE_DQOT",k17:"X",k38:"J",k39:"V",k40:"W",k41:"B",k42:"MT(C,S)",k43:"TRNS",
-        k18:"TRNS",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOU)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
+        k18:"TRNS",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOV)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
         k24:"KC_NO",k25:"BSPC",k50:"ENTER",k51:"KC_NO"
       },
       L1: {
         k00:"Ctrl+-",k01:"Ctrl+0",k02:"U",k03:"REPEAT",k04:"LEAD",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TO(CONFIG)",
         k06:"TRNS",k07:"P",k08:"MT(A,I)",k09:"MT(C,E)",k10:"MT(S,A)",k11:"O",k32:"D",k33:"MT(S,T)",k34:"MT(C,R)",k35:"MT(A,N)",k36:"F",k37:"TRNS",
         k12:"CW",k13:"MT(G,H)",k14:"DE_Y",k15:".",k16:"DE_DQOT",k17:"X",k38:"J",k39:"V",k40:"W",k41:"B",k42:"MT(G,S)",k43:"TRNS",
-        k18:"TRNS",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOU)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
+        k18:"TRNS",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOV)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
         k24:"KC_NO",k25:"BSPC",k50:"ENTER",k51:"KC_NO"
       },
       L2: {
         k00:"TRNS",k01:"TRNS",k02:"DE_AMPR",k03:"DE_LBRC",k04:"DE_RBRC",k05:"DE_CIRC",k26:"DE_EXLM",k27:"DE_LABK",k28:"DE_RABK",k29:"DE_EQL",k30:"TRNS",k31:"TRNS",
-        k06:"TRNS",k07:"DE_SECT",k08:"DE_SLSH",k09:"DE_LCBR",k10:"DE_RCBR",k11:"DE_ASTR",k32:"DE_QUES",k33:"DE_LPRN",k34:"DE_RPRN",k35:"DE_MINS",k36:"DE_TILD",k37:"TRNS",
-        k12:"TRNS",k13:"DE_AT",k14:"DE_BSLS",k15:"DE_PIPE",k16:"DE_DQOT",k17:"DE_GRV",k38:"DE_PLUS",k39:"DE_PERC",k40:"DE_DLR",k41:"DE_HASH",k42:"DE_COLN",k43:"TRNS",
-        k18:"TRNS",k19:"DE_UNDS",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"BSPC",k45:"DEL",k46:"KC_NO",k47:"KC_NO",k48:"DE_SCLN",k49:"TRNS",
+        k06:"TRNS",k07:"DE_SECT",k08:"OSM(CTL)",k09:"OSM(SFT)",k10:"OSM(ALT)",k11:"OSM(GUI)",k32:"DE_QUES",k33:"DE_LPRN",k34:"DE_RPRN",k35:"DE_MINS",k36:"DE_TILD",k37:"TRNS",
+        k12:"TRNS",k13:"DE_AT",k14:"OSM(CS)",k15:"OSM(AS)",k16:"OSM(GS)",k17:"DE_GRV",k38:"DE_PLUS",k39:"DE_PERC",k40:"DE_DLR",k41:"DE_HASH",k42:"DE_COLN",k43:"TRNS",
+        k18:"TRNS",k19:"DE_UNDS",k20:"KC_NO",k21:"KC_NO",k22:"DE_SLSH",k23:"DE_ASTR",k44:"DE_BSLS",k45:"DE_PIPE",k46:"KC_NO",k47:"KC_NO",k48:"DE_SCLN",k49:"TRNS",
         k24:"KC_NO",k25:"TRNS",k50:"BSPC",k51:"KC_NO"
       },
       L3: {
-        k00:"TRNS",k01:"F1",k02:"DE_UE",k03:"TRNS",k04:"TRNS",k05:"TRNS",k26:"OS_PREV",k27:"OS_PGUP",k28:"TRNS",k29:"OS_NEXT",k30:"F10",k31:"TRNS",
-        k06:"F12",k07:"TAB",k08:"DE_SS",k09:"DE_EURO",k10:"MT(S,AE)",k11:"DE_OE",k32:"LEFT",k33:"DOWN",k34:"UP",k35:"RIGHT",k36:"TRNS",k37:"TRNS",
-        k12:"F11",k13:"ESC",k14:"TRNS",k15:"TRNS",k16:"TRNS",k17:"TRNS",k38:"TRNS",k39:"OS_PGDN",k40:"OS_HOME",k41:"OS_END",k42:"TRNS",k43:"TRNS",
-        k18:"TRNS",k19:"ENTER",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"OSM(RS)",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
-        k24:"KC_NO",k25:"OSM(RS)",k50:"TRNS",k51:"KC_NO"
+        k00:"TRNS",k01:"ESC",k02:"TAB",k03:"OSL(MAC_SHORT)",k04:"OSL(WIN_SHORT)",k05:"TRNS",k26:"OS_PREV",k27:"OS_PGUP",k28:"TRNS",k29:"OS_NEXT",k30:"TRNS",k31:"TRNS",
+        k06:"TRNS",k07:"OSM(CTL)",k08:"OSM(SFT)",k09:"OSM(ALT)",k10:"OSM(GUI)",k11:"TRNS",k32:"TRNS",k33:"LEFT",k34:"DOWN",k35:"UP",k36:"RIGHT",k37:"TRNS",
+        k12:"TRNS",k13:"OS_UNDO",k14:"OS_COPY",k15:"OS_PASTE",k16:"OS_CUT",k17:"TRNS",k38:"TRNS",k39:"OS_PGDN",k40:"OS_HOME",k41:"OS_END",k42:"TRNS",k43:"TRNS",
+        k18:"TRNS",k19:"ENTER",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
+        k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
       },
       L4: {
-        k00:"TRNS",k01:"TRNS",k02:"7",k03:"8",k04:"9",k05:"DE_ASTR",k26:"TRNS",k27:"TRNS",k28:"TRNS",k29:"TRNS",k30:"TRNS",k31:"TRNS",
-        k06:"TRNS",k07:"DE_MINS",k08:"1",k09:"2",k10:"3",k11:"0",k32:"OS_UNDO",k33:"OS_COPY",k34:"OS_PASTE",k35:"OS_CUT",k36:"TRNS",k37:"TRNS",
-        k12:"TRNS",k13:"DE_COLN",k14:"4",k15:"5",k16:"6",k17:"DE_SLSH",k38:"TRNS",k39:"TRNS",k40:"TRNS",k41:"TRNS",k42:"TRNS",k43:"APP",
-        k18:"TRNS",k19:"DE_PLUS",k20:"KC_NO",k21:"KC_NO",k22:",",k23:".",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
+        k00:"TRNS",k01:"OSM(CTL)",k02:"OSM(SFT)",k03:"OSM(ALT)",k04:"OSM(GUI)",k05:"TRNS",k26:"TRNS",k27:"7",k28:"8",k29:"9",k30:"TRNS",k31:"TRNS",
+        k06:"TRNS",k07:"OS_UNDO",k08:"OS_COPY",k09:"OS_PASTE",k10:"OS_CUT",k11:"OS_SELALL",k32:"0",k33:"1",k34:"2",k35:"3",k36:"TRNS",k37:"TRNS",
+        k12:"TRNS",k13:"OS_REDO",k14:"OS_PREV",k15:"OS_NEXT",k16:"BSPC",k17:"DEL",k38:"TRNS",k39:"4",k40:"5",k41:"6",k42:"TRNS",k43:"APP",
+        k18:"TRNS",k19:"ESC",k20:"TAB",k21:"KC_NO",k22:",",k23:".",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
         k24:"KC_NO",k25:".",k50:"TRNS",k51:"KC_NO"
       },
       L5: {
-        k00:"RGB_TOG",k01:"LYR_CLR",k02:"RGB_S-",k03:"RGB_S+",k04:"RGB_SPD-",k05:"RGB_SPD+",k26:"PGUP",k27:"HOME",k28:"UP",k29:"END",k30:"BOOT",k31:"TRNS",
-        k06:"TRNS",k07:"TRNS",k08:"MEDIA>>",k09:"MEDIASTOP",k10:"RGB_H-",k11:"RGB_H+",k32:"PGDN",k33:"LEFT",k34:"DOWN",k35:"RIGHT",k36:"TRNS",k37:"TRNS",
+        k00:"RGB_TOG",k01:"LYR_CLR",k02:"RGB_S-",k03:"RGB_S+",k04:"RGB_SPD-",k05:"RGB_SPD+",k26:"SW_MAC",k27:"SW_WIN",k28:"TRNS",k29:"TRNS",k30:"BOOT",k31:"TRNS",
+        k06:"TRNS",k07:"TRNS",k08:"MEDIA>>",k09:"MEDIASTOP",k10:"RGB_H-",k11:"RGB_H+",k32:"TRNS",k33:"TRNS",k34:"TRNS",k35:"TRNS",k36:"TRNS",k37:"TRNS",
         k12:"TRNS",k13:"MEDIA<<",k14:"TRNS",k15:"HSV_0",k16:"HSV_74",k17:"HSV_169",k38:"TRNS",k39:"C-S-TAB",k40:"C-TAB",k41:"TRNS",k42:"TRNS",k43:"TRNS",
         k18:"TRNS",k19:"TRNS",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
         k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
       },
       L6: {
-        k00:"TRNS",k01:"TRNS",k02:"OS_CUT",k03:"OS_PASTE",k04:"OS_COPY",k05:"TRNS",k26:"TRNS",k27:"TRNS",k28:"MS_UP",k29:"WH_UP",k30:"TRNS",k31:"TRNS",
-        k06:"TRNS",k07:"TAB",k08:"BTN3",k09:"BTN2",k10:"BTN1",k11:"TRNS",k32:"TRNS",k33:"MS_LEFT",k34:"MS_DOWN",k35:"MS_RIGHT",k36:"TRNS",k37:"TRNS",
-        k12:"TRNS",k13:"LSHIFT",k14:"ACL2",k15:"ACL0",k16:"ACL1",k17:"TRNS",k38:"TRNS",k39:"WH_LEFT",k40:"WH_RIGHT",k41:"WH_DOWN",k42:"TRNS",k43:"TRNS",
-        k18:"TRNS",k19:"LCTRL",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
-        k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
+        k00:"TRNS",k01:"TRNS",k02:"DE_UE",k03:"TRNS",k04:"TRNS",k05:"TRNS",k26:"TRNS",k27:"F7",k28:"F8",k29:"F9",k30:"F11",k31:"F12",
+        k06:"TRNS",k07:"TRNS",k08:"DE_AE",k09:"DE_EURO",k10:"TRNS",k11:"DE_OE",k32:"F10",k33:"F1",k34:"F2",k35:"F3",k36:"TRNS",k37:"TRNS",
+        k12:"TRNS",k13:"TRNS",k14:"TRNS",k15:"DE_SS",k16:"TRNS",k17:"TRNS",k38:"TRNS",k39:"F4",k40:"F5",k41:"F6",k42:"TRNS",k43:"TRNS",
+        k18:"TRNS",k19:"TRNS",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"OSM(RS)",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
+        k24:"KC_NO",k25:"OSM(RS)",k50:"TRNS",k51:"KC_NO"
       },
       L7: {
         k00:"TRNS",k01:"Spotlight",k02:"App Switch",k03:"Mission Ctrl",k04:"Force Quit",k05:"TRNS",k26:"Focus H",k27:"Focus J",k28:"Focus K",k29:"Focus L",k30:"Fullscreen",k31:"TRNS",
         k06:"TRNS",k07:"Finder Win",k08:"Finder Tab",k09:"Duplicate",k10:"Get Info",k11:"Rename",k32:"Move H",k33:"Move J",k34:"Move K",k35:"Move L",k36:"Float",k37:"TRNS",
         k12:"TRNS",k13:"Screenshot",k14:"Shot Clip",k15:"Lock",k16:"Emoji",k17:"TRNS",k38:"WS 1",k39:"WS 2",k40:"WS 3",k41:"WS 4",k42:"TRNS",k43:"TRNS",
         k18:"TRNS",k19:"Space",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"Hide App",k49:"TRNS",
+        k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
+      },
+      L8: {
+        k00:"TRNS",k01:"Task View",k02:"App Switch",k03:"Settings",k04:"Run",k05:"TRNS",k26:"Snap Left",k27:"UP",k28:"Snap Right",k29:"Desk Left",k30:"Desk Right",k31:"TRNS",
+        k06:"TRNS",k07:"Explorer",k08:"Emoji",k09:"Lock",k10:"TRNS",k11:"TRNS",k32:"LEFT",k33:"DOWN",k34:"RIGHT",k35:"Desk New",k36:"Desk Close",k37:"TRNS",
+        k12:"TRNS",k13:"OS_UNDO",k14:"OS_COPY",k15:"OS_PASTE",k16:"OS_CUT",k17:"OS_SELALL",k38:"TRNS",k39:"TRNS",k40:"TRNS",k41:"TRNS",k42:"TRNS",k43:"TRNS",
+        k18:"TRNS",k19:"Space",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
         k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
       }
     };
@@ -361,11 +369,12 @@
       L0: { layer: "L0", slot: "default", label: "Default layer" },
       L1: { layer: "L1", slot: "default", label: "Default layer" },
       L2: { layer: "L0", slot: "k22", label: "OSL(SYM)" },
-      L3: { layer: "L0", slot: "k44", label: "OSL(FN)" },
+      L3: { layer: "L0", slot: "k23", label: "OSL(MOV)" },
       L4: { layer: "L0", slot: "k45", label: "LT(NUM,SPC)" },
       L5: { layer: "L0", slot: "k31", label: "TO(CONFIG)" },
-      L6: { layer: "L0", slot: "k23", label: "OSL(MOU)" },
-      L7: { layer: "L3", slot: "k03", label: "OSL(MAC_SHORTCUTS)" }
+      L6: { layer: "L0", slot: "k44", label: "OSL(FN)" },
+      L7: { layer: "L3", slot: "k03", label: "OSL(MAC_SHORTCUTS)" },
+      L8: { layer: "L3", slot: "k04", label: "OSL(WIN_SHORTCUTS)" }
     };
 
     function classify(label) {
@@ -488,7 +497,7 @@
         return;
       }
 
-      if (/^[0-7]$/.test(event.key)) {
+      if (/^[0-8]$/.test(event.key)) {
         event.preventDefault();
         setActiveLayerByIndex(Number(event.key));
       }
