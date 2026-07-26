@@ -254,6 +254,7 @@
         <span class="chip">Green tint: Mod-tap and one-shot mods</span>
         <span class="chip">Orange tint: Navigation and cursor actions</span>
         <span class="chip">Gray: TRNS or KC_NO</span>
+        <span class="chip">Keyboard: Left/Right or Up/Down changes layer, 0-7 jumps to layer</span>
       </div>
     </div>
   </div>
@@ -396,6 +397,20 @@
       }
     }
 
+    function setActiveLayerByIndex(index) {
+      if (index < 0 || index >= LAYERS.length) return;
+      activeLayer = LAYERS[index].id;
+      renderTabs();
+      renderBoard();
+    }
+
+    function cycleLayer(direction) {
+      const currentIndex = LAYERS.findIndex(layer => layer.id === activeLayer);
+      if (currentIndex < 0) return;
+      const nextIndex = (currentIndex + direction + LAYERS.length) % LAYERS.length;
+      setActiveLayerByIndex(nextIndex);
+    }
+
     function renderBoard() {
       const old = board.querySelectorAll(".key");
       old.forEach(k => k.remove());
@@ -454,6 +469,30 @@
 
     hideDead.addEventListener("change", renderBoard);
     hideTrans.addEventListener("change", renderBoard);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+
+      const targetTag = event.target && event.target.tagName ? event.target.tagName.toUpperCase() : "";
+      if (targetTag === "INPUT" || targetTag === "TEXTAREA" || targetTag === "SELECT") return;
+
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        event.preventDefault();
+        cycleLayer(1);
+        return;
+      }
+
+      if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        event.preventDefault();
+        cycleLayer(-1);
+        return;
+      }
+
+      if (/^[0-7]$/.test(event.key)) {
+        event.preventDefault();
+        setActiveLayerByIndex(Number(event.key));
+      }
+    });
 
     renderTabs();
     renderBoard();
