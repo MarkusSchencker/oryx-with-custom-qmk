@@ -193,6 +193,39 @@
       font-size: 13px;
     }
 
+    .activation {
+      margin: 0 16px 12px;
+      padding: 10px 12px;
+      border: 1px solid #d8ddcf;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #f9faf7 0%, #f3f5ef 100%);
+      color: #374151;
+      font-size: 13px;
+    }
+
+    .activation strong {
+      color: var(--ink);
+    }
+
+    .key.activation-key {
+      outline: 2px solid #0f766e;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12), 0 3px 8px rgba(18, 20, 25, 0.08);
+    }
+
+    .activation-badge {
+      display: inline-block;
+      margin-top: 4px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 118, 110, 0.12);
+      color: #0f766e;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
     @media (max-width: 900px) {
       body { padding: 12px; }
       .controls { gap: 8px; }
@@ -214,6 +247,7 @@
       <div class="board" id="board">
         <div class="split-gap" aria-hidden="true"></div>
       </div>
+      <div class="activation" id="activation"></div>
       <div class="status" id="status"></div>
       <div class="legend">
         <span class="chip">Blue tint: Layer controls (OSL, LT, TO)</span>
@@ -311,6 +345,7 @@
 
     const board = document.getElementById("board");
     const tabs = document.getElementById("layerTabs");
+    const activation = document.getElementById("activation");
     const status = document.getElementById("status");
     const hideDead = document.getElementById("hideDead");
     const hideTrans = document.getElementById("hideTrans");
@@ -320,6 +355,17 @@
     const STEP = 62;
 
     let activeLayer = "L0";
+
+    const ACTIVATION_SOURCES = {
+      L0: { layer: "L0", slot: "default", label: "Default layer" },
+      L1: { layer: "L1", slot: "default", label: "Default layer" },
+      L2: { layer: "L0", slot: "k22", label: "OSL(SYM)" },
+      L3: { layer: "L0", slot: "k44", label: "OSL(FN)" },
+      L4: { layer: "L0", slot: "k45", label: "LT(NUM,SPC)" },
+      L5: { layer: "L0", slot: "k31", label: "TO(CONFIG)" },
+      L6: { layer: "L0", slot: "k23", label: "OSL(MOU)" },
+      L7: { layer: "L3", slot: "k03", label: "OSL(MAC_SHORTCUTS)" }
+    };
 
     function classify(label) {
       if (label === "KC_NO") return "dead";
@@ -355,6 +401,7 @@
       old.forEach(k => k.remove());
 
       const map = KEYMAP[activeLayer];
+      const activationSource = ACTIVATION_SOURCES[activeLayer] || null;
       let visibleCount = 0;
       let hiddenDead = 0;
       let hiddenTrans = 0;
@@ -367,6 +414,9 @@
         const { x, y } = SLOT_COORDS[slot];
         const key = document.createElement("div");
         key.className = "key " + classify(label);
+        if (activationSource && activationSource.slot === slot) {
+          key.classList.add("activation-key");
+        }
         key.style.left = (X0 + x * STEP) + "px";
         key.style.top = (Y0 + y * STEP) + "px";
 
@@ -378,6 +428,13 @@
         text.className = "label";
         text.textContent = pretty(label);
 
+        if (activationSource && activationSource.slot === slot) {
+          const badge = document.createElement("div");
+          badge.className = "activation-badge";
+          badge.textContent = "activates current layer";
+          text.appendChild(badge);
+        }
+
         key.appendChild(slotLine);
         key.appendChild(text);
         board.appendChild(key);
@@ -385,6 +442,12 @@
       }
 
       const layerName = LAYERS.find(l => l.id === activeLayer)?.name || activeLayer;
+      if (activationSource) {
+        const sourceLayerName = LAYERS.find(l => l.id === activationSource.layer)?.name || activationSource.layer;
+        activation.innerHTML = "<strong>Entered by:</strong> " + sourceLayerName + " " + activationSource.slot + " · " + activationSource.label;
+      } else {
+        activation.textContent = "";
+      }
       status.textContent = "Layer " + activeLayer + " " + layerName + " | visible keys: " + visibleCount +
         " | hidden KC_NO: " + hiddenDead + " | hidden TRNS: " + hiddenTrans;
     }
