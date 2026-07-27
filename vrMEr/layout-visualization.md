@@ -1,18 +1,12 @@
-# vrMEr Layout Visualization (Remapped Physical Usage)
+# vrMEr Layout Visualization
 
-This reflects the remap implemented in [vrMEr/custom_layout.inc](vrMEr/custom_layout.inc).
+This reflects the current mapping in [vrMEr/custom_layout.inc](vrMEr/custom_layout.inc).
 
 ## Remap Rules Applied
 
-- Columns `1,2,11,12`: unchanged.
-- Columns `3..10`: rows `2..4` shifted up by one row.
-- Disabled (dead) keys: row 4 columns `3,4,9,10` and outer thumbs.
-- Old 4-thumb functions moved to row 4 columns `5,6,7,8` in the same order.
-- Active thumb cluster now has 6 ergonomic positions:
-  - row 4 columns `5,6,7,8`
-  - row 5 inner thumbs
-
-`KC_NO` = physically removed / unusable key.
+- Columns 1, 2, 11, 12: top-row bindings are lowered by one row across all layers.
+- Row 4 columns 3, 4, 9, 10 stay disabled (`KC_NO`) on all layers.
+- `KC_NO` = physically removed / unusable key.
 
 ## Physical Model (12 columns)
 
@@ -25,20 +19,20 @@ Row 5:     only thumb area (outer thumbs disabled)
 ## L0 MAC_BASE
 
 ```text
-R1: Cmd+-   Cmd+0   U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TO(CONFIG)
-R2: TRNS    P       MT(A,I)  MT(G,E)  MT(S,A)  O        D        MT(S,T)  MT(G,R)  MT(A,N)  F        TRNS
-R3: CW      MT(C,H) DE_Y     .        DE_DQOT  X        J        V        W        B        MT(C,S)  TRNS
-R4: TRNS    K       KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    DE_Z     TRNS
+R1: TRNS    TRNS    U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TRNS
+R2: Cmd+-   Cmd+0   MT(A,I)  MT(G,E)  MT(S,A)  O        D        MT(S,T)  MT(G,R)  MT(A,N)  TRNS     TO(CONFIG)
+R3: TRNS    P       DE_Y     .        DE_DQOT  X        J        V        W        B        F        TRNS
+R4: CW      MT(C,H) KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    MT(C,S)  TRNS
 R5: KC_NO   BSPC                                      ENTER      KC_NO
 ```
 
 ## L1 WIN_BASE
 
 ```text
-R1: Ctrl+-  Ctrl+0  U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TO(CONFIG)
-R2: TRNS    P       MT(A,I)  MT(C,E)  MT(S,A)  O        D        MT(S,T)  MT(C,R)  MT(A,N)  F        TRNS
-R3: CW      MT(G,H) DE_Y     .        DE_DQOT  X        J        V        W        B        MT(G,S)  TRNS
-R4: TRNS    K       KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    DE_Z     TRNS
+R1: TRNS    TRNS    U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TRNS
+R2: Ctrl+-  Ctrl+0  MT(A,I)  MT(C,E)  MT(S,A)  O        D        MT(S,T)  MT(C,R)  MT(A,N)  TRNS     TO(CONFIG)
+R3: TRNS    P       DE_Y     .        DE_DQOT  X        J        V        W        B        F        TRNS
+R4: CW      MT(G,H) KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    MT(G,S)  TRNS
 R5: KC_NO   BSPC                                      ENTER      KC_NO
 ```
 
@@ -55,38 +49,38 @@ R5: KC_NO   TRNS                                      BSPC       KC_NO
 ## L3 MOVEMENT
 
 ```text
-R1: TRNS    ESC     TAB      OSL(MAC_SHORT) OSL(WIN_SHORT) TRNS  OS_PREV  OS_PGUP  TRNS     OS_NEXT  TRNS     TRNS
-R2: TRNS    OSM(CTL) OSM(SFT) OSM(ALT) OSM(GUI) TRNS    TRNS     LEFT     DOWN     UP       RIGHT    TRNS
-R3: TRNS    OS_UNDO OS_COPY  OS_PASTE  OS_CUT   TRNS     TRNS     OS_PGDN  OS_HOME  OS_END   TRNS     TRNS
-R4: TRNS    ENTER   KC_NO    KC_NO    TRNS     TRNS     TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
+R1: TRNS    TRNS    TAB      OSL(MAC_SHORT) OSL(WIN_SHORT) TRNS  OS_PREV  OS_PGUP  TRNS     OS_NEXT  TRNS     TRNS
+R2: TRNS    ESC     OSM(SFT) OSM(ALT) OSM(GUI) TRNS    TRNS     LEFT     DOWN     UP       TRNS     TRNS
+R3: TRNS    OSM(CTL) OS_COPY OS_PASTE OS_CUT   TRNS     TRNS     OS_PGDN  OS_HOME  OS_END   RIGHT    TRNS
+R4: TRNS    OS_UNDO KC_NO    KC_NO    TRNS     TRNS     TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
 R5: KC_NO   TRNS                                      TRNS       KC_NO
 ```
 
 ## L4 NUMBERS
 
 ```text
-R1: TRNS    OSM(CTL) OSM(SFT) OSM(ALT) OSM(GUI) TRNS    TRNS     7        8        9        TRNS     TRNS
-R2: TRNS    OS_UNDO OS_COPY  OS_PASTE OS_CUT   OS_SELALL 0       1        2        3        TRNS     TRNS
-R3: TRNS    OS_REDO OS_PREV  OS_NEXT  BSPC     DEL      TRNS     4        5        6        TRNS     APP
-R4: TRNS    ESC     TAB      KC_NO    ,        .        TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
+R1: TRNS    TRNS    OSM(SFT) OSM(ALT) OSM(GUI) TRNS    TRNS     7        8        9        TRNS     TRNS
+R2: TRNS    OSM(CTL) OS_COPY OS_PASTE OS_CUT   OS_SELALL 0       1        2        3        TRNS     TRNS
+R3: TRNS    OS_UNDO OS_PREV  OS_NEXT  BSPC     DEL      TRNS     4        5        6        TRNS     TRNS
+R4: TRNS    OS_REDO KC_NO    KC_NO    ,        .        TRNS     TRNS     KC_NO    KC_NO    TRNS     APP
 R5: KC_NO   .                                          TRNS       KC_NO
 ```
 
 ## L5 CONFIG
 
 ```text
-R1: RGB_TOG LYR_CLR RGB_S-   RGB_S+   RGB_SPD- RGB_SPD+ SW_MAC   SW_WIN   TRNS     TRNS     BOOT     TRNS
-R2: TRNS    TRNS    MEDIA>>  MEDIASTOP RGB_H-  RGB_H+   TRNS     TRNS     TRNS     TRNS     TRNS     TRNS
-R3: TRNS    MEDIA<< TRNS     HSV_0    HSV_74   HSV_169  TRNS     C-S-TAB  C-TAB    TRNS     TRNS     TRNS
-R4: TRNS    TRNS    KC_NO    KC_NO    TRNS     TRNS     TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
+R1: TRNS    TRNS    RGB_S-   RGB_S+   RGB_SPD- RGB_SPD+ SW_MAC   SW_WIN   TRNS     TRNS     TRNS     TRNS
+R2: RGB_TOG LYR_CLR MEDIA>>  MEDIASTOP RGB_H-  RGB_H+   TRNS     TRNS     TRNS     TRNS     BOOT     TRNS
+R3: TRNS    TRNS    TRNS     HSV_0    HSV_74   HSV_169  TRNS     C-S-TAB  C-TAB    TRNS     TRNS     TRNS
+R4: TRNS    MEDIA<< KC_NO    KC_NO    TRNS     TRNS     TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
 R5: KC_NO   TRNS                                      TRNS       KC_NO
 ```
 
 ## L6 FUNCTION
 
 ```text
-R1: TRNS    TRNS    DE_UE    TRNS     TRNS     TRNS     TRNS     F7       F8       F9       F11      F12
-R2: TRNS    TRNS    DE_AE    DE_EURO  TRNS     DE_OE    F10      F1       F2       F3       TRNS     TRNS
+R1: TRNS    TRNS    DE_UE    TRNS     TRNS     TRNS     TRNS     F7       F8       F9       TRNS     TRNS
+R2: TRNS    TRNS    DE_AE    DE_EURO  TRNS     DE_OE    F10      F1       F2       F3       F11      F12
 R3: TRNS    TRNS    TRNS     DE_SS    TRNS     TRNS     TRNS     F4       F5       F6       TRNS     TRNS
 R4: TRNS    TRNS    KC_NO    KC_NO    TRNS     OSM(RS)  TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
 R5: KC_NO   OSM(RS)                                   TRNS       KC_NO
@@ -95,25 +89,24 @@ R5: KC_NO   OSM(RS)                                   TRNS       KC_NO
 ## L7 MAC_SHORTCUTS
 
 ```text
-R1: TRNS    Spotlight AppSwitch MissionCtl ForceQuit TRNS FocusH  FocusJ  FocusK  FocusL  Fullscreen TRNS
-R2: TRNS    FinderWin FinderTab Duplicate GetInfo   Rename MoveH   MoveJ   MoveK   MoveL   Float      TRNS
-R3: TRNS    Screenshot ShotClip  Lock     Emoji     TRNS   WS1     WS2     WS3     WS4     TRNS       TRNS
-R4: TRNS    SPACE    KC_NO    KC_NO    TRNS     TRNS     TRNS     TRNS     KC_NO    KC_NO    HideApp   TRNS
+R1: TRNS    TRNS     AppSwitch MissionCtl ForceQuit TRNS FocusH  FocusJ  FocusK  FocusL  TRNS       TRNS
+R2: TRNS    Spotlight FinderTab Duplicate GetInfo   Rename MoveH  MoveJ   MoveK   MoveL   Fullscreen TRNS
+R3: TRNS    FinderWin ShotClip  Lock     Emoji      TRNS   WS1    WS2     WS3     WS4     Float      TRNS
+R4: TRNS    Screenshot KC_NO    KC_NO    TRNS       TRNS   TRNS   TRNS    KC_NO   KC_NO   TRNS       TRNS
 R5: KC_NO   TRNS                                      TRNS       KC_NO
 ```
 
 ## L8 WIN_SHORTCUTS
 
 ```text
-R1: TRNS    TaskView AppSwitch Settings Run      TRNS    SnapLeft UP      SnapRight DeskLeft DeskRight TRNS
-R2: TRNS    Explorer Emoji     Lock     TRNS     TRNS    LEFT     DOWN    RIGHT     DeskNew  DeskClose TRNS
-R3: TRNS    OS_UNDO OS_COPY    OS_PASTE OS_CUT   OS_SELALL TRNS   TRNS    TRNS      TRNS     TRNS      TRNS
-R4: TRNS    SPACE    KC_NO     KC_NO    TRNS     TRNS    TRNS     TRNS    KC_NO     KC_NO    TRNS      TRNS
+R1: TRNS    TRNS     AppSwitch Settings Run      TRNS    SnapLeft UP      SnapRight DeskLeft TRNS      TRNS
+R2: TRNS    TaskView Emoji     Lock     TRNS     TRNS    LEFT     DOWN    RIGHT     DeskNew  DeskRight TRNS
+R3: TRNS    Explorer OS_COPY   OS_PASTE OS_CUT   OS_SELALL TRNS   TRNS    TRNS      TRNS     DeskClose TRNS
+R4: TRNS    OS_UNDO  KC_NO     KC_NO    TRNS     TRNS    TRNS     TRNS    KC_NO     KC_NO    TRNS      TRNS
 R5: KC_NO   TRNS                                      TRNS       KC_NO
 ```
 
 ## Notes
 
-- The remap intentionally removes several outer/reach-heavy positions.
-- Base layers now place layer switches in row 4 (`C5..C8`) as the primary thumb arc (`SYM`, `MOV`, `FN`, `NUM`).
-- Inner thumbs are repurposed as `BSPC` and `ENTER` on base layers.
+- This pass prioritizes the row-lowering rule in columns 1, 2, 11, and 12 across all layers.
+- Visualization and firmware are synchronized to the same slot assignments.

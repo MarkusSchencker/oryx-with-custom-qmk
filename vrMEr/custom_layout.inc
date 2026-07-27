@@ -74,18 +74,18 @@ enum vrmer_custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_MAC_BASE] = LAYOUT_voyager(
-    LGUI(DE_MINS),  LGUI(KC_0),     KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_TRANSPARENT, TO(LAYER_CONFIG),
-    KC_TRANSPARENT, KC_P,           MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                              KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LCTL, KC_H), DE_Y,      KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_K,          KC_NO,          KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, DE_Z, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_TRANSPARENT, KC_TRANSPARENT,
+    LGUI(DE_MINS),  LGUI(KC_0),    MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                               KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), KC_TRANSPARENT, TO(LAYER_CONFIG),
+    KC_TRANSPARENT, KC_P,          DE_Y,           KC_DOT,         DE_DQOT,         KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           KC_F,           KC_TRANSPARENT,
+    CW_TOGG,        MT(MOD_LCTL, KC_H), KC_NO,     KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
                                                     KC_NO,          KC_BSPC,                                                      KC_ENTER,       KC_NO
   ),
 
   [LAYER_WIN_BASE] = LAYOUT_voyager(
-    LCTL(DE_MINS),  LCTL(KC_0),     KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_TRANSPARENT, TO(LAYER_CONFIG),
-    KC_TRANSPARENT, KC_P,           MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                              KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LGUI, KC_H), DE_Y,      KC_DOT,         DE_DQOT,        KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_K,          KC_NO,          KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, DE_Z, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_TRANSPARENT, KC_TRANSPARENT,
+    LCTL(DE_MINS),  LCTL(KC_0),    MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                               KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), KC_TRANSPARENT, TO(LAYER_CONFIG),
+    KC_TRANSPARENT, KC_P,          DE_Y,           KC_DOT,         DE_DQOT,         KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           KC_F,           KC_TRANSPARENT,
+    CW_TOGG,        MT(MOD_LGUI, KC_H), KC_NO,     KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
                                                     KC_NO,          KC_BSPC,                                                      KC_ENTER,       KC_NO
   ),
 
@@ -98,50 +98,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [LAYER_MOVEMENT] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_ESCAPE,      KC_TAB,         OSL(LAYER_MAC_SHORTCUTS), OSL(LAYER_WIN_SHORTCUTS), KC_TRANSPARENT,            OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT, OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_TRANSPARENT,                                  KC_TRANSPARENT, KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT,
-    KC_TRANSPARENT, OS_UNDO,        OS_COPY,        OS_PASTE,       OS_CUT,         KC_TRANSPARENT,                                  KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_ENTER,       KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                  KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TAB,         OSL(LAYER_MAC_SHORTCUTS), OSL(LAYER_WIN_SHORTCUTS), KC_TRANSPARENT,            OS_PREVWORD,    OS_PGUP,        KC_TRANSPARENT, OS_NEXTWORD,    KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_ESCAPE,      OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_TRANSPARENT,                                  KC_TRANSPARENT, KC_LEFT,        KC_DOWN,        KC_UP,          KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, OSM(MOD_LCTL),  OS_COPY,        OS_PASTE,       OS_CUT,         KC_TRANSPARENT,                                  KC_TRANSPARENT, OS_PGDN,        OS_HOME,        OS_END,         KC_RIGHT,       KC_TRANSPARENT,
+    KC_TRANSPARENT, OS_UNDO,        KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                  KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_NO,          KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_NO
   ),
 
   [LAYER_MAC_SHORTCUTS] = LAYOUT_voyager(
-    KC_TRANSPARENT, MC_SPOTLIGHT,   MC_APP_SWITCH,  MC_MISSION_CTL, MC_FORCE_QUIT, KC_TRANSPARENT,                                 AS_FOCUS_LEFT,  AS_FOCUS_DOWN,  AS_FOCUS_UP,    AS_FOCUS_RIGHT, AS_FULL_SCREEN, KC_TRANSPARENT,
-    KC_TRANSPARENT, FNDR_NEW_WINDOW, FNDR_NEW_TAB,  FNDR_DUPLICATE, FNDR_GET_INFO, FNDR_RENAME,                                    AS_MOVE_LEFT,   AS_MOVE_DOWN,   AS_MOVE_UP,     AS_MOVE_RIGHT,  AS_FLOAT_TOGGLE, KC_TRANSPARENT,
-    KC_TRANSPARENT, MC_SCREENSHOT,  MC_SCREENSHOT_CLIP, MC_LOCK_SCREEN, MC_EMOJI, KC_TRANSPARENT,                                  AS_WORKSPACE_1, AS_WORKSPACE_2, AS_WORKSPACE_3, AS_WORKSPACE_4, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_SPACE,       KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          MC_HIDE_APP,    KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, MC_APP_SWITCH,  MC_MISSION_CTL, MC_FORCE_QUIT, KC_TRANSPARENT,                                 AS_FOCUS_LEFT,  AS_FOCUS_DOWN,  AS_FOCUS_UP,    AS_FOCUS_RIGHT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, MC_SPOTLIGHT,   FNDR_NEW_TAB,   FNDR_DUPLICATE, FNDR_GET_INFO, FNDR_RENAME,                                    AS_MOVE_LEFT,   AS_MOVE_DOWN,   AS_MOVE_UP,     AS_MOVE_RIGHT,  AS_FULL_SCREEN, KC_TRANSPARENT,
+    KC_TRANSPARENT, FNDR_NEW_WINDOW, MC_SCREENSHOT_CLIP, MC_LOCK_SCREEN, MC_EMOJI, KC_TRANSPARENT,                                 AS_WORKSPACE_1, AS_WORKSPACE_2, AS_WORKSPACE_3, AS_WORKSPACE_4, AS_FLOAT_TOGGLE, KC_TRANSPARENT,
+    KC_TRANSPARENT, MC_SCREENSHOT,  KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_NO,          KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_NO
   ),
 
   [LAYER_NUMBERS] = LAYOUT_voyager(
-    KC_TRANSPARENT, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_7,           KC_8,           KC_9,           KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, OS_UNDO,        OS_COPY,        OS_PASTE,       OS_CUT,         OS_SELECTALL,                                   KC_0,           KC_1,           KC_2,           KC_3,           KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, OS_REDO,        OS_PREVWORD,    OS_NEXTWORD,    KC_BSPC,        KC_DEL,                                         KC_TRANSPARENT, KC_4,           KC_5,           KC_6,           KC_TRANSPARENT, KC_APPLICATION,
-    KC_TRANSPARENT, KC_ESCAPE,      KC_TAB,         KC_NO,          KC_COMMA,       KC_DOT,                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_7,           KC_8,           KC_9,           KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, OSM(MOD_LCTL),  OS_COPY,        OS_PASTE,       OS_CUT,         OS_SELECTALL,                                   KC_0,           KC_1,           KC_2,           KC_3,           KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, OS_UNDO,        OS_PREVWORD,    OS_NEXTWORD,    KC_BSPC,        KC_DEL,                                         KC_TRANSPARENT, KC_4,           KC_5,           KC_6,           KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, OS_REDO,        KC_NO,          KC_NO,          KC_COMMA,       KC_DOT,                                         KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_APPLICATION,
                                                     KC_NO,          KC_DOT,                                                        KC_TRANSPARENT, KC_NO
   ),
 
   [LAYER_CONFIG] = LAYOUT_voyager(
-    RGB_TOG,        TOGGLE_LAYER_COLOR, RGB_SAD,        RGB_SAI,        RGB_SPD,        RGB_SPI,                                      SW_MAC,         SW_WIN,         KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, RGB_HUD,      RGB_HUI,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_MEDIA_PREV_TRACK, KC_TRANSPARENT, HSV_0_255_255, HSV_74_255_255, HSV_169_255_255,                           KC_TRANSPARENT, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, RGB_SAD,        RGB_SAI,        RGB_SPD,        RGB_SPI,                                      SW_MAC,         SW_WIN,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    RGB_TOG,        TOGGLE_LAYER_COLOR, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, RGB_HUD, RGB_HUI,                                       KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, QK_BOOT,        KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, HSV_0_255_255, HSV_74_255_255, HSV_169_255_255,                               KC_TRANSPARENT, LCTL(LSFT(KC_TAB)), LCTL(KC_TAB), KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_MEDIA_PREV_TRACK, KC_NO,     KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_NO,          KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_NO
   ),
 
   [LAYER_FUNCTION] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_F7,          KC_F8,          KC_F9,          KC_F11,         KC_F12,
-    KC_TRANSPARENT, KC_TRANSPARENT, DE_AE,          DE_EURO,        KC_TRANSPARENT, DE_OE,                                           KC_F10,         KC_F1,          KC_F2,          KC_F3,          KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, DE_UE,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_F7,          KC_F8,          KC_F9,          KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, DE_AE,          DE_EURO,        KC_TRANSPARENT, DE_OE,                                           KC_F10,         KC_F1,          KC_F2,          KC_F3,          KC_F11,         KC_F12,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, DE_SS,          KC_TRANSPARENT, KC_TRANSPARENT,                                  KC_TRANSPARENT, KC_F4,          KC_F5,          KC_F6,          KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, OSM(MOD_RSFT),                                  KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_NO,          OSM(MOD_RSFT),                                                  KC_TRANSPARENT, KC_NO
   ),
 
   [LAYER_WIN_SHORTCUTS] = LAYOUT_voyager(
-    KC_TRANSPARENT, WN_TASK_VIEW,   WN_APP_SWITCH,  WN_SETTINGS,    WN_RUN,         KC_TRANSPARENT,                                 WN_SNAP_LEFT,   KC_UP,          WN_SNAP_RIGHT,  WN_VDESK_LEFT,  WN_VDESK_RIGHT, KC_TRANSPARENT,
-    KC_TRANSPARENT, WN_EXPLORER,    WN_EMOJI,       WN_LOCK,        KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_LEFT,        KC_DOWN,        KC_RIGHT,       WN_VDESK_NEW,   WN_VDESK_CLOSE, KC_TRANSPARENT,
-    KC_TRANSPARENT, OS_UNDO,        OS_COPY,        OS_PASTE,       OS_CUT,         OS_SELECTALL,                                   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, KC_SPACE,       KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, WN_APP_SWITCH,  WN_SETTINGS,    WN_RUN,         KC_TRANSPARENT,                                 WN_SNAP_LEFT,   KC_UP,          WN_SNAP_RIGHT,  WN_VDESK_LEFT,  KC_TRANSPARENT, KC_TRANSPARENT,
+    KC_TRANSPARENT, WN_TASK_VIEW,   WN_EMOJI,       WN_LOCK,        KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_LEFT,        KC_DOWN,        KC_RIGHT,       WN_VDESK_NEW,   WN_VDESK_RIGHT, KC_TRANSPARENT,
+    KC_TRANSPARENT, WN_EXPLORER,    OS_COPY,        OS_PASTE,       OS_CUT,         OS_SELECTALL,                                   KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, WN_VDESK_CLOSE, KC_TRANSPARENT,
+    KC_TRANSPARENT, OS_UNDO,        KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_NO,          KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_NO
   ),
 };
