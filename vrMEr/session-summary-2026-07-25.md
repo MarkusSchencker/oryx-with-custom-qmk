@@ -1,73 +1,62 @@
-# Session Summary - 2026-07-25
+# Session Summary - From 2026-07-25
 
-## Goal
+## Scope
 
-Create and refine a readable visualization of the vrMEr keymap, then redesign key usage based on a new ergonomic physical mapping concept for ZSA Voyager.
+This summary consolidates the vrMEr keymap and visualization work completed from 2026-07-25 through 2026-07-27.
+
+## Main Objectives
+
+1. Build and maintain a synchronized firmware + visualization workflow for vrMEr.
+2. Refine a 9-layer ergonomic layout for Voyager usage.
+3. Enforce physical-constraint placement rules across layers.
+4. Keep interactive and markdown visualizations aligned with keymap truth.
 
 ## Work Completed
 
-1. Built initial Markdown keyboard visualization from actual keymap code.
-2. Reworked visualization using Voyager physical geometry as baseline.
-3. Performed second-pass compact overlay format for easier layer comparison.
-4. Applied ergonomic physical remap rules to the real keymap implementation.
-5. Added interactive HTML visualization for more natural, readable inspection.
-6. Added reusable method documentation for future visualization updates.
-7. Added this session summary for future reference.
+1. Established and iterated the 9-layer architecture in [vrMEr/custom_layout.inc](vrMEr/custom_layout.inc).
+2. Added and evolved interactive inspection tooling in [vrMEr/layout-visualization.html](vrMEr/layout-visualization.html), including:
+	- layer activation source marker
+	- keyboard layer navigation (left/right/up/down and direct numeric jump)
+3. Repeatedly synchronized [vrMEr/layout-visualization.md](vrMEr/layout-visualization.md) with firmware changes.
+4. Updated process documentation in [vrMEr/visualization-method.md](vrMEr/visualization-method.md) for repeatable maintenance.
+5. Performed strict physical rule pass across all layers for columns 1, 2, 11, 12 and row-4 dead-key slots.
+6. Corrected symbol-layer over-lowering by restoring intended row stacks:
+	- column 2 rows 2..4: DE_SECT, DE_AT, DE_UNDS
+	- column 11 rows 2..4: DE_TILD, DE_COLN, DE_SCLN
 
-## Key Decisions From Discussion
+## Final Layout Constraints Applied
 
-- Keep columns 1,2,11,12 unchanged.
-- Shift columns 3..10 upward by one row for rows 2..4.
-- Remove outer thumbs (not usable).
-- Remove row 4 keys in columns 3,4,9,10 (not usable).
-- Keep the two inner thumbs active.
-- Use `KC_NO` for removed keys (dead keys), not transparent fall-through.
-- Apply remap to all layers.
-- Move former thumb functions to row 4 columns 5,6,7,8 in same order.
-- Suggested inner-thumb usage on base layers: `BSPC` (left inner), `ENTER` (right inner).
+1. Row 4 columns 3, 4, 9, 10 remain KC_NO on all layers.
+2. Cross-layer lowering rule applied for columns 1, 2, 11, 12, then refined by explicit symbol-layer correction.
+3. Function layer corrected so F11 and F12 are lowered from row 1 to row 2.
+4. Movement layer adjusted with option-B behavior for column-11 navigation placement.
 
-## Files Added/Updated
+## Files Updated During This Period
 
-- Updated keymap logic: [vrMEr/custom_layout.inc](vrMEr/custom_layout.inc)
-- Updated Markdown visualization: [vrMEr/layout-visualization.md](vrMEr/layout-visualization.md)
-- Added interactive visualization: [vrMEr/layout-visualization.html](vrMEr/layout-visualization.html)
-- Added reusable process guide: [vrMEr/visualization-method.md](vrMEr/visualization-method.md)
-- Added this summary: [vrMEr/session-summary-2026-07-25.md](vrMEr/session-summary-2026-07-25.md)
-
-## Visualization Strategy Going Forward
-
-Primary source of truth:
 1. [vrMEr/custom_layout.inc](vrMEr/custom_layout.inc)
-2. Voyager physical slot geometry in [vrMEr/layout-visualization.html](vrMEr/layout-visualization.html)
-3. Symbol aliases in [vrMEr/i18n.h](vrMEr/i18n.h)
+2. [vrMEr/layout-visualization.html](vrMEr/layout-visualization.html)
+3. [vrMEr/layout-visualization.md](vrMEr/layout-visualization.md)
+4. [vrMEr/visualization-method.md](vrMEr/visualization-method.md)
+5. [vrMEr/session-summary-2026-07-25.md](vrMEr/session-summary-2026-07-25.md)
 
-Maintenance workflow:
-- Update keymap first.
-- Sync Markdown and HTML views.
-- Verify 52 slot mapping per layer.
-- Validate layer-by-layer in browser.
-- Commit synchronized changes together.
+## Commit Timeline Since 2026-07-25
 
-Detailed reusable method:
-- [vrMEr/visualization-method.md](vrMEr/visualization-method.md)
+1. 0ea1f1a - Add macOS shortcuts layer to HTML visualizer
+2. 34c33cc - Mark layer activation source in HTML visualizer
+3. 5895974 - Add keyboard layer navigation to layout visualizer
+4. 479ade0 - Remap vrMEr layers and synchronize visualizations
+5. 8bdb1f4 - Merge pull request #1 from poulainpi/main
+6. e3537d8 - qmk firmware update from GitHub Actions
+7. 7b2ed91 - Adjust column-lowering and symbol layer alignment
 
-## Commit Timeline Created During Session
+## Current Repository State Snapshot
 
-- `1a5df0e` Add vrMEr keyboard layout markdown visualization
-- `228090d` Refine vrMEr layout visualization using Voyager physical geometry
-- `77cf019` Second-pass compact Voyager overlay visualization
-- `c019204` Apply ergonomic physical remap and update vrMEr layout visualization
-- `6c31785` Add interactive Voyager HTML layout visualizer
-- `2eb2d7b` Add reusable vrMEr visualization update method
+1. Keymap and both visualizations are synchronized to the latest mapping decisions.
+2. Latest local commit: 7b2ed91.
+3. Local branch main is currently ahead and behind origin/main (diverged), so push requires rebase or merge before retry.
 
-## Current State
+## Suggested Next Steps
 
-- Keymap includes the remapped physical usage model.
-- Markdown and HTML visualizations are available and aligned to current design.
-- A reusable method is documented for future sessions.
-
-## Open Follow-Ups (Optional)
-
-1. Add layer diff mode to HTML (compare two layers and highlight changed slots).
-2. Add export-to-image from HTML for sharing snapshots.
-3. Add script-based generator to reduce manual synchronization of visualizations.
+1. Rebase local main on origin/main and push.
+2. Optionally add a simple validator script to detect slot-drift between firmware and visualization data.
+3. Optionally add a visual diff mode in HTML for layer-to-layer comparison.
