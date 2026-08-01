@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_SYMBOLS] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, DE_AMPR,        DE_LBRC,        DE_RBRC,        DE_CIRC,                                        DE_EXLM,        DE_LABK,        DE_RABK,        DE_EQL,         KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_SECT,        OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),                                  DE_QUES,        DE_LPRN,        DE_RPRN,        DE_MINS,        DE_TILD,        KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_AT,          OSM(MOD_LCTL | MOD_LSFT), OSM(MOD_LALT | MOD_LSFT), OSM(MOD_LGUI | MOD_LSFT), DE_GRV,         DE_PLUS,        DE_PERC,        DE_DLR,         DE_HASH,        DE_COLN,        KC_TRANSPARENT,
-    KC_TRANSPARENT, DE_UNDS,        KC_NO,          KC_NO,          DE_SLSH,        DE_ASTR,                                        DE_BSLS,        DE_PIPE,        KC_NO,          KC_NO,          DE_SCLN,        KC_TRANSPARENT,
+    KC_TRANSPARENT, DE_SECT,        MT(MOD_LALT, DE_SLSH), MT(MOD_LGUI, DE_LCBR), MT(MOD_LSFT, DE_RCBR), DE_ASTR,                 DE_QUES,        MT(MOD_LSFT, DE_LPRN), MT(MOD_LGUI, DE_RPRN), MT(MOD_LALT, DE_MINS), DE_TILD, KC_TRANSPARENT,
+    KC_TRANSPARENT, MT(MOD_LCTL, DE_AT), DE_BSLS,  DE_PIPE,        DE_DQOT,        DE_GRV,                                         DE_PLUS,        DE_PERC,        DE_DLR,         DE_HASH,        MT(MOD_LCTL, DE_COLN), KC_TRANSPARENT,
+    KC_TRANSPARENT, DE_UNDS,        KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_BSPC,        KC_DEL,         KC_NO,          KC_NO,          DE_SCLN,        KC_TRANSPARENT,
                                                     KC_NO,          KC_TRANSPARENT,                                                 KC_BSPC,        KC_NO
   ),
 
