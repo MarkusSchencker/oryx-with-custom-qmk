@@ -602,6 +602,9 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     case MT(MOD_LCTL, KC_R):
     case MT(MOD_LGUI, KC_S):
       return 200;  // Longer term for home row mods = fewer false positives
+    case LT(LAYER_NUMBERS, KC_SPACE):
+      // Make the space/thumb layer-tap more forgiving to reduce missed spaces.
+      return 230;
     default:
       return TAPPING_TERM;  // 150ms for everything else
   }
