@@ -20,9 +20,9 @@ Row 5:     only thumb area (outer thumbs disabled)
 
 ```text
 R1: TRNS    TRNS    U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TRNS
-R2: Cmd+-   Cmd+0   MT(A,I)  MT(G,E)  MT(S,A)  O        D        MT(S,T)  MT(G,R)  MT(A,N)  TRNS     TO(CONFIG)
-R3: TRNS    P       DE_Y     .        DE_DQOT  X        J        V        W        B        F        TRNS
-R4: CW      MT(C,H) KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    MT(C,S)  TRNS
+R2: Cmd+-   P       MT(A,I)  MT(G,E)  MT(S,A)  O        D        MT(S,T)  MT(G,R)  MT(A,N)  F        TO(CONFIG)
+R3: TRNS    MT(C,H) DE_Y     .        DE_DQOT  X        J        V        W        B        MT(C,S)  TRNS
+R4: CW      K       KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    DE_Z     TRNS
 R5: KC_NO   BSPC                                      ENTER      KC_NO
 ```
 
@@ -30,9 +30,9 @@ R5: KC_NO   BSPC                                      ENTER      KC_NO
 
 ```text
 R1: TRNS    TRNS    U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TRNS
-R2: Ctrl+-  Ctrl+0  MT(A,I)  MT(C,E)  MT(S,A)  O        D        MT(S,T)  MT(C,R)  MT(A,N)  TRNS     TO(CONFIG)
-R3: TRNS    P       DE_Y     .        DE_DQOT  X        J        V        W        B        F        TRNS
-R4: CW      MT(G,H) KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    MT(G,S)  TRNS
+R2: Ctrl+-  P       MT(A,I)  MT(C,E)  MT(S,A)  O        D        MT(S,T)  MT(C,R)  MT(A,N)  F        TO(CONFIG)
+R3: TRNS    MT(G,H) DE_Y     .        DE_DQOT  X        J        V        W        B        MT(G,S)  TRNS
+R4: CW      K       KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    DE_Z     TRNS
 R5: KC_NO   BSPC                                      ENTER      KC_NO
 ```
 

@@ -75,17 +75,17 @@ enum vrmer_custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_MAC_BASE] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_TRANSPARENT, KC_TRANSPARENT,
-    LGUI(DE_MINS),  LGUI(KC_0),    MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                               KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), KC_TRANSPARENT, TO(LAYER_CONFIG),
-    KC_TRANSPARENT, KC_P,          DE_Y,           KC_DOT,         DE_DQOT,         KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LCTL, KC_H), KC_NO,     KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
+    LGUI(DE_MINS),  KC_P,          MT(MOD_LALT, KC_I), MT(MOD_LGUI, KC_E), MT(MOD_LSFT, KC_A), KC_O,                               KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LGUI, KC_R), MT(MOD_LALT, KC_N), KC_F,           TO(LAYER_CONFIG),
+    KC_TRANSPARENT, MT(MOD_LCTL, KC_H), DE_Y,      KC_DOT,         DE_DQOT,         KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           MT(MOD_LCTL, KC_S), KC_TRANSPARENT,
+    CW_TOGG,        KC_K,          KC_NO,          KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, DE_Z,           KC_TRANSPARENT,
                                                     KC_NO,          KC_BSPC,                                                      KC_ENTER,       KC_NO
   ),
 
   [LAYER_WIN_BASE] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_U,           QK_REPEAT_KEY,  QK_LEAD,        KC_Q,                                           KC_G,           KC_C,           KC_L,           KC_M,           KC_TRANSPARENT, KC_TRANSPARENT,
-    LCTL(DE_MINS),  LCTL(KC_0),    MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                               KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), KC_TRANSPARENT, TO(LAYER_CONFIG),
-    KC_TRANSPARENT, KC_P,          DE_Y,           KC_DOT,         DE_DQOT,         KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           KC_F,           KC_TRANSPARENT,
-    CW_TOGG,        MT(MOD_LGUI, KC_H), KC_NO,     KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
+    LCTL(DE_MINS),  KC_P,          MT(MOD_LALT, KC_I), MT(MOD_LCTL, KC_E), MT(MOD_LSFT, KC_A), KC_O,                               KC_D,           MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_R), MT(MOD_LALT, KC_N), KC_F,           TO(LAYER_CONFIG),
+    KC_TRANSPARENT, MT(MOD_LGUI, KC_H), DE_Y,      KC_DOT,         DE_DQOT,         KC_X,                                           KC_J,           KC_V,           KC_W,           KC_B,           MT(MOD_LGUI, KC_S), KC_TRANSPARENT,
+    CW_TOGG,        KC_K,          KC_NO,          KC_NO,          OSL(LAYER_SYMBOLS), OSL(LAYER_MOVEMENT),                          OSL(LAYER_FUNCTION), LT(LAYER_NUMBERS, KC_SPACE), KC_NO, KC_NO, DE_Z,           KC_TRANSPARENT,
                                                     KC_NO,          KC_BSPC,                                                      KC_ENTER,       KC_NO
   ),
 
