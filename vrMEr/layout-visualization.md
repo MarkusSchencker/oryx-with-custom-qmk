@@ -80,7 +80,7 @@ R5: KC_NO   TRNS                                      TRNS       KC_NO
 
 ```text
 R1: TRNS    TRNS    DE_UE    TRNS     TRNS     TRNS     TRNS     F7       F8       F9       TRNS     TRNS
-R2: TRNS    TRNS    DE_AE    DE_EURO  TRNS     DE_OE    F10      F1       F2       F3       F11      F12
+R2: TRNS    TRNS    TRNS     DE_EURO  DE_AE    DE_OE    F10      F1       F2       F3       F11      F12
 R3: TRNS    TRNS    TRNS     DE_SS    TRNS     TRNS     TRNS     F4       F5       F6       TRNS     TRNS
 R4: TRNS    TRNS    KC_NO    KC_NO    TRNS     OSM(RS)  TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
 R5: KC_NO   OSM(RS)                                   TRNS       KC_NO
