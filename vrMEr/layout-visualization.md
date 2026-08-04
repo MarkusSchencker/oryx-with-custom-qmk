@@ -19,7 +19,7 @@ Row 5:     only thumb area (outer thumbs disabled)
 ## L0 MAC_BASE
 
 ```text
-R1: TRNS    TRNS    U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TRNS
+R1: TRNS    TRNS    U        REPEAT   OSL(MAC_SHORT) Q        G        C        L        M        TRNS     TRNS
 R2: Cmd+-   P       MT(A,I)  MT(G,E)  MT(S,A)  O        D        MT(S,T)  MT(G,R)  MT(A,N)  F        TO(CONFIG)
 R3: TRNS    MT(C,H) DE_Y     .        DE_DQOT  X        J        V        W        B        MT(C,S)  TRNS
 R4: CW      K       KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    DE_Z     TRNS
@@ -29,7 +29,7 @@ R5: KC_NO   BSPC                                      ENTER      KC_NO
 ## L1 WIN_BASE
 
 ```text
-R1: TRNS    TRNS    U        REPEAT   LEAD     Q        G        C        L        M        TRNS     TRNS
+R1: TRNS    TRNS    U        REPEAT   OSL(WIN_SHORT) Q        G        C        L        M        TRNS     TRNS
 R2: Ctrl+-  P       MT(A,I)  MT(C,E)  MT(S,A)  O        D        MT(S,T)  MT(C,R)  MT(A,N)  F        TO(CONFIG)
 R3: TRNS    MT(G,H) DE_Y     .        DE_DQOT  X        J        V        W        B        MT(G,S)  TRNS
 R4: CW      K       KC_NO    KC_NO    OSL(SYM) OSL(MOV) OSL(FN)  LT(NUM,SPC) KC_NO KC_NO    DE_Z     TRNS
@@ -50,7 +50,7 @@ R5: KC_NO   TRNS                                      BSPC       KC_NO
 
 ```text
 R1: TRNS    TRNS    TAB      OSL(MAC_SHORT) OSL(WIN_SHORT) TRNS  OS_PREV  OS_PGUP  TRNS     OS_NEXT  TRNS     TRNS
-R2: TRNS    ESC     OSM(SFT) OSM(ALT) OSM(GUI) TRNS    TRNS     LEFT     DOWN     UP       TRNS     TRNS
+R2: TRNS    ESC     OSM(ALT) OSM(GUI) OSM(SFT) TRNS    TRNS     LEFT     DOWN     UP       TRNS     TRNS
 R3: TRNS    OSM(CTL) OS_COPY OS_PASTE OS_CUT   TRNS     TRNS     OS_PGDN  OS_HOME  OS_END   RIGHT    TRNS
 R4: TRNS    OS_UNDO KC_NO    KC_NO    TRNS     TRNS     TRNS     TRNS     KC_NO    KC_NO    TRNS     TRNS
 R5: KC_NO   TRNS                                      TRNS       KC_NO

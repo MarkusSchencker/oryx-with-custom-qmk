@@ -288,14 +288,14 @@
 
     const KEYMAP = {
       L0: {
-        k00:"TRNS",k01:"TRNS",k02:"U",k03:"REPEAT",k04:"LEAD",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TRNS",
+        k00:"TRNS",k01:"TRNS",k02:"U",k03:"REPEAT",k04:"OSL(MAC_SHORT)",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TRNS",
         k06:"Cmd+-",k07:"P",k08:"MT(A,I)",k09:"MT(G,E)",k10:"MT(S,A)",k11:"O",k32:"D",k33:"MT(S,T)",k34:"MT(G,R)",k35:"MT(A,N)",k36:"F",k37:"TO(CONFIG)",
         k12:"TRNS",k13:"MT(C,H)",k14:"DE_Y",k15:".",k16:"DE_DQOT",k17:"X",k38:"J",k39:"V",k40:"W",k41:"B",k42:"MT(C,S)",k43:"TRNS",
         k18:"CW",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOV)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
         k24:"KC_NO",k25:"BSPC",k50:"ENTER",k51:"KC_NO"
       },
       L1: {
-        k00:"TRNS",k01:"TRNS",k02:"U",k03:"REPEAT",k04:"LEAD",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TRNS",
+        k00:"TRNS",k01:"TRNS",k02:"U",k03:"REPEAT",k04:"OSL(WIN_SHORT)",k05:"Q",k26:"G",k27:"C",k28:"L",k29:"M",k30:"TRNS",k31:"TRNS",
         k06:"Ctrl+-",k07:"P",k08:"MT(A,I)",k09:"MT(C,E)",k10:"MT(S,A)",k11:"O",k32:"D",k33:"MT(S,T)",k34:"MT(C,R)",k35:"MT(A,N)",k36:"F",k37:"TO(CONFIG)",
         k12:"TRNS",k13:"MT(G,H)",k14:"DE_Y",k15:".",k16:"DE_DQOT",k17:"X",k38:"J",k39:"V",k40:"W",k41:"B",k42:"MT(G,S)",k43:"TRNS",
         k18:"CW",k19:"K",k20:"KC_NO",k21:"KC_NO",k22:"OSL(SYM)",k23:"OSL(MOV)",k44:"OSL(FN)",k45:"LT(NUM,SPC)",k46:"KC_NO",k47:"KC_NO",k48:"DE_Z",k49:"TRNS",
@@ -310,7 +310,7 @@
       },
       L3: {
         k00:"TRNS",k01:"TRNS",k02:"TAB",k03:"OSL(MAC_SHORT)",k04:"OSL(WIN_SHORT)",k05:"TRNS",k26:"OS_PREV",k27:"OS_PGUP",k28:"TRNS",k29:"OS_NEXT",k30:"TRNS",k31:"TRNS",
-        k06:"TRNS",k07:"ESC",k08:"OSM(SFT)",k09:"OSM(ALT)",k10:"OSM(GUI)",k11:"TRNS",k32:"TRNS",k33:"LEFT",k34:"DOWN",k35:"UP",k36:"TRNS",k37:"TRNS",
+        k06:"TRNS",k07:"ESC",k08:"OSM(ALT)",k09:"OSM(GUI)",k10:"OSM(SFT)",k11:"TRNS",k32:"TRNS",k33:"LEFT",k34:"DOWN",k35:"UP",k36:"TRNS",k37:"TRNS",
         k12:"TRNS",k13:"OSM(CTL)",k14:"OS_COPY",k15:"OS_PASTE",k16:"OS_CUT",k17:"TRNS",k38:"TRNS",k39:"OS_PGDN",k40:"OS_HOME",k41:"OS_END",k42:"RIGHT",k43:"TRNS",
         k18:"TRNS",k19:"OS_UNDO",k20:"KC_NO",k21:"KC_NO",k22:"TRNS",k23:"TRNS",k44:"TRNS",k45:"TRNS",k46:"KC_NO",k47:"KC_NO",k48:"TRNS",k49:"TRNS",
         k24:"KC_NO",k25:"TRNS",k50:"TRNS",k51:"KC_NO"
@@ -373,8 +373,8 @@
       L4: { layer: "L0", slot: "k45", label: "LT(NUM,SPC)" },
       L5: { layer: "L0", slot: "k31", label: "TO(CONFIG)" },
       L6: { layer: "L0", slot: "k44", label: "OSL(FN)" },
-      L7: { layer: "L3", slot: "k03", label: "OSL(MAC_SHORTCUTS)" },
-      L8: { layer: "L3", slot: "k04", label: "OSL(WIN_SHORTCUTS)" }
+      L7: { layer: "L0", slot: "k04", label: "OSL(MAC_SHORTCUTS)" },
+      L8: { layer: "L1", slot: "k04", label: "OSL(WIN_SHORTCUTS)" }
     };
 
     function classify(label) {

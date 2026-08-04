@@ -1,0 +1,82 @@
+# Sample AeroSpace config for the vrMEr macOS shortcut layer.
+# Copy or symlink this file to ~/.aerospace.toml to use it.
+#
+# The vrMEr firmware sends physical US-style letter/digit keycodes for AeroSpace:
+# - alt-h/j/k/l        -> focus left/down/up/right
+# - alt-shift-h/j/k/l  -> move left/down/up/right
+# - alt-1/2/3/4        -> workspace 1/2/3/4
+# - alt-f              -> fullscreen toggle
+# - alt-shift-f        -> floating/tiling toggle
+#
+# This config keeps AeroSpace on qwerty key mapping, which is the correct match
+# for those firmware keycodes even when the host uses a German layout.
+
+config-version = 2
+
+start-at-login = true
+auto-reload-config = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+accordion-padding = 30
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+focus-follows-mouse.enabled = false
+automatically-unhide-macos-hidden-apps = false
+
+key-mapping.preset = 'qwerty'
+persistent-workspaces = ['1', '2', '3', '4']
+
+[exec]
+inherit-env-vars = true
+
+[exec.env-vars]
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+
+[mode.main.binding]
+# Matches the right side of vrMEr L7 MAC_SHORTCUTS.
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+
+alt-f = 'fullscreen'
+alt-shift-f = 'layout floating tiling'
+
+# Useful defaults that don't conflict with the vrMEr shortcut layer.
+alt-slash = 'layout tiles horizontal vertical'
+alt-comma = 'layout accordion horizontal vertical'
+alt-minus = 'resize smart -50'
+alt-equal = 'resize smart +50'
+alt-tab = 'workspace-back-and-forth'
+
+# Direct keyboard convenience beyond the firmware layer.
+alt-shift-1 = 'move-node-to-workspace 1; workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2; workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3; workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4; workspace 4'
+alt-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+backspace = ['close-all-windows-but-current', 'mode main']
+
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
