@@ -89,9 +89,9 @@ R5: KC_NO   OSM(RS)                                   TRNS       KC_NO
 ## L7 MAC_SHORTCUTS
 
 ```text
-R1: TRNS    TRNS     AppSwitch MissionCtl ForceQuit TRNS FocusH  FocusJ  FocusK  FocusL  TRNS       TRNS
-R2: TRNS    Spotlight FinderTab Duplicate GetInfo   Rename MoveH  MoveJ   MoveK   MoveL   Fullscreen TRNS
-R3: TRNS    FinderWin ShotClip  Lock     Emoji      TRNS   WS1    WS2     WS3     WS4     Float      TRNS
+R1: TRNS    TRNS     AppSwitch MissionCtl ForceQuit TRNS   TAB    /       ,       -       =          TRNS
+R2: TRNS    Spotlight LALT      LGUI      LSFT      Rename F      H       J       K       L          TRNS
+R3: TRNS    LCTL      ShotClip  Lock      Emoji     TRNS   1      2       3       4       TRNS       TRNS
 R4: TRNS    Screenshot KC_NO    KC_NO    TRNS       TRNS   TRNS   TRNS    KC_NO   KC_NO   TRNS       TRNS
 R5: KC_NO   TRNS                                      TRNS       KC_NO
 ```

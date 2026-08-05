@@ -106,9 +106,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [LAYER_MAC_SHORTCUTS] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, MC_APP_SWITCH,  MC_MISSION_CTL, MC_FORCE_QUIT, KC_TRANSPARENT,                                 AS_FOCUS_LEFT,  AS_FOCUS_DOWN,  AS_FOCUS_UP,    AS_FOCUS_RIGHT, KC_TRANSPARENT, KC_TRANSPARENT,
-    KC_TRANSPARENT, MC_SPOTLIGHT,   FNDR_NEW_TAB,   FNDR_DUPLICATE, FNDR_GET_INFO, FNDR_RENAME,                                    AS_MOVE_LEFT,   AS_MOVE_DOWN,   AS_MOVE_UP,     AS_MOVE_RIGHT,  AS_FULL_SCREEN, KC_TRANSPARENT,
-    KC_TRANSPARENT, FNDR_NEW_WINDOW, MC_SCREENSHOT_CLIP, MC_LOCK_SCREEN, MC_EMOJI, KC_TRANSPARENT,                                 AS_WORKSPACE_1, AS_WORKSPACE_2, AS_WORKSPACE_3, AS_WORKSPACE_4, AS_FLOAT_TOGGLE, KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_TRANSPARENT, MC_APP_SWITCH,  MC_MISSION_CTL, MC_FORCE_QUIT, KC_TRANSPARENT,                                 KC_TAB,         KC_SLSH,        KC_COMM,       KC_MINS,       KC_EQL,         KC_TRANSPARENT,
+    KC_TRANSPARENT, MC_SPOTLIGHT,   KC_LALT,        KC_LGUI,        KC_LSFT,        FNDR_RENAME,                                    KC_F,           KC_H,           KC_J,          KC_K,          KC_L,           KC_TRANSPARENT,
+    KC_TRANSPARENT, KC_LCTL,        MC_SCREENSHOT_CLIP, MC_LOCK_SCREEN, MC_EMOJI, KC_TRANSPARENT,                                  KC_1,           KC_2,           KC_3,          KC_4,          KC_TRANSPARENT, KC_TRANSPARENT,
     KC_TRANSPARENT, MC_SCREENSHOT,  KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT,
                                                     KC_NO,          KC_TRANSPARENT,                                                 KC_TRANSPARENT, KC_NO
   ),
